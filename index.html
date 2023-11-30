@@ -24,14 +24,22 @@
 </header>
 
 <!-- Filter Section -->
-<section id="filter" class="filter-section">
-  <label for="cuisine-filter">Filter by Cuisine:</label>
-  <select id="cuisine-filter">
-    <option value="all">All</option>
-    <option value="italian">Italian</option>
-    <option value="mexican">Mexican</option>
-    <!-- Add more cuisine options as needed -->
-  </select>
+<section id="filter-bar">
+  <div id="filter-options">
+    <div class="filter-option" data-filter="all">
+      <img src="img/all.png" alt="All">
+      <p>No Filter</p>
+    </div>
+    <div class="filter-option" data-filter="sushi">
+      <img src="img/sushi.png" alt="Sushi">
+      <p>Sushi</p>
+    </div>
+    <div class="filter-option" data-filter="pub">
+      <img src="img/pub.png" alt="Pub">
+      <p>Pub</p>
+    </div>
+    <!-- Add more filter options as needed -->
+  </div>
 </section>
 
 <!-- Restaurant Grid Section -->

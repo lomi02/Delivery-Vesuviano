@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  // Cart functionality
   const addToCartButtons = document.querySelectorAll('.add-to-cart');
   const cartItemsContainer = document.getElementById('cart-items');
   const totalPriceElement = document.getElementById('total-price');
@@ -38,9 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
     totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
 
     // Show the cart section if there are items in the cart
-    if (cart.length > 0) {
-      document.getElementById('cart').style.display = 'block';
-    }
+    document.getElementById('cart').style.display = cart.length > 0 ? 'block' : 'none';
   }
 
   checkoutButton.addEventListener('click', function () {
@@ -52,8 +51,36 @@ document.addEventListener('DOMContentLoaded', function () {
     cart.length = 0;
     updateCartUI();
   });
+
+  // Restaurant filter functionality
+  const filterOptions = document.querySelectorAll('.filter-option');
+  const restaurantItems = document.querySelectorAll('.restaurant-item');
+
+  filterOptions.forEach(option => {
+    option.addEventListener('click', function () {
+      const filterValue = this.getAttribute('data-filter');
+      filterRestaurants(filterValue);
+      updateFilterBar(this);
+    });
+  });
+
+  function filterRestaurants(filter) {
+    restaurantItems.forEach(item => {
+      const cuisine = item.getAttribute('data-cuisine');
+      item.style.display = (filter === 'all' || cuisine === filter) ? 'block' : 'none';
+    });
+  }
+
+  function updateFilterBar(selectedOption) {
+    filterOptions.forEach(option => {
+      option.classList.remove('active');
+    });
+
+    selectedOption.classList.add('active');
+  }
 });
 
+// View menu functionality
 const viewMenuLinks = document.querySelectorAll('.view-menu');
 const purchasableItemsSection = document.getElementById('purchasable-items');
 
@@ -61,19 +88,12 @@ viewMenuLinks.forEach(link => {
   link.addEventListener('click', function (event) {
     event.preventDefault();
 
-    // For demonstration purposes, toggle the visibility of the purchasable items section
-    if (purchasableItemsSection.style.display === 'none') {
-      purchasableItemsSection.style.display = 'block';
-    } else {
-      purchasableItemsSection.style.display = 'none';
-    }
-
-    // In a real scenario, you'd fetch and update data from the backend here
-    // For now, we're just toggling the visibility of the purchasable items section
+    // Toggle the visibility of the purchasable items section
+    purchasableItemsSection.style.display = (purchasableItemsSection.style.display === 'none') ? 'block' : 'none';
   });
 });
 
-// Function to fetch restaurant data
+// Fetch restaurant data
 async function fetchRestaurantData() {
   try {
     const response = await fetch('/api/restaurants');
@@ -89,7 +109,7 @@ async function fetchRestaurantData() {
 // Call the function when your page loads or when needed
 fetchRestaurantData();
 
-// Function to handle user registration
+// User registration functionality
 async function registerUser(userData) {
   try {
     const response = await fetch('/api/users/register', {
@@ -128,9 +148,7 @@ registerButton.addEventListener('click', function (event) {
   registerUser({username, password, email});
 });
 
-
-// Function to handle user login
-// Function to handle user login
+// User login functionality
 async function loginUser(credentials) {
   try {
     const response = await fetch('/api/users/login', {

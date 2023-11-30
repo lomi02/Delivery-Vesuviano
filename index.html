@@ -1,41 +1,75 @@
-<!doctype html>
-<html class="no-js" lang="">
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <meta property="og:title" content="">
-  <meta property="og:type" content="">
-  <meta property="og:url" content="">
-  <meta property="og:image" content="">
-
-  <link rel="manifest" href="site.webmanifest">
-  <link rel="apple-touch-icon" href="icon.png">
-  <!-- Place favicon.ico in the root directory -->
-
-  <link rel="stylesheet" href="css/normalize.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delivery Vesuviano</title>
   <link rel="stylesheet" href="css/main.css">
-
-  <meta name="theme-color" content="#fafafa">
 </head>
-
 <body>
 
-  <!-- Add your site or application content here -->
-  <p>Hello world! This is HTML5 Boilerplate.</p>
-  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
-  <script src="js/plugins.js"></script>
-  <script src="js/main.js"></script>
+<!-- Header Section -->
+<header>
+  <div class="header-container">
+    <h1>Delivery Vesuviano</h1>
+    <div class="user-options">
+      <a href="#" id="login">Login</a>
+      <a href="#" id="credit">Credit</a>
+    </div>
+  </div>
+</header>
 
-  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
-  <script>
-    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
-    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
-  </script>
-  <script src="https://www.google-analytics.com/analytics.js" async></script>
+<!-- Filter Section -->
+<section id="filter">
+  <label for="cuisine-filter">Filter by Cuisine:</label>
+  <select id="cuisine-filter">
+    <option value="all">All</option>
+    <option value="italian">Italian</option>
+    <option value="mexican">Mexican</option>
+    <!-- Add more cuisine options as needed -->
+  </select>
+</section>
+
+<!-- Restaurant Grid Section -->
+<section id="restaurant-grid">
+  <!-- Placeholder for dynamic content -->
+  <!-- Each restaurant item can be a link to show purchasable items -->
+  <div class="restaurant-item">
+    <h2>Restaurant 1</h2>
+    <p>Cuisine: Italian</p>
+    <!-- Add more restaurant details as needed -->
+    <a href="#" class="view-menu">View Menu</a>
+  </div>
+
+  <div class="restaurant-item">
+    <h2>Restaurant 2</h2>
+    <p>Cuisine: Mexican</p>
+    <!-- Add more restaurant details as needed -->
+    <a href="#" class="view-menu">View Menu</a>
+  </div>
+
+  <!-- Add more restaurant items as needed -->
+</section>
+
+<!-- Purchasable Items Section (Hidden by default) -->
+<section id="purchasable-items" style="display: none;">
+  <h2>Menu</h2>
+  <!-- Placeholder for dynamic content -->
+  <div class="item">
+    <p>Item 1</p>
+    <span>$10.99</span>
+    <button>Add to Cart</button>
+  </div>
+
+  <div class="item">
+    <p>Item 2</p>
+    <span>$8.99</span>
+    <button>Add to Cart</button>
+  </div>
+
+  <!-- Add more purchasable items as needed -->
+</section>
+
+<script src="js/main.js"></script>
 </body>
-
 </html>

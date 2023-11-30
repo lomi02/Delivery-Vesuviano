@@ -1,22 +1,75 @@
 document.addEventListener('DOMContentLoaded', function () {
+  const addToCartButtons = document.querySelectorAll('.add-to-cart');
+  const cartItemsContainer = document.getElementById('cart-items');
+  const totalPriceElement = document.getElementById('total-price');
+  const checkoutButton = document.getElementById('checkout-btn');
+  const cart = [];
 
-  const viewMenuLinks = document.querySelectorAll('.view-menu');
-  const purchasableItemsSection = document.getElementById('purchasable-items');
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', function () {
+      const item = {
+        name: this.parentElement.getAttribute('data-name'),
+        price: parseFloat(this.parentElement.getAttribute('data-price')),
+      };
 
-  viewMenuLinks.forEach(link => {
-    link.addEventListener('click', function (event) {
-      event.preventDefault();
-
-      // For demonstration purposes, toggle the visibility of the purchasable items section
-      if (purchasableItemsSection.style.display === 'none') {
-        purchasableItemsSection.style.display = 'block';
-      } else {
-        purchasableItemsSection.style.display = 'none';
-      }
-
-      // In a real scenario, you'd fetch and update data from the backend here
-      // For now, we're just toggling the visibility of the purchasable items section
+      addToCart(item);
+      updateCartUI();
     });
+  });
+
+  function addToCart(item) {
+    cart.push(item);
+  }
+
+  function calculateTotalPrice() {
+    return cart.reduce((total, item) => total + item.price, 0);
+  }
+
+  function updateCartUI() {
+    cartItemsContainer.innerHTML = '';
+
+    cart.forEach(item => {
+      const li = document.createElement('li');
+      li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+      cartItemsContainer.appendChild(li);
+    });
+
+    const totalPrice = calculateTotalPrice();
+    totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+
+    // Show the cart section if there are items in the cart
+    if (cart.length > 0) {
+      document.getElementById('cart').style.display = 'block';
+    }
+  }
+
+  checkoutButton.addEventListener('click', function () {
+    // Simulate a mock transaction
+    const totalPrice = calculateTotalPrice();
+    alert(`Mock Transaction Successful!\nTotal Amount: $${totalPrice.toFixed(2)}`);
+
+    // Clear the cart after checkout
+    cart.length = 0;
+    updateCartUI();
+  });
+});
+
+const viewMenuLinks = document.querySelectorAll('.view-menu');
+const purchasableItemsSection = document.getElementById('purchasable-items');
+
+viewMenuLinks.forEach(link => {
+  link.addEventListener('click', function (event) {
+    event.preventDefault();
+
+    // For demonstration purposes, toggle the visibility of the purchasable items section
+    if (purchasableItemsSection.style.display === 'none') {
+      purchasableItemsSection.style.display = 'block';
+    } else {
+      purchasableItemsSection.style.display = 'none';
+    }
+
+    // In a real scenario, you'd fetch and update data from the backend here
+    // For now, we're just toggling the visibility of the purchasable items section
   });
 });
 
@@ -72,7 +125,7 @@ registerButton.addEventListener('click', function (event) {
   const email = document.getElementById('registerEmailInput').value;
 
   // Call the registerUser function with the user's data
-  registerUser({ username, password, email });
+  registerUser({username, password, email});
 });
 
 
@@ -114,12 +167,12 @@ loginButton.addEventListener('click', function (event) {
   const password = document.getElementById('passwordInput').value;
 
   // Call the loginUser function with the user's credentials
-  loginUser({ username, password });
+  loginUser({username, password});
 });
 
 // Example usage:
-const registrationData = { username: 'exampleUser', password: 'examplePassword', email: 'example@example.com' };
+const registrationData = {username: 'exampleUser', password: 'examplePassword', email: 'example@example.com'};
 registerUser(registrationData);
 
-const loginCredentials = { username: 'exampleUser', password: 'examplePassword' };
+const loginCredentials = {username: 'exampleUser', password: 'examplePassword'};
 loginUser(loginCredentials);

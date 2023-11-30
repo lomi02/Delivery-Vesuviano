@@ -60,24 +60,34 @@
   <!-- Add more restaurant cards as needed -->
 </section>
 
-<!-- Purchasable Items Section (Hidden by default) -->
+<!-- Update the Purchasable Items Section in your HTML -->
 <section id="purchasable-items" style="display: none;">
   <h2>Menu</h2>
-  <!-- Placeholder for dynamic content -->
-  <div class="item">
+  <!-- Example purchasable items with buttons -->
+  <div class="item" data-name="Item 1" data-price="10.99">
     <p>Item 1</p>
     <span>$10.99</span>
-    <button>Add to Cart</button>
+    <button class="add-to-cart">Add to Cart</button>
   </div>
 
-  <div class="item">
+  <div class="item" data-name="Item 2" data-price="8.99">
     <p>Item 2</p>
     <span>$8.99</span>
-    <button>Add to Cart</button>
+    <button class="add-to-cart">Add to Cart</button>
   </div>
 
   <!-- Add more purchasable items as needed -->
 </section>
+
+<!-- Cart Section -->
+<section id="cart" style="display: none;">
+  <h2>Shopping Cart</h2>
+  <ul id="cart-items"></ul>
+  <p>Total: <span id="total-price">$0.00</span></p>
+  <button id="checkout-btn">Checkout</button>
+</section>
+
+<script src="js/main.js"></script>
 
 <!-- Footer Section -->
 <footer>

@@ -11,16 +11,20 @@
 <!-- Header Section -->
 <header>
   <div class="header-container">
-    <h1>Delivery Vesuviano</h1>
+    <!-- Homepage Shortcut -->
+    <a href="index.html" class="home-link">Delivery Vesuviano</a>
+
     <div class="user-options">
-      <a href="#" id="login">Login</a>
-      <a href="#" id="credit">Credit</a>
+      <!-- Navigation -->
+      <a href="login.html">Login</a>
+      <a href="register.html">Register</a>
+      <a href="credentials.html">Credentials</a>
     </div>
   </div>
 </header>
 
 <!-- Filter Section -->
-<section id="filter">
+<section id="filter" class="filter-section">
   <label for="cuisine-filter">Filter by Cuisine:</label>
   <select id="cuisine-filter">
     <option value="all">All</option>
@@ -31,24 +35,29 @@
 </section>
 
 <!-- Restaurant Grid Section -->
-<section id="restaurant-grid">
+<section id="restaurant-grid" class="restaurant-grid">
   <!-- Placeholder for dynamic content -->
-  <!-- Each restaurant item can be a link to show purchasable items -->
-  <div class="restaurant-item">
-    <h2>Restaurant 1</h2>
-    <p>Cuisine: Italian</p>
-    <!-- Add more restaurant details as needed -->
-    <a href="#" class="view-menu">View Menu</a>
+  <div class="restaurant-card">
+    <img src="images/restaurant1.jpg" alt="Restaurant 1" class="restaurant-image">
+    <div class="restaurant-details">
+      <h2 class="restaurant-name">Restaurant 1</h2>
+      <p class="restaurant-cuisine">Cuisine: Italian</p>
+      <p class="restaurant-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <a href="#" class="view-menu">View Menu</a>
+    </div>
   </div>
 
-  <div class="restaurant-item">
-    <h2>Restaurant 2</h2>
-    <p>Cuisine: Mexican</p>
-    <!-- Add more restaurant details as needed -->
-    <a href="#" class="view-menu">View Menu</a>
+  <div class="restaurant-card">
+    <img src="images/restaurant2.jpg" alt="Restaurant 2" class="restaurant-image">
+    <div class="restaurant-details">
+      <h2 class="restaurant-name">Restaurant 2</h2>
+      <p class="restaurant-cuisine">Cuisine: Mexican</p>
+      <p class="restaurant-description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <a href="#" class="view-menu">View Menu</a>
+    </div>
   </div>
 
-  <!-- Add more restaurant items as needed -->
+  <!-- Add more restaurant cards as needed -->
 </section>
 
 <!-- Purchasable Items Section (Hidden by default) -->
@@ -69,6 +78,11 @@
 
   <!-- Add more purchasable items as needed -->
 </section>
+
+<!-- Footer Section -->
+<footer>
+  <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
+</footer>
 
 <script src="js/main.js"></script>
 </body>

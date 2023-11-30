@@ -1,116 +1,172 @@
+/* Reset or normalize styles */
 body {
-  font-family: 'Arial', sans-serif;
-  line-height: 1.6;
-  background-color: #f4f4f4;
-  color: #333;
-  margin: 0; /* Remove default margin */
-  padding: 0; /* Remove default padding */
-}
-
-header {
-  background-color: #f39c12; /* Yellow color */
-  color: #fff;
-  padding: 1em;
-  text-align: center;
-  position: relative; /* Added to position the title */
-}
-
-.header-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-h1 {
-  font-size: 1.8em;
-  margin: 0 0 10px;
-}
-
-.user-options {
-  margin-right: 1em; /* Adjust margin for user options */
-}
-
-.user-options a {
-  color: #fff;
-  margin-left: 1em;
-  text-decoration: none;
-  transition: color 0.3s ease; /* Smooth color transition on hover */
-}
-
-.user-options a:hover {
-  color: #ecf0f1; /* Lighter color on hover */
-}
-
-section {
-  margin: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
   padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #f4f4f4;
 }
 
-#filter {
-  display: flex;
-  align-items: center;
+/* Header Styles */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
   margin-bottom: 20px;
 }
 
-#filter label {
-  margin-right: 10px;
-}
-
-#restaurant-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 20px;
-}
-
-.restaurant-item {
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
-  transition: transform 0.3s ease; /* Add a subtle animation on hover */
-}
-
-.restaurant-item:hover {
-  transform: scale(1.05); /* Increase size on hover */
-}
-
-.view-menu {
-  display: block;
-  margin-top: 10px;
-  text-align: center;
-  color: #3498db;
+.home-link {
   text-decoration: none;
-  transition: color 0.3s ease; /* Smooth color transition on hover */
+  color: #ffcc00;
+  font-size: 2em;
+  font-weight: bold;
 }
 
-.view-menu:hover {
-  color: #2980b9; /* Darker color on hover */
-}
-
-#purchasable-items {
+.user-options {
   margin-top: 20px;
 }
 
-#purchasable-items .item {
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  transition: transform 0.3s ease; /* Add a subtle animation on hover */
-}
-
-#purchasable-items button {
-  background-color: #3498db;
+.user-options a {
+  margin-right: 20px;
+  text-decoration: none;
   color: #fff;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Smooth color transition on hover */
+  font-weight: bold;
 }
 
-#purchasable-items button:hover {
-  background-color: #2980b9; /* Darker color on hover */
+/* Page Content Styles */
+.page-content {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Filter Section Styles */
+.filter-section {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+input {
+  padding: 12px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+button {
+  background-color: #ffcc00;
+  color: #333;
+  padding: 14px 28px;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #e6b800;
+}
+
+/* Restaurant Grid Styles */
+.restaurant-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.restaurant-card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.restaurant-card:hover {
+  transform: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.restaurant-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.restaurant-details {
+  padding: 15px;
+}
+
+.restaurant-name {
+  font-size: 1.5em;
+  margin-bottom: 10px;
+}
+
+.restaurant-cuisine {
+  font-size: 1.2em;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.restaurant-description {
+  font-size: 1em;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+/* Purchasable Items Section Styles */
+#purchasable-items {
+  display: none;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Footer Styles */
+footer {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  padding: 20px;
+  background-color: #333;
+  color: #fff;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+  .user-options {
+    flex-direction: column;
+  }
+
+  .user-options a {
+    margin-bottom: 10px;
+  }
+
+  button {
+    width: 100%;
+  }
 }

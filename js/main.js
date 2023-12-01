@@ -1,3 +1,17 @@
+var sidebar = document.getElementById("sidebar");
+var sidebarWidth = 250; // Larghezza desiderata per la sidebar
+
+// Funzione per gestire l'apertura e la chiusura della sidebar
+function toggleSidebar() {
+  // Calcola la larghezza attuale della sidebar
+  var currentWidth = sidebar.offsetWidth;
+
+  // Verifica se la sidebar è completamente aperta
+  var isFullyOpen = currentWidth === sidebarWidth;
+
+  // Aggiorna la larghezza in base allo stato corrente
+  sidebar.style.width = isFullyOpen ? "0" : sidebarWidth + "px";
+}
 document.addEventListener('DOMContentLoaded', function () {
   // Cart functionality
   const addToCartButtons = document.querySelectorAll('.add-to-cart');

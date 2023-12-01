@@ -7,7 +7,29 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+<div class="sidebar active" id="sidebar">
+  <button onclick="toggleSidebar()">&#9776;Menu</button>
+  <ul>
+    <li><a href="#" class="home-link">Home</a></li>
+    <li>
+      <a href="#">Account</a>
+      <ul class="submenu">
+        <li><a href="#">Informazioni Pagamento</a></li>
+        <li><a href="#">Indirizzo di consegna</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">About</a>
+      <ul class="submenu">
+        <li><a href="#">Credits</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
 
+<div class="content">
+  <!-- Il tuo contenuto principale qui -->
+</div>
 <!-- Header Section -->
 <header>
   <div class="header-container">
@@ -22,7 +44,6 @@
     </div>
   </div>
 </header>
-
 <!-- Filter Section -->
 <section id="filter-bar">
   <div id="filter-options">
@@ -101,7 +122,7 @@
 <footer>
   <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
 </footer>
-
-<script src="js/main.js"></script>
+</body>
+</html>
 </body>
 </html>

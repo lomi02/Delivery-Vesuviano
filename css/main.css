@@ -181,7 +181,16 @@ button {
   border-radius: 6px;
   transition: background-color 0.3s ease;
 }
-
+.LoginButton {
+  display: block;
+  margin-left: 550px;
+  margin-top: 350px;
+}
+.Registerbutton{
+  display: block;
+  margin-top:330px;
+  margin-left: 550px;
+}
 button:hover {
   background-color: #e6b800;
 }

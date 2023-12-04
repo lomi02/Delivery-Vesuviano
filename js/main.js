@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
   // Cart functionality
   const addToCartButtons = document.querySelectorAll('.add-to-cart');
   const cartItemsContainer = document.getElementById('cart-items');
@@ -6,62 +6,146 @@ document.addEventListener('DOMContentLoaded', function () {
   const checkoutButton = document.getElementById('checkout-btn');
   const cart = [];
 
-  addToCartButtons.forEach(button => {
-    button.addEventListener('click', function () {
-      const item = {
-        name: this.parentElement.getAttribute('data-name'),
-        price: parseFloat(this.parentElement.getAttribute('data-price')),
-      };
+  const restaurantContainer = document.getElementById('restaurant-container');
 
-      addToCart(item);
-      updateCartUI();
+  try {
+    // Fetch restaurant data from the backend
+    const response = await fetch('http://localhost:3000/api/locale');
+    const locali = await response.json();
+
+    // Update the frontend UI with the fetched locali
+    locali.forEach(locale => {
+      // Create elements for the locale card
+      const card = document.createElement('div');
+      card.classList.add('locale-card');
+
+      const image = document.createElement('img');
+      image.src = locale.IMAGE_URL; // Replace with the actual property name
+      image.alt = locale.NAME; // Replace with the actual property name
+      image.classList.add('locale-image');
+
+      const details = document.createElement('div');
+      details.classList.add('locale-details');
+
+      const name = document.createElement('h2');
+      name.classList.add('locale-name');
+      name.textContent = locale.NAME; // Replace with the actual property name
+
+      const cuisine = document.createElement('p');
+      cuisine.classList.add('locale-cuisine');
+      cuisine.textContent = `Cuisine: ${locale.CUISINE}`; // Replace with the actual property name
+
+      const description = document.createElement('p');
+      description.classList.add('locale-description');
+      description.textContent = locale.DESCRIPTION; // Replace with the actual property name
+
+      // Append elements to the card
+      details.appendChild(name);
+      details.appendChild(cuisine);
+      details.appendChild(description);
+
+      card.appendChild(image);
+      card.appendChild(details);
+
+      // Append the card to the container
+      restaurantContainer.appendChild(card);
     });
-  });
-
-  function addToCart(item) {
-    cart.push(item);
+  } catch (error) {
+    console.error('Error fetching restaurants:', error);
   }
 
-  function calculateTotalPrice() {
-    return cart.reduce((total, item) => total + item.price, 0);
-  }
+  // Function to update filter options with the fetched locales
+  function updateFilterOptions(locale) {
+    const filterOptionsContainer = document.getElementById('filter-options');
 
-  function updateCartUI() {
-    cartItemsContainer.innerHTML = '';
+    // Clear existing options
+    filterOptionsContainer.innerHTML = '';
 
-    cart.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
-      cartItemsContainer.appendChild(li);
+    // Add an "All" option
+    const allOption = createFilterOption('all', 'All');
+    filterOptionsContainer.appendChild(allOption);
+
+    // Add options for each fetched locale
+    locales.forEach(locale => {
+      const option = createFilterOption(locale.id, locale.name);
+      filterOptionsContainer.appendChild(option);
     });
-
-    const totalPrice = calculateTotalPrice();
-    totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
-
-    // Show the cart section if there are items in the cart
-    document.getElementById('cart').style.display = cart.length > 0 ? 'block' : 'none';
   }
 
-  checkoutButton.addEventListener('click', function () {
-    // Simulate a mock transaction
-    const totalPrice = calculateTotalPrice();
-    alert(`Mock Transaction Successful!\nTotal Amount: $${totalPrice.toFixed(2)}`);
+  // Helper function to create a filter option
+  function createFilterOption(value, label) {
+    const option = document.createElement('div');
+    option.className = 'filter-option';
+    option.setAttribute('data-filter', value);
+    option.textContent = label;
 
-    // Clear the cart after checkout
-    cart.length = 0;
-    updateCartUI();
-  });
-
-  // Restaurant filter functionality
-  const filterOptions = document.querySelectorAll('.filter-option');
-  const restaurantItems = document.querySelectorAll('.restaurant-item');
-
-  filterOptions.forEach(option => {
     option.addEventListener('click', function () {
       const filterValue = this.getAttribute('data-filter');
       filterRestaurants(filterValue);
       updateFilterBar(this);
     });
+
+    return option;
+  }
+
+  // Additional functions (filterRestaurants, updateFilterBar) are assumed to be present in your code.
+});
+
+addToCartButtons.forEach(button => {
+  button.addEventListener('click', function () {
+    const item = {
+      name: this.parentElement.getAttribute('data-name'),
+      price: parseFloat(this.parentElement.getAttribute('data-price')),
+    };
+
+    addToCart(item);
+    updateCartUI();
+  });
+});
+
+function addToCart(item) {
+  cart.push(item);
+}
+
+function calculateTotalPrice() {
+  return cart.reduce((total, item) => total + item.price, 0);
+}
+
+function updateCartUI() {
+  cartItemsContainer.innerHTML = '';
+
+  cart.forEach(item => {
+    const li = document.createElement('li');
+    li.textContent = `${item.name} - $${item.price.toFixed(2)}`;
+    cartItemsContainer.appendChild(li);
+  });
+
+  const totalPrice = calculateTotalPrice();
+  totalPriceElement.textContent = `$${totalPrice.toFixed(2)}`;
+
+  // Show the cart section if there are items in the cart
+  document.getElementById('cart').style.display = cart.length > 0 ? 'block' : 'none';
+}
+
+checkoutButton.addEventListener('click', function () {
+  // Simulate a mock transaction
+  const totalPrice = calculateTotalPrice();
+  alert(`Mock Transaction Successful!\nTotal Amount: $${totalPrice.toFixed(2)}`);
+
+  // Clear the cart after checkout
+  cart.length = 0;
+  updateCartUI();
+});
+
+// Restaurant filter functionality
+const filterOptions = document.querySelectorAll('.filter-option');
+const restaurantItems = document.querySelectorAll('.restaurant-item');
+
+filterOptions.forEach(option => {
+  option.addEventListener('click', function () {
+    const filterValue = this.getAttribute('data-filter');
+    filterRestaurants(filterValue);
+    updateFilterBar(this);
   });
 
   function filterRestaurants(filter) {

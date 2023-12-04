@@ -4,6 +4,72 @@ body {
   padding: 0;
   background-color: #f4f4f4;
 }
+.menu-section {
+  margin-bottom: 20px;
+}
+/* Sidebar Styles */
+.sidebar {
+  background-color: #333;
+  color: #fff;
+  width: 200px;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  overflow-y: auto;
+  padding-top: 20px;
+  display: none;
+}
+.menu-section h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  margin-top: 50px;
+}
+
+.menu-section ul {
+  list-style-type: none;
+}
+
+.menu-section li {
+  margin-bottom: 8px;
+}
+
+.menu-section a {
+  color: #fff;
+  text-decoration: none;
+  display: block;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.menu-section a:hover {
+  background-color: #555;
+}
+/* sotto-menu*/
+.sidebar #account-submenu,
+.sidebar #about-us-submenu {
+  display: none;
+  margin-top: 20px;
+}
+
+.sidebar #account-submenu a,
+.sidebar #about-us-submenu a {
+  color: #fff;
+  text-decoration: none;
+  padding: 8px;
+  border-radius: 5px;
+  display: block;
+}
+
+.sidebar #account-submenu a:hover,
+.sidebar #about-us-submenu a:hover {
+  background-color: #555;
+}
+
+.sidebar #account:hover #account-submenu,
+.sidebar #about-us:hover #about-us-submenu {
+  display: block;
+}
 
 header {
   background-color: #333;
@@ -21,8 +87,12 @@ header {
 }
 
 .user-options {
+<<<<<<< Updated upstream
   margin-top: 20px;
   display: flex;
+=======
+  margin-top: 10px;
+>>>>>>> Stashed changes
 }
 
 .user-options a {
@@ -30,6 +100,21 @@ header {
   text-decoration: none;
   color: #fff;
   font-weight: bold;
+}
+#menu-toggle {
+  cursor: pointer;
+  padding: 10px;
+  background-color: #333;
+  color: #fff;
+  position: fixed;
+  top: 10px;
+  left: 20px;
+  z-index: 2;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+#sidebar.open {
+  display: block;
 }
 
 .page-content {

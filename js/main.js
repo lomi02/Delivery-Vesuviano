@@ -1,5 +1,30 @@
+<<<<<<< Updated upstream
 document.addEventListener('DOMContentLoaded', async function () {
   // Cart functionality
+=======
+document.addEventListener('DOMContentLoaded', function () {
+  console.log('DOM content loaded');
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+
+  menuToggle.addEventListener('click', function () {
+    console.log('Menu toggle clicked');
+    sidebar.classList.toggle('open');
+
+    // Salva lo stato del menu nella sessionStorage
+    const isMenuOpen = sidebar.classList.contains('open');
+    localStorage.setItem('isMenuOpen', isMenuOpen);
+  });
+
+  // Controlla lo stato del menu al caricamento della pagina
+  const isMenuOpen = localStorage.getItem('isMenuOpen') === 'false';
+  if (isMenuOpen) {
+    sidebar.classList.add('close');
+  }
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+>>>>>>> Stashed changes
   const addToCartButtons = document.querySelectorAll('.add-to-cart');
   const cartItemsContainer = document.getElementById('cart-items');
   const totalPriceElement = document.getElementById('total-price');

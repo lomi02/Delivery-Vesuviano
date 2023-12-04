@@ -1,135 +1,148 @@
-—-Zona
-create table zona( 
-     id_zona char(4), 
-    constraint pk_zona primary key(id_zona) 
-);
-—-Comune
-create table comune( 
-    nome_comune char(20), 
-    provincia char(2), 
-    zona_associata char(4), 
-    constraint pk_comune primary key(nome_comune), 
-    constraint fk_comune foreign key (zona_associata) references zona(id_zona) 
-);
-—-Locale
-create table locale( 
-    p_iva char(11), 
-    nome_locale varchar(20) unique not null, 
-    n_telefono_locale char(10) unique not null, 
-    via_locale varchar(20) not null, 
-    cap_locale varchar(20) not null, 
-    comune_sede char(20), 
-    constraint pk_locale primary key(p_iva), 
-    constraint fk_locale foreign key (comune_sede) references comune(nome_comune) 
-    );
-
-—-Rider
-create table rider( 
-    cf_rider char(16), 
-    nome_rider varchar(20) not null, 
-    cognome_rider varchar(20) not null, 
-    rider_id number(4,0) not null unique, 
-    telefono_rider char(10) unique, 
-    comune_lavorativo char(20), 
-    constraint pk_rider primary key(cf_rider), 
-    constraint fk_rider foreign key (comune_lavorativo) references comune(nome_comune));
-—-Prenotazione
-CREATE TABLE prenotazione (
-    anno number(4,0) not null,
-    data_prenotazione date,
-    giorno varchar(20) not null,
-    ora_inizio timestamp not null,
-    ora_fine timestamp not null,
-    constraint pk_prenotazione primary key (data_prenotazione, anno, giorno),
-    constraint ck_orario_prenotazione check (
-        (EXTRACT(hour FROM ora_inizio) >= 19 AND EXTRACT(hour from ora_fine) <= 24)
-        AND
-        (EXTRACT(hour FROM ora_inizio) < EXTRACT(hour FROM ora_fine))),
-    constraint check_giorno check (giorno in ('lunedi', 'martedi', 'mercoledi', 'giovedi', 'venerdi', 'sabato', 'domenica'))
+-- Zona
+CREATE TABLE ZONA
+(
+  ID_ZONA CHAR(4),
+  CONSTRAINT PK_ZONA PRIMARY KEY (ID_ZONA)
 );
 
-
-
-—-Cliente
-create table cliente( 
-    nome_cliente varchar(20) not null, 
-    cognome_cliente varchar(20), 
-    email char(30) not null, 
-    comune_res char(20), 
-    constraint pk_cliente primary key(email), 
-    constraint fk_cliente1 foreign key(comune_res) references comune(nome_comune),
+-- Comune
+CREATE TABLE COMUNE
+(
+  NOME_COMUNE    CHAR(20),
+  PROVINCIA      CHAR(2),
+  ZONA_ASSOCIATA CHAR(4),
+  CONSTRAINT PK_COMUNE PRIMARY KEY (NOME_COMUNE),
+  CONSTRAINT FK_COMUNE FOREIGN KEY (ZONA_ASSOCIATA) REFERENCES ZONA (ID_ZONA)
 );
 
-—-Informazioni consegna
-create table informazioni_Consegna(     
-    via_cliente char(20) not null,     
-    citta_cliente char(20) not null,     
-    cap_cliente char(10) not null,     
-    citofono varchar(20),     
-    note_per_rider varchar(30), 
-    email_cliente char(30), 
-    constraint pk_info primary key(via_cliente,citta_cliente,cap_cliente), 
-    constraint fk_info foreign key(email_cliente) references cliente(email)
-) ;
-—-Pagamento
-create table pagamento( 
-    scontrino char(10), 
-    importo number(2,0), 
-    metodo_pay varchar(30), 
-    constraint pk_pagamento primary key(scontrino), 
-    constraint chk_metodo check( 
-    metodo_pay='contanti' 
-    or metodo_pay='Carta di credito/debito') 
+-- Locale
+CREATE TABLE LOCALE
+(
+  P_IVA             CHAR(11),
+  NOME_LOCALE       VARCHAR(20) UNIQUE NOT NULL,
+  N_TELEFONO_LOCALE CHAR(10) UNIQUE    NOT NULL,
+  VIA_LOCALE        VARCHAR(20)        NOT NULL,
+  CAP_LOCALE        VARCHAR(20)        NOT NULL,
+  COMUNE_SEDE       CHAR(20),
+  CONSTRAINT PK_LOCALE PRIMARY KEY (P_IVA),
+  CONSTRAINT FK_LOCALE FOREIGN KEY (COMUNE_SEDE) REFERENCES COMUNE (NOME_COMUNE)
 );
 
-
-—-Ordine
-create table ordine(  
-    n_ordine number(3,0) not null,  
-    stato varchar(20) not null,  
-    p_ivalocale char(11),  
-    cf_consegnatore char(16),  
-    email_destinatario char(30),  
-    scontrino_ordine char(10),  
-    data_e_ora timestamp,
-    constraint pk_ordine primary key(n_ordine),  
-    constraint fk_ordine_locale foreign key(p_ivalocale) references locale(p_iva),  
-    constraint fk_ordine_rider foreign key(cf_consegnatore) references rider(cf_rider),  
-    constraint fk_ordine_cliente foreign key (email_destinatario) references cliente(email),  
-    constraint fk_ordine_scontrino foreign key(scontrino_ordine) references pagamento(scontrino),  
-    constraint chk_stato check(  
-    stato in('in lavorazione','ritirato','in consegna','consegnato'))  
-    );
-
-
-
-—-Prodotto
-create table prodotto( 
-    id_prodotto number not null, 
-    nome_prodotto varchar(20) not null, 
-    tipo_prodotto varchar(20), 
-    p_iva_locale char(11), 
-    constraint pk_prodotto primary key(id_prodotto), 
-    constraint fk_prdotto foreign key (p_iva_locale) references locale(p_iva) 
+-- Rider
+CREATE TABLE RIDER
+(
+  CF_RIDER          CHAR(16),
+  NOME_RIDER        VARCHAR(20) NOT NULL,
+  COGNOME_RIDER     VARCHAR(20) NOT NULL,
+  RIDER_ID          NUMBER(4,0) NOT NULL UNIQUE,
+  TELEFONO_RIDER    CHAR(10) UNIQUE,
+  COMUNE_LAVORATIVO CHAR(20),
+  CONSTRAINT PK_RIDER PRIMARY KEY (CF_RIDER),
+  CONSTRAINT FK_RIDER FOREIGN KEY (COMUNE_LAVORATIVO) REFERENCES COMUNE (NOME_COMUNE)
 );
 
-—-Presenti 
-create table presenti(  
-    idProdotto number,  
-    nOrdine number,  
-    quantità number(2,0),  
-    constraint pk_presenti primary key(idProdotto,nOrdine),  
-    constraint fk_presenti1 foreign key(idProdotto) references prodotto(id_prodotto),  
-    constraint fk_presenti2 foreign key(nOrdine) references ordine(n_ordine)  
-);
-—-Effettuano
-create table effettuano( 
-    codf_rider char(16), 
-    anno1 number(4,0), 
-    dataPrenotazione date,
-giorno_lavorativo varchar(20), 
-    constraint pk_effettuano primary key(codf_rider,anno1,dataPrenotazione,giorno_lavorativo), 
-    constraint fk_effettuano1 foreign key (codf_rider) references rider(cf_rider), 
-    constraint fk_effettuano2 foreign key (anno1,dataPrenotazione,giorno_lavorativo) references prenotazione(anno,data_prenotazione,giorno)
+-- PRENOTAZIONE
+CREATE TABLE PRENOTAZIONE
+(
+  ANNO              NUMBER(4,0) NOT NULL,
+  DATA_PRENOTAZIONE DATE,
+  GIORNO            VARCHAR(20) NOT NULL,
+  ORA_INIZIO        TIMESTAMP   NOT NULL,
+  ORA_FINE          TIMESTAMP   NOT NULL,
+  CONSTRAINT PK_PRENOTAZIONE PRIMARY KEY (DATA_PRENOTAZIONE, ANNO, GIORNO),
+  CONSTRAINT CK_ORARIO_PRENOTAZIONE CHECK (
+      (EXTRACT(HOUR FROM ORA_INIZIO) >= 19 AND EXTRACT(HOUR FROM ORA_FINE) <= 24)
+      AND
+      (EXTRACT(HOUR FROM ORA_INIZIO) < EXTRACT(HOUR FROM ORA_FINE))),
+  CONSTRAINT CHECK_GIORNO CHECK (GIORNO IN
+                                 ('LUNEDI', 'MARTEDI', 'MERCOLEDI', 'GIOVEDI', 'VENERDI', 'SABATO', 'DOMENICA'))
 );
 
+-- Cliente
+CREATE TABLE CLIENTE
+(
+  NOME_CLIENTE    VARCHAR(20) NOT NULL,
+  COGNOME_CLIENTE VARCHAR(20),
+  EMAIL           CHAR(30)    NOT NULL,
+  COMUNE_RES      CHAR(20),
+  CONSTRAINT PK_CLIENTE PRIMARY KEY (EMAIL),
+  CONSTRAINT FK_CLIENTE1 FOREIGN KEY (COMUNE_RES) REFERENCES COMUNE (NOME_COMUNE)
+);
+
+-- PAGAMENTO
+CREATE TABLE PAGAMENTO
+(
+  SCONTRINO  CHAR(10),
+  IMPORTO    NUMBER(2,0),
+  METODO_PAY VARCHAR(30),
+  CONSTRAINT PK_PAGAMENTO PRIMARY KEY (SCONTRINO),
+  CONSTRAINT CHK_METODO CHECK (
+        METODO_PAY = 'CONTANTI'
+      OR METODO_PAY = 'CARTA DI CREDITO/DEBITO')
+);
+
+-- Informazioni consegna
+CREATE TABLE INFORMAZIONI_CONSEGNA
+(
+  VIA_CLIENTE    CHAR(20) NOT NULL,
+  CITTA_CLIENTE  CHAR(20) NOT NULL,
+  CAP_CLIENTE    CHAR(10) NOT NULL,
+  CITOFONO       VARCHAR(20),
+  NOTE_PER_RIDER VARCHAR(30),
+  EMAIL_CLIENTE  CHAR(30),
+  CONSTRAINT PK_INFO PRIMARY KEY (VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE),
+  CONSTRAINT FK_INFO FOREIGN KEY (EMAIL_CLIENTE) REFERENCES CLIENTE (EMAIL)
+);
+
+-- ORDINE
+CREATE TABLE ORDINE
+(
+  N_ORDINE           NUMBER(3,0) NOT NULL,
+  STATO              VARCHAR(20) NOT NULL,
+  P_IVALOCALE        CHAR(11),
+  CF_CONSEGNATORE    CHAR(16),
+  EMAIL_DESTINATARIO CHAR(30),
+  SCONTRINO_ORDINE   CHAR(10),
+  DATA_E_ORA         TIMESTAMP,
+  CONSTRAINT PK_ORDINE PRIMARY KEY (N_ORDINE),
+  CONSTRAINT FK_ORDINE_LOCALE FOREIGN KEY (P_IVALOCALE) REFERENCES LOCALE (P_IVA),
+  CONSTRAINT FK_ORDINE_RIDER FOREIGN KEY (CF_CONSEGNATORE) REFERENCES RIDER (CF_RIDER),
+  CONSTRAINT FK_ORDINE_CLIENTE FOREIGN KEY (EMAIL_DESTINATARIO) REFERENCES CLIENTE (EMAIL),
+  CONSTRAINT FK_ORDINE_SCONTRINO FOREIGN KEY (SCONTRINO_ORDINE) REFERENCES PAGAMENTO (SCONTRINO),
+  CONSTRAINT CHK_STATO CHECK (
+    STATO IN ('IN LAVORAZIONE', 'RITIRATO', 'IN CONSEGNA', 'CONSEGNATO'))
+);
+
+-- Prodotto
+CREATE TABLE PRODOTTO
+(
+  ID_PRODOTTO   NUMBER      NOT NULL,
+  NOME_PRODOTTO VARCHAR(20) NOT NULL,
+  TIPO_PRODOTTO VARCHAR(20),
+  P_IVA_LOCALE  CHAR(11),
+  CONSTRAINT PK_PRODOTTO PRIMARY KEY (ID_PRODOTTO),
+  CONSTRAINT FK_PRDOTTO FOREIGN KEY (P_IVA_LOCALE) REFERENCES LOCALE (P_IVA)
+);
+
+-- Presenti
+CREATE TABLE PRESENTI
+(
+  IDPRODOTTO NUMBER,
+  NORDINE    NUMBER,
+  QUANTITÀ   NUMBER(2,0),
+  CONSTRAINT PK_PRESENTI PRIMARY KEY (IDPRODOTTO, NORDINE),
+  CONSTRAINT FK_PRESENTI1 FOREIGN KEY (IDPRODOTTO) REFERENCES PRODOTTO (ID_PRODOTTO),
+  CONSTRAINT FK_PRESENTI2 FOREIGN KEY (NORDINE) REFERENCES ORDINE (N_ORDINE)
+);
+
+-- Effettuano
+CREATE TABLE EFFETTUANO
+(
+  CODF_RIDER        CHAR(16),
+  ANNO1             NUMBER(4,0),
+  DATAPRENOTAZIONE  DATE,
+  GIORNO_LAVORATIVO VARCHAR(20),
+  CONSTRAINT PK_EFFETTUANO PRIMARY KEY (CODF_RIDER, ANNO1, DATAPRENOTAZIONE, GIORNO_LAVORATIVO),
+  CONSTRAINT FK_EFFETTUANO1 FOREIGN KEY (CODF_RIDER) REFERENCES RIDER (CF_RIDER),
+  CONSTRAINT FK_EFFETTUANO2 FOREIGN KEY (ANNO1, DATAPRENOTAZIONE, GIORNO_LAVORATIVO) REFERENCES PRENOTAZIONE (ANNO, DATA_PRENOTAZIONE, GIORNO)
+);

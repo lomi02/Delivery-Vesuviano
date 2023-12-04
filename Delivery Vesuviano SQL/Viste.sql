@@ -1,12 +1,14 @@
-CREATE VIEW prenotazionerider AS
-SELECT rider.cf_rider,prenotazione.data_prenotazione
-FROM rider
-INNER JOIN effettuano on rider.cf_rider=effettuano.codf_rider
-INNER JOIN prenotazione on effettuano.dataPrenotazione=prenotazione.data_prenotazione;
--------------------------------------------------
-CREATE VIEW cliente_view AS 
-SELECT locale.nome_locale,ordine.n_ordine,ordine.stato,pagamento.importo 
-FROM locale 
-    inner join ordine on locale.p_iva=ordine.p_ivalocale 
-    inner join pagamento on ordine.scontrino_ordine=pagamento.scontrino
--------------------------------------------------
+CREATE VIEW PRENOTAZIONERIDER AS
+SELECT RIDER.CF_RIDER, PRENOTAZIONE.DATA_PRENOTAZIONE
+FROM RIDER
+       INNER JOIN EFFETTUANO ON RIDER.CF_RIDER = EFFETTUANO.CODF_RIDER
+       INNER JOIN PRENOTAZIONE ON EFFETTUANO.DATAPRENOTAZIONE = PRENOTAZIONE.DATA_PRENOTAZIONE;
+
+CREATE VIEW CLIENTE_VIEW AS
+SELECT LOCALE.NOME_LOCALE, ORDINE.N_ORDINE, ORDINE.STATO, PAGAMENTO.IMPORTO
+FROM LOCALE
+       INNER JOIN ORDINE ON LOCALE.P_IVA = ORDINE.P_IVALOCALE
+       INNER JOIN PAGAMENTO ON ORDINE.SCONTRINO_ORDINE = PAGAMENTO.SCONTRINO;
+
+DROP VIEW PRENOTAZIONERIDER;
+DROP VIEW CLIENTE_VIEW;

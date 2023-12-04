@@ -1,132 +1,157 @@
 --Zona
-insert into zona(id_zona)
-values(1);
-insert into zona(id_zona)
-values(2);
-insert into zona(id_zona)
-values(3);
-insert into zona(id_zona)
-values(4);
+INSERT INTO ZONA(ID_ZONA)
+VALUES (1);
+INSERT INTO ZONA(ID_ZONA)
+VALUES (2);
+INSERT INTO ZONA(ID_ZONA)
+VALUES (3);
+INSERT INTO ZONA(ID_ZONA)
+VALUES (4);
+
 --Comune
-insert into comune(nome_comune,provincia,zona_associata) 
-values('striano','na',1);
-insert into comune(nome_comune,provincia,zona_associata) 
-values('sarno','sa',2);
-insert into comune(nome_comune,provincia,zona_associata) 
-values('palma campania','na',1);
-insert into comune(nome_comune,provincia,zona_associata) 
-values('poggiomarino','na',1);
-insert into comune(nome_comune,provincia,zona_associata) 
-values('ottaviano','na',3);
-insert into comune(nome_comune,provincia,zona_associata) 
-values('san giuseppe vsv.','na',3);
-insert into comune(nome_comune,provincia,zona_associata) 
-values('san valentino torio','sa',4);
+INSERT INTO COMUNE(NOME_COMUNE, PROVINCIA, ZONA_ASSOCIATA)
+VALUES ('STRIANO', 'NA', 1);
+INSERT INTO COMUNE(NOME_COMUNE, PROVINCIA, ZONA_ASSOCIATA)
+VALUES ('SARNO', 'SA', 2);
+INSERT INTO COMUNE(NOME_COMUNE, PROVINCIA, ZONA_ASSOCIATA)
+VALUES ('PALMA CAMPANIA', 'NA', 1);
+INSERT INTO COMUNE(NOME_COMUNE, PROVINCIA, ZONA_ASSOCIATA)
+VALUES ('POGGIOMARINO', 'NA', 1);
+INSERT INTO COMUNE(NOME_COMUNE, PROVINCIA, ZONA_ASSOCIATA)
+VALUES ('OTTAVIANO', 'NA', 3);
+INSERT INTO COMUNE(NOME_COMUNE, PROVINCIA, ZONA_ASSOCIATA)
+VALUES ('SAN GIUSEPPE VSV.', 'NA', 3);
+INSERT INTO COMUNE(NOME_COMUNE, PROVINCIA, ZONA_ASSOCIATA)
+VALUES ('SAN VALENTINO TORIO', 'SA', 4);
+
 --Prenotazione
-INSERT INTO prenotazione (anno, data_prenotazione, giorno, ora_inizio, ora_fine)
-VALUES (2023, TO_DATE('2023-07-10','YYYY-MM-DD'), 'lunedi', TO_TIMESTAMP('2023-07-10 19:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-07-10 23:00:00', 'YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO prenotazione (anno, data_prenotazione, giorno, ora_inizio, ora_fine)
-VALUES (2023, TO_DATE('2023-07-11', 'YYYY-MM-DD'), 'martedi', TO_TIMESTAMP('2023-07-11 19:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-07-11 23:00:00', 'YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO prenotazione (anno, data_prenotazione, giorno, ora_inizio, ora_fine)
-VALUES (2023, TO_DATE('2023-07-12','YYYY-MM-DD'), 'mercoledi', TO_TIMESTAMP('2023-07-12 19:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-07-12 23:00:00', 'YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO prenotazione (anno, data_prenotazione, giorno, ora_inizio, ora_fine)
-VALUES (2023, TO_DATE('2023-07-13','YYYY-MM-DD'), 'giovedi', TO_TIMESTAMP('2023-07-13 19:30:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-07-13 23:00:00', 'YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO prenotazione (anno, data_prenotazione, giorno, ora_inizio, ora_fine)
-VALUES (2023, TO_DATE('2023-07-14', 'YYYY-MM-DD'), 'venerdi', TO_TIMESTAMP('2023-07-14 19:15:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-07-14 23:45:00', 'YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO prenotazione (anno, data_prenotazione, giorno, ora_inizio, ora_fine)
-VALUES (2023, TO_DATE('2023-07-15', 'YYYY-MM-DD'), 'sabato', TO_TIMESTAMP('2023-07-15 19:15:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-07-15 23:45:00', 'YYYY-MM-DD HH24:MI:SS'));
-INSERT INTO prenotazione (anno, data_prenotazione, giorno, ora_inizio, ora_fine)
-VALUES (2023, TO_DATE('2023-07-16', 'YYYY-MM-DD'), 'domenica', TO_TIMESTAMP('2023-07-16 19:15:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP('2023-07-16 23:45:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO PRENOTAZIONE (ANNO, DATA_PRENOTAZIONE, GIORNO, ORA_INIZIO, ORA_FINE)
+VALUES (2023, TO_DATE('2023-07-10', 'YYYY-MM-DD'), 'LUNEDI',
+        TO_TIMESTAMP('2023-07-10 19:30:00', 'YYYY-MM-DD HH24:MI:SS'),
+        TO_TIMESTAMP('2023-07-10 23:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO PRENOTAZIONE (ANNO, DATA_PRENOTAZIONE, GIORNO, ORA_INIZIO, ORA_FINE)
+VALUES (2023, TO_DATE('2023-07-11', 'YYYY-MM-DD'), 'MARTEDI',
+        TO_TIMESTAMP('2023-07-11 19:30:00', 'YYYY-MM-DD HH24:MI:SS'),
+        TO_TIMESTAMP('2023-07-11 23:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO PRENOTAZIONE (ANNO, DATA_PRENOTAZIONE, GIORNO, ORA_INIZIO, ORA_FINE)
+VALUES (2023, TO_DATE('2023-07-12', 'YYYY-MM-DD'), 'MERCOLEDI',
+        TO_TIMESTAMP('2023-07-12 19:30:00', 'YYYY-MM-DD HH24:MI:SS'),
+        TO_TIMESTAMP('2023-07-12 23:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO PRENOTAZIONE (ANNO, DATA_PRENOTAZIONE, GIORNO, ORA_INIZIO, ORA_FINE)
+VALUES (2023, TO_DATE('2023-07-13', 'YYYY-MM-DD'), 'GIOVEDI',
+        TO_TIMESTAMP('2023-07-13 19:30:00', 'YYYY-MM-DD HH24:MI:SS'),
+        TO_TIMESTAMP('2023-07-13 23:00:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO PRENOTAZIONE (ANNO, DATA_PRENOTAZIONE, GIORNO, ORA_INIZIO, ORA_FINE)
+VALUES (2023, TO_DATE('2023-07-14', 'YYYY-MM-DD'), 'VENERDI',
+        TO_TIMESTAMP('2023-07-14 19:15:00', 'YYYY-MM-DD HH24:MI:SS'),
+        TO_TIMESTAMP('2023-07-14 23:45:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO PRENOTAZIONE (ANNO, DATA_PRENOTAZIONE, GIORNO, ORA_INIZIO, ORA_FINE)
+VALUES (2023, TO_DATE('2023-07-15', 'YYYY-MM-DD'), 'SABATO',
+        TO_TIMESTAMP('2023-07-15 19:15:00', 'YYYY-MM-DD HH24:MI:SS'),
+        TO_TIMESTAMP('2023-07-15 23:45:00', 'YYYY-MM-DD HH24:MI:SS'));
+INSERT INTO PRENOTAZIONE (ANNO, DATA_PRENOTAZIONE, GIORNO, ORA_INIZIO, ORA_FINE)
+VALUES (2023, TO_DATE('2023-07-16', 'YYYY-MM-DD'), 'DOMENICA',
+        TO_TIMESTAMP('2023-07-16 19:15:00', 'YYYY-MM-DD HH24:MI:SS'),
+        TO_TIMESTAMP('2023-07-16 23:45:00', 'YYYY-MM-DD HH24:MI:SS'));
+
 --Rider
-INSERT INTO rider (cf_rider, nome_rider, cognome_rider, telefono_rider, comune_lavorativo) 
-VALUES ('CF001', 'Massimo', 'Verdi', '1234567890', 'palma campania');
-INSERT INTO rider (cf_rider, nome_rider, cognome_rider, telefono_rider, comune_lavorativo) 
-VALUES ('CF002','Nello','Gallo','0987654321','terzigno');
-INSERT INTO rider (cf_rider, nome_rider, cognome_rider, telefono_rider, comune_lavorativo) 
-VALUES ('CF003','Pasquale','Piccolo','4563738901','poggiomarino');
-INSERT INTO rider (cf_rider, nome_rider, cognome_rider, telefono_rider, comune_lavorativo) 
-VALUES ('CF004','Maria','Nappi','4123998800','ottaviano');
-INSERT INTO rider (cf_rider, nome_rider, cognome_rider, telefono_rider, comune_lavorativo) 
-VALUES ('CF005','Carlo','De Filippo','1230987444','sarno');
-INSERT INTO rider (cf_rider, nome_rider, cognome_rider, telefono_rider, comune_lavorativo) 
-VALUES ('CF006','Alberto','Ammirati','0932177250','san giuseppe vsv.');
-INSERT INTO rider (cf_rider, nome_rider, cognome_rider, telefono_rider, comune_lavorativo)
-VALUES ('CF007','Michele','Annunziata','0817720112','san valentino torio');
+INSERT INTO RIDER (CF_RIDER, NOME_RIDER, COGNOME_RIDER, TELEFONO_RIDER, COMUNE_LAVORATIVO)
+VALUES ('CF001', 'MASSIMO', 'VERDI', '1234567890', 'PALMA CAMPANIA');
+INSERT INTO RIDER (CF_RIDER, NOME_RIDER, COGNOME_RIDER, TELEFONO_RIDER, COMUNE_LAVORATIVO)
+VALUES ('CF002', 'NELLO', 'GALLO', '0987654321', 'STRIANO');
+INSERT INTO RIDER (CF_RIDER, NOME_RIDER, COGNOME_RIDER, TELEFONO_RIDER, COMUNE_LAVORATIVO)
+VALUES ('CF003', 'PASQUALE', 'PICCOLO', '4563738901', 'POGGIOMARINO');
+INSERT INTO RIDER (CF_RIDER, NOME_RIDER, COGNOME_RIDER, TELEFONO_RIDER, COMUNE_LAVORATIVO)
+VALUES ('CF004', 'MARIA', 'NAPPI', '4123998800', 'OTTAVIANO');
+INSERT INTO RIDER (CF_RIDER, NOME_RIDER, COGNOME_RIDER, TELEFONO_RIDER, COMUNE_LAVORATIVO)
+VALUES ('CF005', 'CARLO', 'DE FILIPPO', '1230987444', 'SARNO');
+INSERT INTO RIDER (CF_RIDER, NOME_RIDER, COGNOME_RIDER, TELEFONO_RIDER, COMUNE_LAVORATIVO)
+VALUES ('CF006', 'ALBERTO', 'AMMIRATI', '0932177250', 'SAN GIUSEPPE VSV.');
+INSERT INTO RIDER (CF_RIDER, NOME_RIDER, COGNOME_RIDER, TELEFONO_RIDER, COMUNE_LAVORATIVO)
+VALUES ('CF007', 'MICHELE', 'ANNUNZIATA', '0817720112', 'SAN VALENTINO TORIO');
+
 --Locale
-INSERT INTO locale (p_iva, nome_locale, n_telefono_locale, via_locale,cap_locale,comune_sede) 
-VALUES ('12345678901', 'Ristorante Bella','0123456789', 'Via Roma 1','84047','sarno');
-INSERT INTO locale (p_iva, nome_locale, n_telefono_locale, via_locale, cap_locale,comune_sede) 
-VALUES ('23456789012', 'Bar La Piazzetta', '1234567890', 'Via Milano 2', '80047','san giuseppe vsv.');
-INSERT INTO locale (p_iva, nome_locale, n_telefono_locale, via_locale, cap_locale,comune_sede) 
-VALUES ('34567890123', 'Pizzeria Da Giovanni', '2345678901', 'Via Napoli 3', '80040', 'poggiomarino');
-INSERT INTO locale (p_iva, nome_locale, n_telefono_locale, via_locale, cap_locale,comune_sede)
-VALUES ('45678901234', 'Osteria Buonaiuto', '3456789012', 'Via Torino 4','80036','palma campania');
-INSERT INTO locale (p_iva, nome_locale, n_telefono_locale, via_locale, cap_locale,comune_sede) 
-VALUES ('67890123456', 'Sushi Bar Sakura', '5678901234', 'Via Bologna 6', '80044','ottaviano');
-INSERT INTO locale (p_iva, nome_locale, n_telefono_locale, via_locale, cap_locale,comune_sede)
-VALUES ('89012345678', 'Seafood Restaurant', '7890123456', 'Via Genova 8', '84010' ,'san valentino torio');
+INSERT INTO LOCALE (P_IVA, NOME_LOCALE, N_TELEFONO_LOCALE, VIA_LOCALE, CAP_LOCALE, COMUNE_SEDE)
+VALUES ('12345678901', 'RISTORANTE BELLA', '0123456789', 'VIA ROMA 1', '84047', 'SARNO');
+INSERT INTO LOCALE (P_IVA, NOME_LOCALE, N_TELEFONO_LOCALE, VIA_LOCALE, CAP_LOCALE, COMUNE_SEDE)
+VALUES ('23456789012', 'BAR LA PIAZZETTA', '1234567890', 'VIA MILANO 2', '80047', 'SAN GIUSEPPE VSV.');
+INSERT INTO LOCALE (P_IVA, NOME_LOCALE, N_TELEFONO_LOCALE, VIA_LOCALE, CAP_LOCALE, COMUNE_SEDE)
+VALUES ('34567890123', 'PIZZERIA DA GIOVANNI', '2345678901', 'VIA NAPOLI 3', '80040', 'POGGIOMARINO');
+INSERT INTO LOCALE (P_IVA, NOME_LOCALE, N_TELEFONO_LOCALE, VIA_LOCALE, CAP_LOCALE, COMUNE_SEDE)
+VALUES ('45678901234', 'OSTERIA BUONAIUTO', '3456789012', 'VIA TORINO 4', '80036', 'PALMA CAMPANIA');
+INSERT INTO LOCALE (P_IVA, NOME_LOCALE, N_TELEFONO_LOCALE, VIA_LOCALE, CAP_LOCALE, COMUNE_SEDE)
+VALUES ('67890123456', 'SUSHI BAR SAKURA', '5678901234', 'VIA BOLOGNA 6', '80044', 'OTTAVIANO');
+INSERT INTO LOCALE (P_IVA, NOME_LOCALE, N_TELEFONO_LOCALE, VIA_LOCALE, CAP_LOCALE, COMUNE_SEDE)
+VALUES ('89012345678', 'SEAFOOD RESTAURANT', '7890123456', 'VIA GENOVA 8', '84010', 'SAN VALENTINO TORIO');
+
 --Cliente
- INSERT INTO cliente (nome_cliente, cognome_cliente, email, comune_res) 
-VALUES ('Giulia', 'Verdi', 'giulia@email.com', 'striano');
-    INSERT INTO cliente (nome_cliente, cognome_cliente, email, comune_res) 
-VALUES ('Paola', 'Gialli', 'paola@email.com', 'sarno');
-    INSERT INTO cliente (nome_cliente, cognome_cliente, email, comune_res) 
-VALUES('Alessandro', 'Marroni', 'alessandro@email.com', 'palma campania');
-    INSERT INTO cliente (nome_cliente, cognome_cliente, email, comune_res) 
-VALUES ('Federica', 'Rosa', 'federica@email.com', 'sarno');
-    INSERT INTO cliente (nome_cliente, cognome_cliente, email, comune_res) 
-VALUES ('Giovanni', 'Arancio', 'giovanni@email.com', 'poggiomarino');
-    INSERT INTO cliente (nome_cliente, cognome_cliente, email, comune_res) 
-VALUES ('Stefania', 'Viola', 'stefania@email.com', 'san giuseppe vsv.'); 
-INSERT INTO cliente (nome_cliente, cognome_cliente, email, comune_res) 
-VALUES ('Martina', 'Azzurro', 'martina@email.com', 'palma campania');
-INSERT INTO cliente (nome_cliente, cognome_cliente, email, comune_res) 
-VALUES ('Mario', 'Rossi', 'mario@email.com', 'striano');
+INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, COMUNE_RES)
+VALUES ('GIULIA', 'VERDI', 'GIULIA@EMAIL.COM', 'STRIANO');
+INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, COMUNE_RES)
+VALUES ('PAOLA', 'GIALLI', 'PAOLA@EMAIL.COM', 'SARNO');
+INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, COMUNE_RES)
+VALUES ('ALESSANDRO', 'MARRONI', 'ALESSANDRO@EMAIL.COM', 'PALMA CAMPANIA');
+INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, COMUNE_RES)
+VALUES ('FEDERICA', 'ROSA', 'FEDERICA@EMAIL.COM', 'SARNO');
+INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, COMUNE_RES)
+VALUES ('GIOVANNI', 'ARANCIO', 'GIOVANNI@EMAIL.COM', 'POGGIOMARINO');
+INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, COMUNE_RES)
+VALUES ('STEFANIA', 'VIOLA', 'STEFANIA@EMAIL.COM', 'SAN GIUSEPPE VSV.');
+INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, COMUNE_RES)
+VALUES ('MARTINA', 'AZZURRO', 'MARTINA@EMAIL.COM', 'PALMA CAMPANIA');
+INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, COMUNE_RES)
+VALUES ('MARIO', 'ROSSI', 'MARIO@EMAIL.COM', 'STRIANO');
+
 --Pagamento
-INSERT INTO pagamento (scontrino, importo, metodo_pay)  
-VALUES ('6', 55, 'Carta di credito/debito');
-INSERT INTO pagamento (scontrino, importo, metodo_pay)  
-VALUES ('7', 12, 'contanti');
-INSERT INTO pagamento (scontrino, importo, metodo_pay)  
-VALUES  ('8', 18, 'Carta di credito/debito');
-INSERT INTO pagamento (scontrino, importo, metodo_pay)  
-VALUES  ('2', 28, 'Carta di credito/debito');
+INSERT INTO PAGAMENTO (SCONTRINO, IMPORTO, METODO_PAY)
+VALUES ('6', 55, 'CARTA DI CREDITO/DEBITO');
+INSERT INTO PAGAMENTO (SCONTRINO, IMPORTO, METODO_PAY)
+VALUES ('7', 12, 'CONTANTI');
+INSERT INTO PAGAMENTO (SCONTRINO, IMPORTO, METODO_PAY)
+VALUES ('8', 18, 'CARTA DI CREDITO/DEBITO');
+INSERT INTO PAGAMENTO (SCONTRINO, IMPORTO, METODO_PAY)
+VALUES ('2', 28, 'CARTA DI CREDITO/DEBITO');
+
 --Informazioni consegna
-INSERT INTO informazioni_Consegna (via_cliente, citta_cliente, cap_cliente, email_cliente) 
-VALUES ('via roma,8', 'san valentino torio', '84010', 'luca@email.com');
-INSERT INTO informazioni_Consegna (via_cliente, citta_cliente, cap_cliente, email_cliente) 
-VALUES ('Via Torino 1 ', 'sarno', '84087', 'paola@email.com');
-INSERT INTO informazioni_Consegna (via_cliente, citta_cliente, cap_cliente, email_cliente) 
-VALUES ('via passanti 8', 'poggiomarino', '80040', 'giovanni@email.com');
+INSERT INTO INFORMAZIONI_CONSEGNA (VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE, EMAIL_CLIENTE)
+VALUES ('VIA ROMA 8', 'SAN VALENTINO TORIO', '84010', 'STEFANIA@EMAIL.COM');
+INSERT INTO INFORMAZIONI_CONSEGNA (VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE, EMAIL_CLIENTE)
+VALUES ('VIA TORINO 1 ', 'SARNO', '84087', 'PAOLA@EMAIL.COM');
+INSERT INTO INFORMAZIONI_CONSEGNA (VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE, EMAIL_CLIENTE)
+VALUES ('VIA PASSANTI 8', 'POGGIOMARINO', '80040', 'GIOVANNI@EMAIL.COM');
+
 --Ordine
-INSERT INTO ordine (n_ordine, stato, p_ivalocale, cf_consegnatore, email_destinatario, scontrino_ordine, data_e_ora)
-VALUES (1, 'consegnato', '45678901234', 'CF001', 'alessandro@email.com ', '8 ', CURRENT_TIMESTAMP);
-INSERT INTO ordine (n_ordine, stato, p_ivalocale, cf_consegnatore, email_destinatario, scontrino_ordine, data_e_ora)
-VALUES (2, 'in consegna', '2345678901', 'CF003, 'giovanni@email.com ', '2 ', CURRENT_TIMESTAMP);
-INSERT INTO ordine (n_ordine, stato, p_ivalocale, cf_consegnatore, email_destinatario, scontrino_ordine, data_e_ora)
-VALUES (3, 'in lavorazione', '3456789012', 'CF001', 'alessandro@email.com ', '6', CURRENT_TIMESTAMP);
-INSERT INTO ordine (n_ordine, stato, p_ivalocale, cf_consegnatore, email_destinatario, scontrino_ordine, data_e_ora)
-VALUES (4, 'in consegna, '0123456789', 'CF005', 'paola@email.com ', '7 ', CURRENT_TIMESTAMP);
+INSERT INTO ORDINE (N_ORDINE, STATO, P_IVALOCALE, CF_CONSEGNATORE, EMAIL_DESTINATARIO, SCONTRINO_ORDINE, DATA_E_ORA)
+VALUES (1, 'CONSEGNATO', '45678901234', 'CF001', 'ALESSANDRO@EMAIL.COM ', '8 ', CURRENT_TIMESTAMP);
+INSERT INTO ORDINE (N_ORDINE, STATO, P_IVALOCALE, CF_CONSEGNATORE, EMAIL_DESTINATARIO, SCONTRINO_ORDINE, DATA_E_ORA)
+VALUES (2, 'IN CONSEGNA', '34567890123', 'CF003', 'GIOVANNI@EMAIL.COM ', '2 ', CURRENT_TIMESTAMP);
+INSERT INTO ORDINE (N_ORDINE, STATO, P_IVALOCALE, CF_CONSEGNATORE, EMAIL_DESTINATARIO, SCONTRINO_ORDINE, DATA_E_ORA)
+VALUES (3, 'IN LAVORAZIONE', '45678901234', 'CF001', 'ALESSANDRO@EMAIL.COM ', '6', CURRENT_TIMESTAMP);
+INSERT INTO ORDINE (N_ORDINE, STATO, P_IVALOCALE, CF_CONSEGNATORE, EMAIL_DESTINATARIO, SCONTRINO_ORDINE, DATA_E_ORA)
+VALUES (4, 'IN CONSEGNA', '12345678901', 'CF005', 'PAOLA@EMAIL.COM ', '7 ', CURRENT_TIMESTAMP);
+
 --Prodotto
-INSERT INTO prodotto (nome_prodotto, tipo_prodotto, p_iva_locale) 
-VALUES('pizza','diavola','34567890123');
-INSERT INTO prodotto (nome_prodotto, tipo_prodotto, p_iva_locale) 
-VALUES('pizza','diavola','34567890123');
-INSERT INTO prodotto (nome_prodotto, tipo_prodotto, p_iva_locale) 
-VALUES('pizza','marinara','34567890123');
-INSERT INTO prodotto (nome_prodotto, tipo_prodotto, p_iva_locale) 
-VALUES('pasta','pennette al pomodoro','12345678901');
-INSERT INTO prodotto (nome_prodotto, tipo_prodotto, p_iva_locale) 
-VALUES('pasta','carbonara','12345678901');
+INSERT INTO PRODOTTO (ID_PRODOTTO, NOME_PRODOTTO, TIPO_PRODOTTO, P_IVA_LOCALE)
+VALUES (1, 'PIZZA', 'DIAVOLA', '34567890123');
+INSERT INTO PRODOTTO (ID_PRODOTTO, NOME_PRODOTTO, TIPO_PRODOTTO, P_IVA_LOCALE)
+VALUES (2, 'PIZZA', 'DIAVOLA', '34567890123');
+INSERT INTO PRODOTTO (ID_PRODOTTO, NOME_PRODOTTO, TIPO_PRODOTTO, P_IVA_LOCALE)
+VALUES (3, 'PIZZA', 'MARINARA', '34567890123');
+INSERT INTO PRODOTTO (ID_PRODOTTO, NOME_PRODOTTO, TIPO_PRODOTTO, P_IVA_LOCALE)
+VALUES (4, 'PASTA', 'PENNETTE AL POMODORO', '12345678901');
+INSERT INTO PRODOTTO (ID_PRODOTTO, NOME_PRODOTTO, TIPO_PRODOTTO, P_IVA_LOCALE)
+VALUES (5, 'PASTA', 'CARBONARA', '12345678901');
+
 --Presenti
-Insert into presenti(idProdotto,nOrdine,quantità) 
-values(2,1,3)
-insert into presenti(idProdotto,nOrdine,quantità) 
-values(4,2,3)
---Effettuano
-INSERT INTO effettuano (codf_rider, anno1, dataPrenotazione,giorno_lavorativo)
-VALUES ('CF001', 2023, TO_DATE('2023-07-15, 'YYYY-MM-DD'),'sabato');
-INSERT INTO effettuano (codf_rider, anno1, dataPrenotazione,giorno_lavorativo)
-VALUES ('CF003', 2023, TO_DATE('2023-07-10', 'YYYY-MM-DD'),'lunedi');
-INSERT INTO effettuano (codf_rider, anno1, dataPrenotazione,giorno_lavorativo)
-VALUES ('CF005', 2023, TO_DATE('2023-07-10', 'YYYY-MM-DD'),'lunedi');
+INSERT INTO PRESENTI(IDPRODOTTO, NORDINE, QUANTITÀ)
+VALUES (2, 1, 3);
+INSERT INTO PRESENTI(IDPRODOTTO, NORDINE, QUANTITÀ)
+VALUES (1, 3, 3);
+
+-- Effettuano
+INSERT INTO EFFETTUANO (CODF_RIDER, ANNO1, DATAPRENOTAZIONE, GIORNO_LAVORATIVO)
+VALUES ('CF001', 2023, TO_DATE('2023-07-15', ' YYYY - MM - DD '),'SABATO');
+INSERT INTO EFFETTUANO (CODF_RIDER, ANNO1, DATAPRENOTAZIONE, GIORNO_LAVORATIVO)
+VALUES ('CF003', 2023, TO_DATE('2023-07-10', ' YYYY - MM - DD '),'LUNEDI');
+INSERT INTO EFFETTUANO (CODF_RIDER, ANNO1, DATAPRENOTAZIONE, GIORNO_LAVORATIVO)
+VALUES ('CF005', 2023, TO_DATE('2023-07-10', ' YYYY - MM - DD '),'LUNEDI');

@@ -36,15 +36,9 @@
   <div class="header-container">
     <!-- Homepage Shortcut -->
     <a href="index.html" class="home-link">Delivery Vesuviano</a>
-
-    <div class="user-options">
-      <!-- Navigation -->
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
-      <a href="credits.html">Credits</a>
-    </div>
   </div>
 </header>
+<!-- Aggiunto testo e link per la registrazione -->
 
 <!-- Page Content Section -->
 <section class="page-content">
@@ -53,10 +47,9 @@
   <form id="loginForm">
     <input type="text" name="username" placeholder="Username" required />
     <input type="password" name="password" placeholder="Password" required />
-    <button class="LoginButton">Login</button>
-    <!-- Aggiunto testo e link per la registrazione -->
-    <p>Non sei registrato? <a href="register.html">Effettua la registrazione qui</a></p>
+    <button type="submit">Login</button>
   </form>
+  <p>Non sei registrato? <a href="register.html">Effettua la registrazione qui</a></p>
 
   <!-- JavaScript to handle form submission -->
   <script>
@@ -91,5 +84,11 @@
 </section>
 
 <script src="js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Chiamata alla funzione toggleSidebar() quando la pagina è completamente caricata
+    toggleSidebar();
+  });
+</script>
 </body>
 </html>

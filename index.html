@@ -5,8 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delivery Vesuviano</title>
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
+<div class="top-icons">
+  <i class="fas fa-shopping-cart cart-icon" onclick="openCart()"></i>
+  <i class="fas fa-user account-icon" onclick="openAccount()"></i>
+</div>
 <div class="sidebar active" id="sidebar">
   <button onclick="toggleSidebar()">&#9776;Menu</button>
   <ul>
@@ -15,7 +20,7 @@
       <a href="login.html">Account</a>
       <ul class="submenu">
         <li><a href="#">Informazioni Pagamento</a></li>
-        <li><a href="#">Indirizzo di consegna</a></li>
+        <li><a href="Indirizzi.html">Indirizzo di consegna</a></li>
         <li><a href="#">Ordini Effetuati</a></li>
       </ul>
     </li>
@@ -27,24 +32,14 @@
     </li>
   </ul>
 </div>
-
-<div class="content">
-  <!-- Il tuo contenuto principale qui -->
-</div>
 <!-- Header Section -->
 <header>
   <div class="header-container">
     <!-- Homepage Shortcut -->
     <a href="index.html" class="home-link">Delivery Vesuviano</a>
-
-    <div class="user-options">
-      <!-- Navigation -->
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
-      <a href="credits.html">Credits</a>
-    </div>
   </div>
 </header>
+
 <!-- Filter Section -->
 <section id="filter-bar">
   <div id="filter-options">
@@ -63,7 +58,17 @@
     <!-- Add more filter options as needed -->
   </div>
 </section>
-
+<!-- Icone carrello e account -->
+<div class="top-icons">
+  <div class="cart-icon">
+    <!-- Icona del carrello di Font Awesome -->
+    <i class="fas fa-shopping-cart"></i>
+  </div>
+  <div class="account-icon">
+    <!-- Icona dell'account di Font Awesome -->
+    <i class="fas fa-user"></i>
+  </div>
+</div>
 <!-- Restaurant Grid Section -->
 <section id="restaurant-grid" class="restaurant-grid">
   <!-- Filter Section -->
@@ -119,7 +124,13 @@
 <footer>
   <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
 </footer>
-</body>
-</html>
+<script src="path/al/tuo/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Chiamata alla funzione toggleSidebar() quando la pagina è completamente caricata
+    toggleSidebar();
+  });
+</script>
+<script src="js/main.js"></script>
 </body>
 </html>

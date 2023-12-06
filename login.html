@@ -7,21 +7,38 @@
   <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
+<div class="sidebar active" id="sidebar">
+  <button onclick="toggleSidebar()">&#9776;Menu</button>
+  <ul>
+    <li><a href="index.html" class="home-link">Home</a></li>
+    <li>
+      <a href="login.html">Account</a>
+      <ul class="submenu">
+        <li><a href="#">Informazioni Pagamento</a></li>
+        <li><a href="#">Indirizzo di consegna</a></li>
+        <li><a href="#">Ordini Effetuati</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">About</a>
+      <ul class="submenu">
+        <li><a href="credits.html">Credits</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
 
+<div class="content">
+  <!-- Il tuo contenuto principale qui -->
+</div>
 <!-- Header Section -->
 <header>
   <div class="header-container">
     <!-- Homepage Shortcut -->
     <a href="index.html" class="home-link">Delivery Vesuviano</a>
-
-    <div class="user-options">
-      <!-- Navigation -->
-      <a href="login.html">Login</a>
-      <a href="register.html">Register</a>
-      <a href="credits.html">Credits</a>
-    </div>
   </div>
 </header>
+<!-- Aggiunto testo e link per la registrazione -->
 
 <!-- Page Content Section -->
 <section class="page-content">
@@ -32,6 +49,7 @@
     <input type="password" name="password" placeholder="Password" required />
     <button type="submit">Login</button>
   </form>
+  <p>Non sei registrato? <a href="register.html">Effettua la registrazione qui</a></p>
 
   <!-- JavaScript to handle form submission -->
   <script>
@@ -66,5 +84,11 @@
 </section>
 
 <script src="js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Chiamata alla funzione toggleSidebar() quando la pagina è completamente caricata
+    toggleSidebar();
+  });
+</script>
 </body>
 </html>

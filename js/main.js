@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', async function () {
   // Cart functionality
   document.addEventListener('DOMContentLoaded', function () {
@@ -22,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   });
 
-  document.addEventListener('DOMContentLoaded', function () {
+  document.addEventListener('DOMContentLoaded', async function () {
     const addToCartButtons = document.querySelectorAll('.add-to-cart');
     const cartItemsContainer = document.getElementById('cart-items');
     const totalPriceElement = document.getElementById('total-price');

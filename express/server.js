@@ -4,6 +4,7 @@ const sqlite3 = require('sqlite3');
 const app = express();
 const port = 3000;
 
+// Configurazione del database SQLite
 const db = new sqlite3.Database('../identifier.sqlite', (err) => {
   if (err) {
     console.error('Errore nell\'apertura del database', err.message);
@@ -28,15 +29,4 @@ app.get('/api/locale', (req, res) => {
 // Avvio del server
 app.listen(port, () => {
   console.log(`Il server è in ascolto sulla porta ${port}`);
-});
-
-// Chiusura del database quando il server viene chiuso
-process.on('SIGINT', () => {
-  db.close((err) => {
-    if (err) {
-      return console.error(err.message);
-    }
-    console.log('Chiusura del database.');
-    process.exit(0);
-  });
 });

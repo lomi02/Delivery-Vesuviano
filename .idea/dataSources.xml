@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="Database MySQL" uuid="aae27d5b-1d56-4a49-9ec8-68488b427f0e">
-      <driver-ref>mysql.8</driver-ref>
+    <data-source source="LOCAL" name="SQLite Database" uuid="9e641fc7-635f-439e-b1ee-dd39a2a97732">
+      <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <remarks>Delivery Vesuviano</remarks>
-      <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/identifier.sqlite</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

@@ -1,5 +1,5 @@
 window.addEventListener('beforeunload', function () {
-  var sidebar = document.getElementById("sidebar");
+  const sidebar = document.getElementById("sidebar");
 
   // Chiudi la sidebar prima di scaricare la pagina
   sidebar.classList.remove("active");
@@ -59,7 +59,7 @@ async function fetchCuisineOptions() {
 }
 
 // Funzione per gestire il recupero e la visualizzazione dei ristoranti
-async function fetchAndDisplayRestaurants() {
+async function mostraLocali() {
   try {
     // Effettua una chiamata API per ottenere i dati dei ristoranti
     const response = await fetch('http://localhost:3000/api/locale');
@@ -72,13 +72,16 @@ async function fetchAndDisplayRestaurants() {
   }
 }
 
-// Funzione per aggiornare la griglia dei ristoranti nel DOM
 function aggiornaGrigliaLocali(locali) {
   const localeGrid = document.getElementById('restaurant-grid');
   localeGrid.innerHTML = ''; // Pulisce eventuali elementi preesistenti
 
   locali.forEach(locale => {
     const localeCard = creaCartaLocale(locale);
+
+    // Aggiungi il gestore di eventi clic alla scheda
+    localeCard.addEventListener('click', () => mostraDettagliLocale(locale));
+
     localeGrid.appendChild(localeCard);
   });
 }
@@ -109,8 +112,8 @@ function creaCartaLocale(locale) {
 
 // Funzione per mostrare i dettagli del locale
 function mostraDettagliLocale(locale) {
-  const restaurantDetails = document.getElementById('restaurant-details');
-  restaurantDetails.innerHTML = ''; // Pulisce eventuali dettagli preesistenti
+  const dettagliLocale = document.getElementById('restaurant-details');
+  dettagliLocale.innerHTML = ''; // Pulisce eventuali dettagli preesistenti
 
   // Aggiungi dettagli del locale al lato destro
   const nameElement = document.createElement('h2');
@@ -122,11 +125,11 @@ function mostraDettagliLocale(locale) {
   // Aggiungi ulteriori dettagli secondo necessità
 
   // Aggiungi elementi al lato destro
-  restaurantDetails.appendChild(nameElement);
-  restaurantDetails.appendChild(cuisineElement);
+  dettagliLocale.appendChild(nameElement);
+  dettagliLocale.appendChild(cuisineElement);
 
   // Mostra il lato destro con i dettagli del locale
-  restaurantDetails.style.display = 'block';
+  dettagliLocale.style.display = 'block';
 }
 
 function toggleSidebar() {

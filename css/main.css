@@ -72,11 +72,7 @@ body {
 
 .top-icons .cart-icon:hover,
 .top-icons .account-icon:hover {
-<<<<<<< HEAD
   color: #fffefe;
-=======
-  color: #fffefe; /* Cambia colore quando il mouse è sopra */
->>>>>>> 6588a5b9378ed7daac21eb13afc0ff339bba2b5e
 }
 
 header {
@@ -183,7 +179,7 @@ button:hover {
   background-color: #e6b800;
 }
 
-.restaurant-grid {
+.griglia-locali {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -191,7 +187,7 @@ button:hover {
   margin-bottom: 20px;
 }
 
-.restaurant-card {
+.carta-locale {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -202,32 +198,34 @@ button:hover {
   cursor: pointer;
 }
 
-.restaurant-card:hover {
+.carta-locale:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.restaurant-details {
+.dettagli-locale {
+  display: none;
   padding: 15px;
-  display: flex;
   flex-direction: column;
 }
 
-.restaurant-name {
+#dettagli-locale h2 {
+  color: #333; /* Colore del titolo */
+}
+
+#dettagli-locale p {
+  color: #666; /* Colore del testo del paragrafo */
+}
+
+.nome-locale {
   font-size: 1.5em;
   margin-bottom: 10px;
 }
 
-.restaurant-cuisine {
+.categoria-locale {
   font-size: 1.2em;
   color: #555;
   margin-bottom: 8px;
-}
-
-.restaurant-description {
-  font-size: 1em;
-  color: #666;
-  margin-bottom: 15px;
 }
 
 #purchasable-items {

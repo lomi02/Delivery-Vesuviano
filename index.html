@@ -32,6 +32,7 @@
     </li>
   </ul>
 </div>
+
 <!-- Header Section -->
 <header>
   <div class="header-container">
@@ -72,7 +73,10 @@
 </div>
 
 <!-- Restaurant Grid Section -->
-<section id="restaurant-grid" class="restaurant-grid">
+<section id="griglia-locali">
+  <div class="carta-locale" onclick="mostraDettagliLocale(localeDati)">
+  </div>
+
   <!-- Filter Section -->
   <section id="filter">
     <label for="locale-filter">Filter by Locale:</label>
@@ -88,9 +92,9 @@
   <!-- Example restaurant card template (can be hidden) -->
   <div class="restaurant-card-template" style="display: none;">
     <img src="" alt="" class="restaurant-image">
-    <div class="restaurant-details">
-      <h2 class="restaurant-name"></h2>
-      <p class="restaurant-cuisine"></p>
+    <div class="dettagli-locale">
+      <h2 class="nome-locale"></h2>
+      <p class="categoria-locale"></p>
       <p class="restaurant-description"></p>
       <a href="#" class="view-menu">View Menu</a>
     </div>

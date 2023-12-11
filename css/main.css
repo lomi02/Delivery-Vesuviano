@@ -4,6 +4,7 @@ body {
   padding: 0;
   background-color: #f4f4f4;
 }
+
 /* Configurazione generale della barra laterale */
 .sidebar {
   height: 100%;
@@ -28,7 +29,7 @@ body {
   position: fixed;
   top: 10px;
   left: 20px;
-  z-index: 999; /* Assicura che l'icona sia sopra gli altri elementi */
+  z-index: 999;
 }
 
 .sidebar a {
@@ -47,13 +48,13 @@ body {
 .submenu {
   padding-left: 20px;
   display: none;
+  background-color: #111;
 }
 
-.sidebar.active li:hover .submenu {
+.sidebar.active .submenu {
   display: block;
 }
-/* cart-icon and account-icon */
-/* Aggiungi stili per le icone del carrello e dell'account */
+
 .top-icons {
   position: fixed;
   top: 20px;
@@ -66,13 +67,12 @@ body {
   font-size: 24px;
   margin-left: 10px;
   cursor: pointer;
-  color: #ffcc00; /* Colore delle icone, puoi cambiarlo a tuo piacimento */
+  color: #ffcc00;
 }
 
-/* Aggiungi stile quando passi il mouse sopra le icone */
 .top-icons .cart-icon:hover,
 .top-icons .account-icon:hover {
-  color: #fffefe; /* Cambia colore quando il mouse Ã¨ sopra */
+  color: #fffefe;
 }
 
 header {
@@ -116,14 +116,9 @@ form {
   flex-direction: column;
 }
 
-.filter-section {
-  margin-bottom: 20px;
-}
-
-/* Add these styles to your main.css */
 #filter-bar {
   background-color: #f8f8f8;
-  padding: 10px 0; /* Adjust padding as needed */
+  padding: 10px 0;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -136,12 +131,12 @@ form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 10px; /* Adjust margin as needed */
+  margin: 10px;
   cursor: pointer;
 }
 
 .filter-option img {
-  width: 30px; /* Adjust the size as needed */
+  width: 30px;
   height: 30px;
   margin-bottom: 5px;
 }
@@ -184,12 +179,12 @@ button:hover {
   background-color: #e6b800;
 }
 
-/* Restaurant Grid Styles */
 .restaurant-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px;
-  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .restaurant-card {
@@ -197,22 +192,21 @@ button:hover {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+  width: 80%;
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .restaurant-card:hover {
-  transform: none;
+  transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.restaurant-image {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
 }
 
 .restaurant-details {
   padding: 15px;
+  display: flex;
+  flex-direction: column;
 }
 
 .restaurant-name {
@@ -232,13 +226,12 @@ button:hover {
   margin-bottom: 15px;
 }
 
-/* Purchasable Items Section Styles */
 #purchasable-items {
   display: none;
   margin: 20px 0;
+  width: 80%;
 }
 
-/* Footer Styles */
 footer {
   margin: 20px 0;
   text-align: center;
@@ -247,7 +240,6 @@ footer {
   color: #fff;
 }
 
-/* Responsive Styles */
 @media screen and (max-width: 600px) {
   .user-options {
     flex-direction: column;

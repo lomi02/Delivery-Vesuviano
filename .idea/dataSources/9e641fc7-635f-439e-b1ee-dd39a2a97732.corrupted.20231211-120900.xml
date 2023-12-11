@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="SQLite Database">
-  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.51">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.49">
     <root id="1">
       <ServerVersion>3.43.0</ServerVersion>
     </root>
+<<<<<<< HEAD
     <collation id="2" parent="1" name="BINARY"/>
     <collation id="3" parent="1" name="NOCASE"/>
     <collation id="4" parent="1" name="RTRIM"/>
@@ -446,7 +447,7 @@
     </routine>
     <schema id="177" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2023-12-11.11:12:27</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2023-12-11.09:56:37</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="178" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1481,90 +1482,110 @@
     <table id="528" parent="177" name="RIDER"/>
     <table id="529" parent="177" name="ZONA"/>
     <table id="530" parent="177" name="sqlite_master">
+=======
+    <schema id="2" parent="1" name="main">
+      <Current>1</Current>
+      <IntrospectionTimestamp>2023-12-11.11:22:18.604</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-12-11.10:22:18</LocalIntrospectionTimestamp>
+    </schema>
+    <table id="3" parent="2" name="CLIENTE"/>
+    <table id="4" parent="2" name="COMUNE"/>
+    <table id="5" parent="2" name="EFFETTUANO"/>
+    <table id="6" parent="2" name="INFORMAZIONI_CONSEGNA"/>
+    <table id="7" parent="2" name="LOCALE"/>
+    <table id="8" parent="2" name="ORDINE"/>
+    <table id="9" parent="2" name="PAGAMENTO"/>
+    <table id="10" parent="2" name="PRENOTAZIONE"/>
+    <table id="11" parent="2" name="PRESENTI"/>
+    <table id="12" parent="2" name="PRODOTTO"/>
+    <table id="13" parent="2" name="RIDER"/>
+    <table id="14" parent="2" name="ZONA"/>
+    <table id="15" parent="2" name="sqlite_master">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <System>1</System>
     </table>
-    <column id="531" parent="518" name="NOME_CLIENTE">
+    <column id="16" parent="3" name="NOME_CLIENTE">
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="532" parent="518" name="COGNOME_CLIENTE">
+    <column id="17" parent="3" name="COGNOME_CLIENTE">
       <DasType>TEXT(20)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="533" parent="518" name="EMAIL">
+    <column id="18" parent="3" name="EMAIL">
       <DasType>TEXT(30)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="534" parent="518" name="COMUNE_RES">
+    <column id="19" parent="3" name="COMUNE_RES">
       <DasType>TEXT(20)|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="535" parent="518">
+    <foreign-key id="20" parent="3">
       <ColNames>COMUNE_RES</ColNames>
       <RefColNames>NOME_COMUNE</RefColNames>
       <RefTableName>COMUNE</RefTableName>
     </foreign-key>
-    <index id="536" parent="518" name="sqlite_autoindex_CLIENTE_1">
+    <index id="21" parent="3" name="sqlite_autoindex_CLIENTE_1">
       <ColNames>EMAIL</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="537" parent="518">
+    <key id="22" parent="3">
       <ColNames>EMAIL</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_CLIENTE_1</UnderlyingIndexName>
     </key>
-    <column id="538" parent="519" name="NOME_COMUNE">
+    <column id="23" parent="4" name="NOME_COMUNE">
       <DasType>TEXT(20)|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="539" parent="519" name="PROVINCIA">
+    <column id="24" parent="4" name="PROVINCIA">
       <DasType>TEXT(2)|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="540" parent="519" name="ZONA_ASSOCIATA">
+    <column id="25" parent="4" name="ZONA_ASSOCIATA">
       <DasType>TEXT(4)|0s</DasType>
       <Position>3</Position>
     </column>
-    <foreign-key id="541" parent="519">
+    <foreign-key id="26" parent="4">
       <ColNames>ZONA_ASSOCIATA</ColNames>
       <RefColNames>ID_ZONA</RefColNames>
       <RefTableName>ZONA</RefTableName>
     </foreign-key>
-    <index id="542" parent="519" name="sqlite_autoindex_COMUNE_1">
+    <index id="27" parent="4" name="sqlite_autoindex_COMUNE_1">
       <ColNames>NOME_COMUNE</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="543" parent="519">
+    <key id="28" parent="4">
       <ColNames>NOME_COMUNE</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_COMUNE_1</UnderlyingIndexName>
     </key>
-    <column id="544" parent="520" name="CODF_RIDER">
+    <column id="29" parent="5" name="CODF_RIDER">
       <DasType>TEXT(16)|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="545" parent="520" name="ANNO1">
+    <column id="30" parent="5" name="ANNO1">
       <DasType>INTEGER|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="546" parent="520" name="DATAPRENOTAZIONE">
+    <column id="31" parent="5" name="DATAPRENOTAZIONE">
       <DasType>DATE|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="547" parent="520" name="GIORNO_LAVORATIVO">
+    <column id="32" parent="5" name="GIORNO_LAVORATIVO">
       <DasType>TEXT(20)|0s</DasType>
       <Position>4</Position>
     </column>
-    <foreign-key id="548" parent="520">
+    <foreign-key id="33" parent="5">
       <ColNames>CODF_RIDER</ColNames>
       <RefColNames>CF_RIDER</RefColNames>
       <RefTableName>RIDER</RefTableName>
     </foreign-key>
-    <foreign-key id="549" parent="520">
+    <foreign-key id="34" parent="5">
       <ColNames>ANNO1
 DATAPRENOTAZIONE
 GIORNO_LAVORATIVO</ColNames>
@@ -1573,7 +1594,7 @@ DATA_PRENOTAZIONE
 GIORNO</RefColNames>
       <RefTableName>PRENOTAZIONE</RefTableName>
     </foreign-key>
-    <index id="550" parent="520" name="sqlite_autoindex_EFFETTUANO_1">
+    <index id="35" parent="5" name="sqlite_autoindex_EFFETTUANO_1">
       <ColNames>CODF_RIDER
 ANNO1
 DATAPRENOTAZIONE
@@ -1581,7 +1602,7 @@ GIORNO_LAVORATIVO</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="551" parent="520">
+    <key id="36" parent="5">
       <ColNames>CODF_RIDER
 ANNO1
 DATAPRENOTAZIONE
@@ -1589,109 +1610,130 @@ GIORNO_LAVORATIVO</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_EFFETTUANO_1</UnderlyingIndexName>
     </key>
-    <column id="552" parent="521" name="VIA_CLIENTE">
+    <column id="37" parent="6" name="VIA_CLIENTE">
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="553" parent="521" name="CITTA_CLIENTE">
+    <column id="38" parent="6" name="CITTA_CLIENTE">
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="554" parent="521" name="CAP_CLIENTE">
+    <column id="39" parent="6" name="CAP_CLIENTE">
       <DasType>TEXT(10)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="555" parent="521" name="CITOFONO">
+    <column id="40" parent="6" name="CITOFONO">
       <DasType>TEXT(20)|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="556" parent="521" name="NOTE_PER_RIDER">
+    <column id="41" parent="6" name="NOTE_PER_RIDER">
       <DasType>TEXT(30)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="557" parent="521" name="EMAIL_CLIENTE">
+    <column id="42" parent="6" name="EMAIL_CLIENTE">
       <DasType>TEXT(30)|0s</DasType>
       <Position>6</Position>
     </column>
-    <foreign-key id="558" parent="521">
+    <foreign-key id="43" parent="6">
       <ColNames>EMAIL_CLIENTE</ColNames>
       <RefColNames>EMAIL</RefColNames>
       <RefTableName>CLIENTE</RefTableName>
     </foreign-key>
-    <index id="559" parent="521" name="sqlite_autoindex_INFORMAZIONI_CONSEGNA_1">
+    <index id="44" parent="6" name="sqlite_autoindex_INFORMAZIONI_CONSEGNA_1">
       <ColNames>VIA_CLIENTE
 CITTA_CLIENTE
 CAP_CLIENTE</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="560" parent="521">
+    <key id="45" parent="6">
       <ColNames>VIA_CLIENTE
 CITTA_CLIENTE
 CAP_CLIENTE</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_INFORMAZIONI_CONSEGNA_1</UnderlyingIndexName>
     </key>
-    <column id="561" parent="522" name="P_IVA">
+    <column id="46" parent="7" name="P_IVA">
       <DasType>TEXT(11)|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="562" parent="522" name="NOME_LOCALE">
+    <column id="47" parent="7" name="NOME_LOCALE">
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="563" parent="522" name="N_TELEFONO_LOCALE">
+    <column id="48" parent="7" name="N_TELEFONO_LOCALE">
       <DasType>TEXT(10)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="564" parent="522" name="VIA_LOCALE">
+    <column id="49" parent="7" name="VIA_LOCALE">
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="565" parent="522" name="CAP_LOCALE">
+    <column id="50" parent="7" name="CAP_LOCALE">
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="566" parent="522" name="COMUNE_SEDE">
+    <column id="51" parent="7" name="COMUNE_SEDE">
       <DasType>TEXT(20)|0s</DasType>
       <Position>6</Position>
     </column>
+<<<<<<< HEAD
     <column id="567" parent="522" name="IMMAGINE_URL">
       <DasType>TEXT|0s</DasType>
       <Position>7</Position>
     </column>
     <foreign-key id="568" parent="522">
+=======
+    <foreign-key id="52" parent="7">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>COMUNE_SEDE</ColNames>
       <RefColNames>NOME_COMUNE</RefColNames>
       <RefTableName>COMUNE</RefTableName>
     </foreign-key>
+<<<<<<< HEAD
     <index id="569" parent="522" name="sqlite_autoindex_LOCALE_3">
+=======
+    <index id="53" parent="7" name="sqlite_autoindex_LOCALE_3">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>P_IVA</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
+<<<<<<< HEAD
     <index id="570" parent="522" name="sqlite_autoindex_LOCALE_1">
+=======
+    <index id="54" parent="7" name="sqlite_autoindex_LOCALE_1">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>NOME_LOCALE</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
+<<<<<<< HEAD
     <index id="571" parent="522" name="sqlite_autoindex_LOCALE_2">
+=======
+    <index id="55" parent="7" name="sqlite_autoindex_LOCALE_2">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>N_TELEFONO_LOCALE</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
+<<<<<<< HEAD
     <key id="572" parent="522">
+=======
+    <key id="56" parent="7">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>P_IVA</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_LOCALE_3</UnderlyingIndexName>
     </key>
+<<<<<<< HEAD
     <key id="573" parent="522">
       <ColNames>NOME_LOCALE</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_LOCALE_1</UnderlyingIndexName>
@@ -1704,15 +1746,34 @@ CAP_CLIENTE</ColNames>
       <Predicate>STATO IN (&apos;IN LAVORAZIONE&apos;, &apos;RITIRATO&apos;, &apos;IN CONSEGNA&apos;, &apos;CONSEGNATO&apos;)</Predicate>
     </check>
     <column id="576" parent="523" name="N_ORDINE">
+=======
+    <key id="57" parent="7">
+      <ColNames>NOME_LOCALE</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_LOCALE_1</UnderlyingIndexName>
+    </key>
+    <key id="58" parent="7">
+      <ColNames>N_TELEFONO_LOCALE</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_LOCALE_2</UnderlyingIndexName>
+    </key>
+    <check id="59" parent="8">
+      <Predicate>STATO IN (&apos;IN LAVORAZIONE&apos;, &apos;RITIRATO&apos;, &apos;IN CONSEGNA&apos;, &apos;CONSEGNATO&apos;)</Predicate>
+    </check>
+    <column id="60" parent="8" name="N_ORDINE">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
+<<<<<<< HEAD
     <column id="577" parent="523" name="STATO">
+=======
+    <column id="61" parent="8" name="STATO">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
+<<<<<<< HEAD
     <column id="578" parent="523" name="P_IVALOCALE">
       <DasType>TEXT(11)|0s</DasType>
       <Position>3</Position>
@@ -1734,25 +1795,61 @@ CAP_CLIENTE</ColNames>
       <Position>7</Position>
     </column>
     <foreign-key id="583" parent="523">
+=======
+    <column id="62" parent="8" name="P_IVALOCALE">
+      <DasType>TEXT(11)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="63" parent="8" name="CF_CONSEGNATORE">
+      <DasType>TEXT(16)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="64" parent="8" name="EMAIL_DESTINATARIO">
+      <DasType>TEXT(30)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <column id="65" parent="8" name="SCONTRINO_ORDINE">
+      <DasType>TEXT(10)|0s</DasType>
+      <Position>6</Position>
+    </column>
+    <column id="66" parent="8" name="DATA_E_ORA">
+      <DasType>DATETIME|0s</DasType>
+      <Position>7</Position>
+    </column>
+    <foreign-key id="67" parent="8">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>P_IVALOCALE</ColNames>
       <RefColNames>P_IVA</RefColNames>
       <RefTableName>LOCALE</RefTableName>
     </foreign-key>
+<<<<<<< HEAD
     <foreign-key id="584" parent="523">
+=======
+    <foreign-key id="68" parent="8">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>CF_CONSEGNATORE</ColNames>
       <RefColNames>CF_RIDER</RefColNames>
       <RefTableName>RIDER</RefTableName>
     </foreign-key>
+<<<<<<< HEAD
     <foreign-key id="585" parent="523">
+=======
+    <foreign-key id="69" parent="8">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>EMAIL_DESTINATARIO</ColNames>
       <RefColNames>EMAIL</RefColNames>
       <RefTableName>CLIENTE</RefTableName>
     </foreign-key>
+<<<<<<< HEAD
     <foreign-key id="586" parent="523">
+=======
+    <foreign-key id="70" parent="8">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>SCONTRINO_ORDINE</ColNames>
       <RefColNames>SCONTRINO</RefColNames>
       <RefTableName>PAGAMENTO</RefTableName>
     </foreign-key>
+<<<<<<< HEAD
     <key id="587" parent="523">
       <ColNames>N_ORDINE</ColNames>
       <Primary>1</Primary>
@@ -1774,61 +1871,124 @@ CAP_CLIENTE</ColNames>
       <Position>3</Position>
     </column>
     <index id="592" parent="524" name="sqlite_autoindex_PAGAMENTO_1">
+=======
+    <key id="71" parent="8">
+      <ColNames>N_ORDINE</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <check id="72" parent="9">
+      <Predicate>METODO_PAY = &apos;CONTANTI&apos;
+      OR METODO_PAY = &apos;CARTA DI CREDITO/DEBITO&apos;</Predicate>
+    </check>
+    <column id="73" parent="9" name="SCONTRINO">
+      <DasType>TEXT(10)|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="74" parent="9" name="IMPORTO">
+      <DasType>INTEGER|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="75" parent="9" name="METODO_PAY">
+      <DasType>TEXT(30)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <index id="76" parent="9" name="sqlite_autoindex_PAGAMENTO_1">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>SCONTRINO</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
+<<<<<<< HEAD
     <key id="593" parent="524">
+=======
+    <key id="77" parent="9">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>SCONTRINO</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_PAGAMENTO_1</UnderlyingIndexName>
     </key>
+<<<<<<< HEAD
     <check id="594" parent="525">
+=======
+    <check id="78" parent="10">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <Predicate>(strftime(&apos;%H&apos;, ORA_INIZIO) &gt;= &apos;19&apos; AND strftime(&apos;%H&apos;, ORA_FINE) &lt;= &apos;24&apos;)
       AND
       (strftime(&apos;%H&apos;, ORA_INIZIO) &lt; strftime(&apos;%H&apos;, ORA_FINE))</Predicate>
     </check>
+<<<<<<< HEAD
     <check id="595" parent="525">
       <Predicate>GIORNO IN (&apos;LUNEDI&apos;, &apos;MARTEDI&apos;, &apos;MERCOLEDI&apos;, &apos;GIOVEDI&apos;, &apos;VENERDI&apos;, &apos;SABATO&apos;, &apos;DOMENICA&apos;)</Predicate>
     </check>
     <column id="596" parent="525" name="ANNO">
+=======
+    <check id="79" parent="10">
+      <Predicate>GIORNO IN (&apos;LUNEDI&apos;, &apos;MARTEDI&apos;, &apos;MERCOLEDI&apos;, &apos;GIOVEDI&apos;, &apos;VENERDI&apos;, &apos;SABATO&apos;, &apos;DOMENICA&apos;)</Predicate>
+    </check>
+    <column id="80" parent="10" name="ANNO">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
+<<<<<<< HEAD
     <column id="597" parent="525" name="DATA_PRENOTAZIONE">
       <DasType>DATE|0s</DasType>
       <Position>2</Position>
     </column>
     <column id="598" parent="525" name="GIORNO">
+=======
+    <column id="81" parent="10" name="DATA_PRENOTAZIONE">
+      <DasType>DATE|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="82" parent="10" name="GIORNO">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
+<<<<<<< HEAD
     <column id="599" parent="525" name="ORA_INIZIO">
+=======
+    <column id="83" parent="10" name="ORA_INIZIO">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
+<<<<<<< HEAD
     <column id="600" parent="525" name="ORA_FINE">
+=======
+    <column id="84" parent="10" name="ORA_FINE">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>DATETIME|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
+<<<<<<< HEAD
     <index id="601" parent="525" name="sqlite_autoindex_PRENOTAZIONE_1">
+=======
+    <index id="85" parent="10" name="sqlite_autoindex_PRENOTAZIONE_1">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>DATA_PRENOTAZIONE
 ANNO
 GIORNO</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
+<<<<<<< HEAD
     <key id="602" parent="525">
+=======
+    <key id="86" parent="10">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>DATA_PRENOTAZIONE
 ANNO
 GIORNO</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_PRENOTAZIONE_1</UnderlyingIndexName>
     </key>
+<<<<<<< HEAD
     <column id="603" parent="526" name="IDPRODOTTO">
       <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
@@ -1842,37 +2002,73 @@ GIORNO</ColNames>
       <Position>3</Position>
     </column>
     <foreign-key id="606" parent="526">
+=======
+    <column id="87" parent="11" name="IDPRODOTTO">
+      <DasType>INTEGER|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="88" parent="11" name="NORDINE">
+      <DasType>INTEGER|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="89" parent="11" name="QUANTITA">
+      <DasType>INTEGER|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <foreign-key id="90" parent="11">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>IDPRODOTTO</ColNames>
       <RefColNames>ID_PRODOTTO</RefColNames>
       <RefTableName>PRODOTTO</RefTableName>
     </foreign-key>
+<<<<<<< HEAD
     <foreign-key id="607" parent="526">
+=======
+    <foreign-key id="91" parent="11">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>NORDINE</ColNames>
       <RefColNames>N_ORDINE</RefColNames>
       <RefTableName>ORDINE</RefTableName>
     </foreign-key>
+<<<<<<< HEAD
     <index id="608" parent="526" name="sqlite_autoindex_PRESENTI_1">
+=======
+    <index id="92" parent="11" name="sqlite_autoindex_PRESENTI_1">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>IDPRODOTTO
 NORDINE</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
+<<<<<<< HEAD
     <key id="609" parent="526">
+=======
+    <key id="93" parent="11">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>IDPRODOTTO
 NORDINE</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_PRESENTI_1</UnderlyingIndexName>
     </key>
+<<<<<<< HEAD
     <column id="610" parent="527" name="ID_PRODOTTO">
+=======
+    <column id="94" parent="12" name="ID_PRODOTTO">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>INTEGER|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
+<<<<<<< HEAD
     <column id="611" parent="527" name="NOME_PRODOTTO">
+=======
+    <column id="95" parent="12" name="NOME_PRODOTTO">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
+<<<<<<< HEAD
     <column id="612" parent="527" name="TIPO_PRODOTTO">
       <DasType>TEXT(20)|0s</DasType>
       <Position>3</Position>
@@ -1882,10 +2078,22 @@ NORDINE</ColNames>
       <Position>4</Position>
     </column>
     <foreign-key id="614" parent="527">
+=======
+    <column id="96" parent="12" name="TIPO_PRODOTTO">
+      <DasType>TEXT(20)|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="97" parent="12" name="P_IVA_LOCALE">
+      <DasType>TEXT(11)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <foreign-key id="98" parent="12">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>P_IVA_LOCALE</ColNames>
       <RefColNames>P_IVA</RefColNames>
       <RefTableName>LOCALE</RefTableName>
     </foreign-key>
+<<<<<<< HEAD
     <key id="615" parent="527">
       <ColNames>ID_PRODOTTO</ColNames>
       <Primary>1</Primary>
@@ -1895,15 +2103,31 @@ NORDINE</ColNames>
       <Position>1</Position>
     </column>
     <column id="617" parent="528" name="NOME_RIDER">
+=======
+    <key id="99" parent="12">
+      <ColNames>ID_PRODOTTO</ColNames>
+      <Primary>1</Primary>
+    </key>
+    <column id="100" parent="13" name="CF_RIDER">
+      <DasType>TEXT(16)|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="101" parent="13" name="NOME_RIDER">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
+<<<<<<< HEAD
     <column id="618" parent="528" name="COGNOME_RIDER">
+=======
+    <column id="102" parent="13" name="COGNOME_RIDER">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>TEXT(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
+<<<<<<< HEAD
     <column id="619" parent="528" name="TELEFONO_RIDER">
       <DasType>TEXT(10)|0s</DasType>
       <Position>4</Position>
@@ -1913,25 +2137,49 @@ NORDINE</ColNames>
       <Position>5</Position>
     </column>
     <foreign-key id="621" parent="528">
+=======
+    <column id="103" parent="13" name="TELEFONO_RIDER">
+      <DasType>TEXT(10)|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="104" parent="13" name="COMUNE_LAVORATIVO">
+      <DasType>TEXT(20)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <foreign-key id="105" parent="13">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>COMUNE_LAVORATIVO</ColNames>
       <RefColNames>NOME_COMUNE</RefColNames>
       <RefTableName>COMUNE</RefTableName>
     </foreign-key>
+<<<<<<< HEAD
     <index id="622" parent="528" name="sqlite_autoindex_RIDER_1">
+=======
+    <index id="106" parent="13" name="sqlite_autoindex_RIDER_1">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>CF_RIDER</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
+<<<<<<< HEAD
     <index id="623" parent="528" name="sqlite_autoindex_RIDER_2">
+=======
+    <index id="107" parent="13" name="sqlite_autoindex_RIDER_2">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>TELEFONO_RIDER</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
+<<<<<<< HEAD
     <key id="624" parent="528">
+=======
+    <key id="108" parent="13">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>CF_RIDER</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_RIDER_1</UnderlyingIndexName>
     </key>
+<<<<<<< HEAD
     <key id="625" parent="528">
       <ColNames>TELEFONO_RIDER</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_RIDER_2</UnderlyingIndexName>
@@ -1941,15 +2189,31 @@ NORDINE</ColNames>
       <Position>1</Position>
     </column>
     <index id="627" parent="529" name="sqlite_autoindex_ZONA_1">
+=======
+    <key id="109" parent="13">
+      <ColNames>TELEFONO_RIDER</ColNames>
+      <UnderlyingIndexName>sqlite_autoindex_RIDER_2</UnderlyingIndexName>
+    </key>
+    <column id="110" parent="14" name="ID_ZONA">
+      <DasType>TEXT(4)|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <index id="111" parent="14" name="sqlite_autoindex_ZONA_1">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>ID_ZONA</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
+<<<<<<< HEAD
     <key id="628" parent="529">
+=======
+    <key id="112" parent="14">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <ColNames>ID_ZONA</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_ZONA_1</UnderlyingIndexName>
     </key>
+<<<<<<< HEAD
     <column id="629" parent="530" name="type">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
@@ -1967,6 +2231,25 @@ NORDINE</ColNames>
       <Position>4</Position>
     </column>
     <column id="633" parent="530" name="sql">
+=======
+    <column id="113" parent="15" name="type">
+      <DasType>TEXT|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="114" parent="15" name="name">
+      <DasType>TEXT|0s</DasType>
+      <Position>2</Position>
+    </column>
+    <column id="115" parent="15" name="tbl_name">
+      <DasType>TEXT|0s</DasType>
+      <Position>3</Position>
+    </column>
+    <column id="116" parent="15" name="rootpage">
+      <DasType>INT|0s</DasType>
+      <Position>4</Position>
+    </column>
+    <column id="117" parent="15" name="sql">
+>>>>>>> 0fa057edb9b4e2364b9c07006ec5eba5bc9dc456
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>

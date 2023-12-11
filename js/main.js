@@ -27,6 +27,79 @@ function openAccount() {
   // Logica per aprire l'account
   console.log("Apri l'account");
 }
+function gestisciMetodoPagamento() {
+  var metodoPagamento = document.getElementById("metodo-pagamento").value;
+  var informazioniCarta = document.getElementById("informazioni-carta");
+
+  // Mostra/nascondi i campi sulla carta di credito in base alla scelta dell'utente
+  if (metodoPagamento === "carta") {
+    informazioniCarta.style.display = "block";
+  } else {
+    informazioniCarta.style.display = "none";
+  }
+}
+// Funzione per gestire la registrazione dell'utente
+async function registrati() {
+  // Recupera i valori dai campi del modulo di registrazione
+  let nome = document.getElementById("nome").value;
+  let cognome = document.getElementById("cognome").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  let via = document.getElementById("via").value;
+  let citta = document.getElementById("citta").value;
+  let cap = document.getElementById("cap").value;
+  let citofono = document.getElementById("citofono").value;
+  let metodoPagamento = document.getElementById("metodo-pagamento").value;
+
+  // Se il metodo di pagamento è la carta, recupera anche le informazioni sulla carta di credito
+  let numeroCarta, scadenzaCarta, cvv;
+  if (metodoPagamento === "carta") {
+    numeroCarta = document.getElementById("numero-carta").value;
+    scadenzaCarta = document.getElementById("scadenza-carta").value;
+    cvv = document.getElementById("cvv").value;
+  }
+
+  // Crea un oggetto con i dati dell'utente
+  let utente = {
+    nome,
+    cognome,
+    email,
+    password,
+    indirizzoConsegna: {
+      via,
+      citta,
+      cap,
+      citofono
+    },
+    metodoPagamento: {
+      tipo: metodoPagamento,
+      numeroCarta,
+      scadenzaCarta,
+      cvv
+    }
+  };
+
+  try {
+    // Effettua una richiesta di registrazione al tuo backend (sostituisci con l'URL corretto)
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(utente),
+    });
+
+    if (response.status === 201) {
+      console.log('Utente registrato con successo');
+    } else {
+      const data = await response.json();
+      console.error('Errore durante la registrazione dell\'utente:', data.message);
+    }
+  } catch (error) {
+    console.error('Errore durante la registrazione dell\'utente:', error);
+  }
+}
+
 
 document.addEventListener('DOMContentLoaded', async function () {
   try {

@@ -85,7 +85,32 @@ function creaCartaLocale(locale) {
   card.appendChild(nameElement);
   card.appendChild(cuisineElement);
 
+  // Aggiungi un gestore di eventi per aprire i dettagli del locale al clic
+  card.addEventListener('click', () => mostraDettagliLocale(locale));
+
   return card;
+}
+
+// Funzione per mostrare i dettagli del locale
+function mostraDettagliLocale(locale) {
+  const restaurantDetails = document.getElementById('restaurant-details');
+  restaurantDetails.innerHTML = ''; // Pulisce eventuali dettagli preesistenti
+
+  // Aggiungi dettagli del locale al lato destro
+  const nameElement = document.createElement('h2');
+  nameElement.textContent = locale.NOME_LOCALE;
+
+  const cuisineElement = document.createElement('p');
+  cuisineElement.textContent = `Cucina: ${locale.TIPO_PRODOTTO || 'N/A'}`;
+
+  // Aggiungi ulteriori dettagli secondo necessità
+
+  // Aggiungi elementi al lato destro
+  restaurantDetails.appendChild(nameElement);
+  restaurantDetails.appendChild(cuisineElement);
+
+  // Mostra il lato destro con i dettagli del locale
+  restaurantDetails.style.display = 'block';
 }
 
 function toggleSidebar() {

@@ -1,8 +1,11 @@
 const express = require('express');
 const sqlite3 = require('sqlite3');
+const cors = require('cors');
 
 const app = express();
 const port = 3000;
+
+app.use(cors()); // Configurazione CORS
 
 // Configurazione del database SQLite
 const db = new sqlite3.Database('../identifier.sqlite', (err) => {

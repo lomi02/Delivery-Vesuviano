@@ -187,7 +187,8 @@ button:hover {
   margin-bottom: 20px;
 }
 
-.carta-locale {
+/* Sostituisci .carta-locale con .locale-card */
+.locale-card {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -198,7 +199,7 @@ button:hover {
   cursor: pointer;
 }
 
-.carta-locale:hover {
+.locale-card:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -226,12 +227,6 @@ button:hover {
   font-size: 1.2em;
   color: #555;
   margin-bottom: 8px;
-}
-
-#purchasable-items {
-  display: none;
-  margin: 20px 0;
-  width: 80%;
 }
 
 footer {

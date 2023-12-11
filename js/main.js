@@ -1,24 +1,23 @@
-function toggleSidebar() {
-  var sidebar = document.getElementById("sidebar");
-  sidebar.classList.toggle("active");
-  // Cambia la visibilità delle icone in base allo stato della barra laterale
-  var menuIcon = document.getElementById("menu-icon");
-  var closeIcon = document.getElementById("close-icon");
-
-  if (sidebar.classList.contains("active")) {
-    menuIcon.style.display = "none";
-    closeIcon.style.display = "inline";
-  } else {
-    menuIcon.style.display = "inline";
-    closeIcon.style.display = "none";
-  }
-}
-window.addEventListener('beforeunload', function () {
-  var sidebar = document.getElementById("sidebar");
-
-  // Chiudi la sidebar prima di scaricare la pagina
-  sidebar.classList.remove("active");
+document.addEventListener('DOMContentLoaded', function () {
+  // Chiamata alla funzione per chiudere la sidebar quando la pagina è completamente caricata
+  closeSidebar();
 });
+
+function toggleSidebar() {
+  let sidebar = document.getElementById("sidebar");
+  sidebar.classList.toggle("active");
+}
+
+function closeSidebar() {
+  let sidebar = document.getElementById("sidebar");
+  sidebar.classList.remove("active");
+}
+
+window.addEventListener('beforeunload', function () {
+  // Chiudi la sidebar prima di scaricare la pagina
+  closeSidebar();
+});
+
 function openCart() {
   // Logica per aprire il carrello
   console.log("Apri il carrello");

@@ -5,30 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Delivery Vesuviano</title>
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
-
-<!-- Icone carrello e account -->
 <div class="top-icons">
-  <div class="cart-icon">
-    <!-- Icona del carrello di Font Awesome -->
-    <i class="fas fa-shopping-cart" onclick="openCart()"></i>
-  </div>
-  <div class="account-icon">
-    <!-- Icona dell'account di Font Awesome -->
-    <i class="fas fa-user" onclick="openAccount()"></i>
-  </div>
+  <i class="fas fa-shopping-cart cart-icon" onclick="openCart()"></i>
+  <i class="fas fa-user account-icon" onclick="openAccount()"></i>
 </div>
-
-<!-- Header -->
-<header>
-  <div class="header-container">
-    <!-- Homepage Shortcut -->
-    <a href="index.html" class="home-link">Delivery Vesuviano</a>
-  </div>
-</header>
-
-<!-- Sidebar -->
 <div class="sidebar active" id="sidebar">
   <button onclick="toggleSidebar()">&#9776;Menu</button>
   <ul>
@@ -49,6 +32,13 @@
     </li>
   </ul>
 </div>
+<!-- Header Section -->
+<header>
+  <div class="header-container">
+    <!-- Homepage Shortcut -->
+    <a href="index.html" class="home-link">Delivery Vesuviano</a>
+  </div>
+</header>
 
 <!-- Filter Section -->
 <section id="filter-bar">
@@ -69,6 +59,17 @@
   </div>
 </section>
 
+<!-- Icone carrello e account -->
+<div class="top-icons">
+  <div class="cart-icon">
+    <!-- Icona del carrello di Font Awesome -->
+    <i class="fas fa-shopping-cart"></i>
+  </div>
+  <div class="account-icon">
+    <!-- Icona dell'account di Font Awesome -->
+    <i class="fas fa-user"></i>
+  </div>
+</div>
 
 <!-- Restaurant Grid Section -->
 <section id="restaurant-grid" class="restaurant-grid">
@@ -78,48 +79,62 @@
     <select id="locale-filter">
       <!-- Options will be dynamically added here -->
     </select>
-
     <!-- Restaurant Container -->
     <section id="restaurant-container" class="restaurant-container">
       <!-- Restaurant cards will be dynamically added here -->
     </section>
   </section>
 
-  <!-- Purchasable Items -->
-  <section id="purchasable-items" style="display: none;">
-    <h2>Menu</h2>
-    <!-- Example purchasable items with buttons -->
-    <div class="item" data-name="Item 1" data-price="10.99">
-      <p>Item 1</p>
-      <span>$10.99</span>
-      <button class="add-to-cart">Add to Cart</button>
+  <!-- Example restaurant card template (can be hidden) -->
+  <div class="restaurant-card-template" style="display: none;">
+    <img src="" alt="" class="restaurant-image">
+    <div class="restaurant-details">
+      <h2 class="restaurant-name"></h2>
+      <p class="restaurant-cuisine"></p>
+      <p class="restaurant-description"></p>
+      <a href="#" class="view-menu">View Menu</a>
     </div>
-  </section>
-
-  <!-- Cart -->
-  <section id="cart" style="display: none;">
-    <h2>Shopping Cart</h2>
-    <ul id="cart-items"></ul>
-    <p>Total: <span id="total-price">$0.00</span></p>
-    <button id="checkout-btn">Checkout</button>
-  </section>
+  </div>
 </section>
 
-  <!-- Footer Section -->
-  <footer>
-    <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
-  </footer>
+<!-- Purchasable Items Section -->
+<section id="purchasable-items" style="display: none;">
+  <h2>Menu</h2>
+  <!-- Example purchasable items with buttons -->
+  <div class="item" data-name="Item 1" data-price="10.99">
+    <p>Item 1</p>
+    <span>$10.99</span>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
 
-  <!-- Chiamata Script -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
+  <div class="item" data-name="Item 2" data-price="8.99">
+    <p>Item 2</p>
+    <span>$8.99</span>
+    <button class="add-to-cart">Add to Cart</button>
+  </div>
 
-      // Chiamata alla funzione toggleSidebar() quando la pagina è completamente caricata
-      toggleSidebar();
-    });
-  </script>
+  <!-- Add more purchasable items as needed -->
+</section>
 
-  <script src="js/main.js"></script>
+<!-- Cart Section -->
+<section id="cart" style="display: none;">
+  <h2>Shopping Cart</h2>
+  <ul id="cart-items"></ul>
+  <p>Total: <span id="total-price">$0.00</span></p>
+  <button id="checkout-btn">Checkout</button>
+</section>
 
+<!-- Footer Section -->
+<footer>
+  <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
+</footer>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+
+    // Chiamata alla funzione toggleSidebar() quando la pagina è completamente caricata
+    toggleSidebar();
+  });
+</script>
+<script src="js/main.js"></script>
 </body>
 </html>

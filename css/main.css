@@ -72,7 +72,11 @@ body {
 
 .top-icons .cart-icon:hover,
 .top-icons .account-icon:hover {
+<<<<<<< HEAD
   color: #fffefe;
+=======
+  color: #fffefe; /* Cambia colore quando il mouse è sopra */
+>>>>>>> 6588a5b9378ed7daac21eb13afc0ff339bba2b5e
 }
 
 header {

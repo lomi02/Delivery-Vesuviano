@@ -72,7 +72,7 @@ body {
 /* Aggiungi stile quando passi il mouse sopra le icone */
 .top-icons .cart-icon:hover,
 .top-icons .account-icon:hover {
-  color: #fffefe; /* Cambia colore quando il mouse Ã¨ sopra */
+  color: #fffefe; /* Cambia colore quando il mouse è sopra */
 }
 
 header {

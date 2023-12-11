@@ -1,3 +1,33 @@
+document.addEventListener('DOMContentLoaded', function () {
+  // Chiamata alla funzione per chiudere la sidebar quando la pagina è completamente caricata
+  closeSidebar();
+});
+
+function toggleSidebar() {
+  let sidebar = document.getElementById("sidebar");
+  sidebar.classList.toggle("active");
+}
+
+function closeSidebar() {
+  let sidebar = document.getElementById("sidebar");
+  sidebar.classList.remove("active");
+}
+
+window.addEventListener('beforeunload', function () {
+  // Chiudi la sidebar prima di scaricare la pagina
+  closeSidebar();
+});
+
+function openCart() {
+  // Logica per aprire il carrello
+  console.log("Apri il carrello");
+}
+
+function openAccount() {
+  // Logica per aprire l'account
+  console.log("Apri l'account");
+}
+
 document.addEventListener('DOMContentLoaded', async function () {
   try {
     // Chiamata al backend per ottenere i dati dei locali
@@ -117,29 +147,4 @@ function toggleSidebar() {
   const sidebar = document.getElementById("sidebar");
   const menuIcon = document.getElementById("menu-icon");
   const closeIcon = document.getElementById("close-icon");
-
-  if (sidebar) {
-    sidebar.classList.toggle("active");
-
-    // Cambia la visibilità delle icone in base allo stato della barra laterale
-    if (sidebar.classList.contains("active")) {
-      menuIcon.style.display = "none";
-      closeIcon.style.display = "inline";
-    } else {
-      menuIcon.style.display = "inline";
-      closeIcon.style.display = "none";
-    }
-  }
-}
-
-// Funzione per gestire l'apertura del carrello
-function openCart() {
-  // Logica per aprire il carrello
-  console.log("Apri il carrello");
-}
-
-// Funzione per gestire l'apertura dell'account
-function openAccount() {
-  // Logica per aprire l'account
-  console.log("Apri l'account");
 }

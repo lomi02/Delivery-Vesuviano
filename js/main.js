@@ -3,11 +3,6 @@ document.addEventListener('DOMContentLoaded', function () {
   closeSidebar();
 });
 
-function toggleSidebar() {
-  let sidebar = document.getElementById("sidebar");
-  sidebar.classList.toggle("active");
-}
-
 function closeSidebar() {
   let sidebar = document.getElementById("sidebar");
   sidebar.classList.remove("active");

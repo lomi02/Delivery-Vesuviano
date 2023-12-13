@@ -1,38 +1,21 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // Chiamata alla funzione per chiudere la sidebar quando la pagina è completamente caricata
-  closeSidebar();
-});
+document.addEventListener('DOMContentLoaded', async function () {
+  try {
 
-function closeSidebar() {
-  let sidebar = document.getElementById("sidebar");
-  sidebar.classList.remove("active");
-}
+    // Chiamata al backend per ottenere i dati dei locali
+    const response = await fetch('http://localhost:3000/api/locale');
+    const locali = await response.json();
 
-window.addEventListener('beforeunload', function () {
-  // Chiudi la sidebar prima di scaricare la pagina
-  closeSidebar();
-});
+    console.log('Dati ottenuti:', locali); // Aggiungi questo per verificare i dati
 
-function openCart() {
-  // Logica per aprire il carrello
-  console.log("Apri il carrello");
-}
+    // Aggiorna l'UI con i dati ottenuti
+    aggiornaGrigliaLocali(locali);
 
-function openAccount() {
-  // Logica per aprire l'account
-  console.log("Apri l'account");
-}
-function gestisciMetodoPagamento() {
-  var metodoPagamento = document.getElementById("metodo-pagamento").value;
-  var informazioniCarta = document.getElementById("informazioni-carta");
-
-  // Mostra/nascondi i campi sulla carta di credito in base alla scelta dell'utente
-  if (metodoPagamento === "carta") {
-    informazioniCarta.style.display = "block";
-  } else {
-    informazioniCarta.style.display = "none";
   }
-}
+  catch (error) {
+    console.error('Errore nel recupero dei dati del locale:', error);
+  }
+});
+
 // Funzione per gestire la registrazione dell'utente
 async function registrati() {
   // Recupera i valori dai campi del modulo di registrazione
@@ -95,38 +78,24 @@ async function registrati() {
   }
 }
 
+// Funzione per gestire il metodo di pagamento
+function gestisciMetodoPagamento() {
+  let metodoPagamento = document.getElementById("metodo-pagamento").value;
+  let informazioniCarta = document.getElementById("informazioni-carta");
 
-document.addEventListener('DOMContentLoaded', async function () {
-
-  // Aggiungi eventi di apertura per carrello e account
-  document.querySelector('.cart-icon').addEventListener('click', openCart);
-  document.querySelector('.account-icon').addEventListener('click', openAccount);
-
-  try {
-    // Chiamata al backend per ottenere i dati dei locali
-    const response = await fetch('http://localhost:3000/api/locale');
-    const locali = await response.json();
-
-    console.log('Dati ottenuti:', locali); // Aggiungi questo per verificare i dati
-
-    // Aggiorna l'UI con i dati ottenuti
-    aggiornaGrigliaLocali(locali);
-
-    // Toggle della sidebar dopo il recupero dei dati
-    toggleSidebar();
-
-    // Altri eventi e funzionalità possono essere aggiunti qui
-    // ...
-  } catch (error) {
-    console.error('Errore nel recupero dei dati del locale:', error);
+  // Mostra/nascondi i campi sulla carta di credito in base alla scelta dell'utente
+  if (metodoPagamento === "carta") {
+    informazioniCarta.style.display = "block";
+  } else {
+    informazioniCarta.style.display = "none";
   }
-});
+}
 
 async function mostraLocali() {
   try {
     const response = await fetch('http://localhost:3000/api/locale');
-    const restaurants = await response.json();
-    aggiornaGrigliaLocali(restaurants);
+    const locali = await response.json();
+    aggiornaGrigliaLocali(locali);
   } catch (error) {
     console.error('Errore durante il recupero e la visualizzazione dei ristoranti:', error);
   }
@@ -170,10 +139,8 @@ function creaCartaLocale(locale) {
 
 // Funzione per mostrare i dettagli del locale
 function mostraDettagliLocale(locale) {
-  const restaurantDetails = document.getElementById('restaurant-details');
-  restaurantDetails.innerHTML = ''; // Pulisce eventuali dettagli preesistenti
-  const dettagliLocale = document.getElementById('restaurant-details');
-  dettagliLocale.innerHTML = ''; // Pulisce eventuali dettagli preesistenti
+  const dettagliLocale = document.getElementById('dettagli-locale');
+  dettagliLocale.innerHTML = '';
 
   // Aggiungi dettagli del locale al lato destro
   const nameElement = document.createElement('h2');
@@ -181,22 +148,38 @@ function mostraDettagliLocale(locale) {
 
   const cuisineElement = document.createElement('p');
   cuisineElement.textContent = `Cucina: ${locale.TIPO_PRODOTTO || 'N/A'}`;
-
-  // Mostra il lato destro con i dettagli del locale
-  dettagliLocale.style.display = 'block';
 }
 
-function toggleSidebar() {
-  const sidebar = document.getElementById("sidebar");
-  const menuIcon = document.getElementById("menu-icon");
-  const closeIcon = document.getElementById("close-icon");
-  sidebar.classList.toggle("active");
+// Funzione per gestire il login lato client
+async function handleLogin(email, password) {
+  try {
+    const response = await fetch('http://localhost:3000/api/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({email, password}),
+    });
 
-  if (sidebar.classList.contains("active")) {
-    menuIcon.style.display = "none";
-    closeIcon.style.display = "inline";
-  } else {
-    menuIcon.style.display = "inline";
-    closeIcon.style.display = "none";
+    const result = await response.json();
+
+    if (response.ok) {
+
+      // Login riuscito
+      console.log(result.message);
+
+      // Salva le informazioni di autenticazione nel localStorage o nei cookie
+      localStorage.setItem('utenteAutenticato', JSON.stringify(result.user));
+    }
+    else {
+      // Login non riuscito
+      console.error(result.error);
+    }
+  } catch (error) {
+    console.error('Errore durante il login:', error);
   }
+}
+
+function navigate(url) {
+  window.location.href = url;
 }

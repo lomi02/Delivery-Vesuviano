@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Login Page</title>
+  <title>Delivery Vesuviano</title>
   <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </head>
 <body>
 
@@ -57,48 +58,17 @@
   </a>
 </div>
 
-<!-- Sezione del contenuto di pagina -->
-<section class="page-content">
-  <form id="loginForm">
-    <label>
-      <input type="text" name="username" placeholder="Username" required />
-      <input type="password" name="password" placeholder="Password" required />
-    </label>
-    <button type="submit">Login</button>
-  </form>
-  <p>Non sei registrato? <a href="register.html">Effettua la registrazione qui</a></p>
+<!-- Sezione Footer -->
+<footer>
+  <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
+</footer>
 
-  <!-- Sezione Login -->
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', async (event) => {
-      event.preventDefault();
+<!-- Sezione Carrello -->
+<script>
 
-      const formData = {
-        username: event.target.username.value,
-        password: event.target.password.value,
-      };
+  <!-- Aggiungi Sezione Carrello -->
 
-      try {
-        const response = await fetch('/api/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData),
-        });
-
-        if (response.status === 200) {
-          console.log('Login successful');
-        } else {
-          const data = await response.json();
-          console.error('Error logging in:', data.message);
-        }
-      } catch (error) {
-        console.error('Error logging in:', error);
-      }
-    });
-  </script>
-</section>
+</script>
 <script src="js/main.js"></script>
 </body>
 </html>

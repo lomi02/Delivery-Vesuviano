@@ -1,112 +1,123 @@
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
 }
 
-/* Configurazione generale della barra laterale */
-.sidebar {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  background-color: #111;
-  padding-top: 20px;
-  transition: 0.5s;
-  overflow-x: hidden;
+header {
+  position: static; /* O relativo, a seconda delle tue esigenze */
+  background-color: #333;
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  text-align: center;
 }
 
-.sidebar.active {
-  width: 250px;
-}
-
-.sidebar button {
-  font-size: 20px;
-  background: none;
+button {
+  background-color: #ffcc00;
+  color: #333;
+  padding: 14px 28px;
   border: none;
-  color: white;
   cursor: pointer;
-  position: fixed;
-  top: 10px;
-  left: 20px;
-  z-index: 999;
+  font-size: 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
 }
 
-.sidebar a {
-  padding: 10px;
-  text-decoration: none;
-  font-size: 18px;
-  color: #818181;
-  display: block;
-  margin-top: 40px;
+button:hover {
+  background-color: #e6b800;
 }
 
-.sidebar a:hover {
-  color: #f1f1f1;
-}
-
-.submenu {
-  padding-left: 20px;
-  display: none;
-  background-color: #111;
-}
-
-.sidebar.active .submenu {
-  display: block;
-}
-
-.top-icons {
+.button-container {
   position: fixed;
   top: 20px;
   right: 20px;
   display: flex;
+  gap: 10px;
 }
 
-.top-icons .cart-icon,
-.top-icons .account-icon {
-  font-size: 24px;
-  margin-left: 10px;
-  cursor: pointer;
-  color: #ffcc00;
-}
-
-.top-icons .cart-icon:hover,
-.top-icons .account-icon:hover {
-<<<<<<< HEAD
-<<<<<<< HEAD
-  color: #fffefe;
-=======
-  color: #fffefe; /* Cambia colore quando il mouse è sopra */
->>>>>>> a1ff46d2567a8d73f087e3ebc67c9ef7541c82b0
-=======
-  color: #fffefe;
->>>>>>> lorenzo
-}
-
-header {
-  background-color: #333;
+.login-button,
+.cart-button,
+.github-button,
+.credits-button{
+  overflow: hidden;
+  height: 2rem;
+  padding: 0 1rem;
+  border-radius: 1rem;
+  background: #3d3a4e;
+  background-size: 400%;
   color: #fff;
-  padding: 20px;
-  text-align: center;
-  margin-bottom: 20px;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.login-button:hover::before,
+.cart-button:hover::before,
+.github-button:hover::before,
+.credits-button:hover::before {
+  transform: scaleX(1);
+}
+
+.button-content {
+  position: relative;
+  z-index: 2; /* Incrementato il valore di z-index */
+}
+
+.icon {
+  margin-left: 0.5rem;
+  display: flex;
+  align-items: center;
+  z-index: 3; /* Incrementato il valore di z-index */
+}
+
+.icon img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.login-button::before,
+.cart-button::before,
+.github-button::before,
+.credits-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  width: 100%;
+  height: inherit;
+  border-radius: inherit;
+  background: linear-gradient(
+    82.3deg,
+    rgba(150, 93, 233, 1) 10.8%,
+    rgba(99, 88, 238, 1) 94.3%
+  );
+  transition: all 0.475s;
+}
+
+.login-button:hover::before {
+  transform: scaleX(1);
+}
+
+.cart-button:hover::before {
+  transform:scaleX(1);
+}
+
+.github-button:hover::before {
+  transform: scaleX(1);
+}
+
+.credits-button:hover::before {
+  transform: scaleX(1);
 }
 
 .home-link {
   text-decoration: none;
   color: #ffcc00;
   font-size: 2em;
-  font-weight: bold;
-}
-
-.user-options {
-  margin-top: 20px;
-  display: flex;
-}
-
-.user-options a {
-  margin-right: 20px;
-  text-decoration: none;
-  color: #fff;
   font-weight: bold;
 }
 
@@ -140,21 +151,6 @@ input {
   border-radius: 6px;
 }
 
-button {
-  background-color: #ffcc00;
-  color: #333;
-  padding: 14px 28px;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  border-radius: 6px;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #e6b800;
-}
-
 .griglia-locali {
   display: flex;
   flex-direction: column;
@@ -163,7 +159,7 @@ button:hover {
   margin-bottom: 20px;
 }
 
-.locale-card {
+.carta-locale {
   border: 1px solid #ddd;
   border-radius: 8px;
   overflow: hidden;
@@ -174,7 +170,7 @@ button:hover {
   cursor: pointer;
 }
 
-.locale-card:hover {
+.carta-locale:hover {
   transform: scale(1.05);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
@@ -204,14 +200,8 @@ button:hover {
   margin-bottom: 8px;
 }
 
-#purchasable-items {
-  display: none;
-  margin: 20px 0;
-  width: 80%;
-}
-
 footer {
-  margin: 20px 0;
+  margin: 0;
   text-align: center;
   padding: 20px;
   background-color: #333;

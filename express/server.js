@@ -74,6 +74,57 @@ app.post('/api/register', (req, res) => {
   }
 });
 
+// API di Login
+app.post('/api/login', (req, res) => {
+  const { email, password } = req.body;
+
+  // Esecuzione dell'istruzione SQL per verificare le credenziali
+  const loginQuery = `
+    SELECT * FROM CLIENTE
+    WHERE EMAIL = ? AND PASSWORD = ?
+  `;
+
+  db.get(loginQuery, [email, password], (err, row) => {
+    if (err) {
+      console.error('Errore durante la query di login:', err.message);
+      res.status(500).json({ error: 'Internal Server Error', details: err.message });
+    } else if (row) {
+      // Utente autenticato
+      console.log('Login avvenuto con successo:', row);
+      res.status(200).json({ message: 'Login avvenuto con successo', user: row });
+    } else {
+      // Credenziali non valide
+      console.log('Credenziali non valide');
+      res.status(401).json({ error: 'Credenziali non valide' });
+    }
+  });
+});
+
+// Funzione per la verifica dello stato di login
+function checkUserLoginStatus(email, password, callback) {
+
+  // Esecuzione dell'istruzione SQL per verificare le credenziali
+  const loginQuery = `
+    SELECT * FROM CLIENTE
+    WHERE EMAIL = ? AND PASSWORD = ?
+  `;
+
+  db.get(loginQuery, [email, password], (err, row) => {
+    if (err) {
+      console.error('Errore durante la query di login:', err.message);
+      callback(false);
+    } else if (row) {
+      // Utente autenticato
+      console.log('Login avvenuto con successo:', row);
+      callback(true, row);
+    } else {
+      // Credenziali non valide
+      console.log('Credenziali non valide');
+      callback(false);
+    }
+  });
+}
+
 // Avvio del server
 app.listen(port, () => {
   console.log(`Il server è in ascolto sulla porta ${port}`);

@@ -99,8 +99,6 @@ async function registrati() {
     console.error('Errore durante la registrazione dell\'utente:', error);
   }
 }
-
-
 document.addEventListener('DOMContentLoaded', async function () {
   try {
     // Chiamata al backend per ottenere i dati dei locali

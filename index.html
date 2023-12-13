@@ -12,6 +12,7 @@
   <i class="fas fa-shopping-cart cart-icon" onclick="openCart()"></i>
   <i class="fas fa-user account-icon" onclick="openAccount()"></i>
 </div>
+
 <div class="sidebar active" id="sidebar">
   <button onclick="toggleSidebar()">&#9776;Menu</button>
   <ul>
@@ -20,7 +21,7 @@
       <a href="login.html">Account</a>
       <ul class="submenu">
         <li><a href="#">Informazioni Pagamento</a></li>
-        <li><a href="Indirizzi.html">Indirizzo di consegna</a></li>
+        <li><a href="#">Indirizzo di consegna</a></li>
         <li><a href="#">Ordini Effetuati</a></li>
       </ul>
     </li>
@@ -32,6 +33,7 @@
     </li>
   </ul>
 </div>
+
 <!-- Header Section -->
 <header>
   <div class="header-container">
@@ -40,28 +42,6 @@
   </div>
 </header>
 
-<!-- Filter Section -->
-<section id="filter-bar">
-  <div id="filter-options">
-    <div class="filter-option" data-filter="all">
-      <img src="img/all.png" alt="All">
-      <p>No Filter</p>
-    </div>
-    <div class="filter-option" data-filter="sushi">
-      <img src="img/sushi.png" alt="Sushi">
-      <p>Sushi</p>
-    </div>
-    <div class="filter-option" data-filter="pub">
-      <img src="img/pub.png" alt="Pub">
-      <p>Pub</p>
-    </div>
-    <!-- Add more filter options as needed -->
-  </div>
-</section>
-<<<<<<< HEAD
-
-
-=======
 <!-- Icone carrello e account -->
 <div class="top-icons">
   <div class="cart-icon">
@@ -73,51 +53,13 @@
     <i class="fas fa-user"></i>
   </div>
 </div>
->>>>>>> a1ff46d2567a8d73f087e3ebc67c9ef7541c82b0
+
 <!-- Restaurant Grid Section -->
-<section id="restaurant-grid" class="restaurant-grid">
-  <!-- Filter Section -->
-  <section id="filter">
-    <label for="locale-filter">Filter by Locale:</label>
-    <select id="locale-filter">
-      <!-- Options will be dynamically added here -->
-    </select>
-    <!-- Restaurant Container -->
-    <section id="restaurant-container" class="restaurant-container">
-      <!-- Restaurant cards will be dynamically added here -->
-    </section>
-    <div id="restaurant-container"></div>
+<section class="griglia-locali" id="griglia-locali">
+  <!-- Restaurant Container -->
+  <section id="contenitore-locale" class="contenitore-locale">
+    <!-- Restaurant cards will be dynamically added here -->
   </section>
-
-  <!-- Example restaurant card template (can be hidden) -->
-  <div class="restaurant-card-template" style="display: none;">
-    <img src="" alt="" class="restaurant-image">
-    <div class="restaurant-details">
-      <h2 class="restaurant-name"></h2>
-      <p class="restaurant-cuisine"></p>
-      <p class="restaurant-description"></p>
-      <a href="#" class="view-menu">View Menu</a>
-    </div>
-  </div>
-</section>
-
-<!-- Purchasable Items Section -->
-<section id="purchasable-items" style="display: none;">
-  <h2>Menu</h2>
-  <!-- Example purchasable items with buttons -->
-  <div class="item" data-name="Item 1" data-price="10.99">
-    <p>Item 1</p>
-    <span>$10.99</span>
-    <button class="add-to-cart">Add to Cart</button>
-  </div>
-
-  <div class="item" data-name="Item 2" data-price="8.99">
-    <p>Item 2</p>
-    <span>$8.99</span>
-    <button class="add-to-cart">Add to Cart</button>
-  </div>
-
-  <!-- Add more purchasable items as needed -->
 </section>
 
 <!-- Cart Section -->
@@ -132,11 +74,20 @@
 <footer>
   <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
 </footer>
+
 <script src="js/main.js"></script>
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Chiamata alla funzione toggleSidebar() quando la pagina è completamente caricata
+  document.addEventListener('DOMContentLoaded', async function () {
     toggleSidebar();
+    try {
+      const response = await fetch('http://localhost:3000/api/locale');
+      const locali = await response.json();
+      await mostraLocali();
+      aggiornaGrigliaLocali(locali);
+      toggleSidebar();
+    } catch (error) {
+      console.error('Errore nel recupero dei dati del locale:', error);
+    }
   });
 </script>
 </body>

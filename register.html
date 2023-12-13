@@ -44,11 +44,51 @@
   <!-- Registration Form -->
   <!-- HTML form for user registration -->
   <form id="registerForm">
-    <input type="text" name="username" placeholder="Username" required />
-    <input type="email" name="email" placeholder="Email" required />
-    <input type="password" name="password" placeholder="Password" required />
-    <button type="submit">Register</button>
-  </form>
+    <h2>Dati personali</h2>
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <label for="cognome">Cognome:</label>
+      <input type="text" id="cognome" name="cognome">
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+    <h2>Indirizzo di consegna</h2>
+    <label for="via">Via:</label>
+    <input type="text" id="via" name="via" required>
+
+    <label for="citta">Città:</label>
+    <input type="text" id="citta" name="citta" required>
+
+    <label for="cap">CAP:</label>
+    <input type="text" id="cap" name="cap" required>
+
+    <label for="citofono">Citofono:</label>
+    <input type="text" id="citofono" name="citofono">
+<h2>Informazioni di pagamento</h2>
+    <label for="metodo-pagamento">Metodo di Pagamento:</label>
+    <select id="metodo-pagamento" onchange="gestisciMetodoPagamento()">
+    <option value="contanti">Contanti</option>
+    <option value="carta">Carta di Credito</option>
+    </select>
+
+    <!-- Campi per le informazioni sulla carta di credito -->
+    <div id="informazioni-carta" style="display:none;">
+      <label for="numero-carta">Numero Carta di Credito:</label>
+      <input type="text" id="numero-carta" name="numero-carta">
+
+      <label for="scadenza-carta">Scadenza Carta di Credito:</label>
+      <input type="text" id="scadenza-carta" name="scadenza-carta">
+
+      <label for="cvv">CVV:</label>
+      <input type="text" id="cvv" name="cvv">
+    </div>
+
+      <button type="button" onclick="registrati()">Registra</button>
+  </>
 
   <!-- JavaScript to handle form submission -->
   <script>

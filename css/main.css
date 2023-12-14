@@ -1,15 +1,39 @@
 body {
-  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  margin: 0 auto;
   padding: 0;
+  background-color: #333;
+  overflow-x: hidden;
 }
 
 header {
-  position: static; /* O relativo, a seconda delle tue esigenze */
+  position: static;
+  top: 0;
+  left: 0;
+  padding: 20px;
+  width: 100%;
   background-color: #333;
   color: #fff;
   margin: 0;
-  padding: 20px;
   text-align: center;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  background-color: white;
+  color: #333;
+  text-align: center;
+  z-index: 1000;
+}
+
+main {
+  background-color: white;
+  flex: 1;
+  padding: 10px;
 }
 
 button {
@@ -28,17 +52,19 @@ button:hover {
 }
 
 .button-container {
-  position: fixed;
+  position: absolute;
   top: 20px;
   right: 20px;
   display: flex;
   gap: 10px;
+  width: 250px; /* Cambia questo valore secondo le tue preferenze */
+  z-index: 2000;
 }
 
 .login-button,
 .cart-button,
 .github-button,
-.credits-button{
+.credits-button {
   overflow: hidden;
   height: 2rem;
   padding: 0 1rem;
@@ -62,14 +88,13 @@ button:hover {
 
 .button-content {
   position: relative;
-  z-index: 2; /* Incrementato il valore di z-index */
+  z-index: 2;
 }
 
 .icon {
-  margin-left: 0.5rem;
   display: flex;
   align-items: center;
-  z-index: 3; /* Incrementato il valore di z-index */
+  z-index: 3;
 }
 
 .icon img {
@@ -98,19 +123,10 @@ button:hover {
   transition: all 0.475s;
 }
 
-.login-button:hover::before {
-  transform: scaleX(1);
-}
-
-.cart-button:hover::before {
-  transform:scaleX(1);
-}
-
-.github-button:hover::before {
-  transform: scaleX(1);
-}
-
-.credits-button:hover::before {
+.login-button:hover::before,
+.cart-button:hover::before,
+.github-button:hover::before,
+.credits-button:hover::before{
   transform: scaleX(1);
 }
 
@@ -200,12 +216,15 @@ input {
   margin-bottom: 8px;
 }
 
-footer {
-  margin: 0;
+.login-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 75px;
+  background-color: white;
+}
+
+.center-text {
   text-align: center;
-  padding: 20px;
-  background-color: #333;
-  color: #fff;
 }
 
 @media screen and (max-width: 600px) {

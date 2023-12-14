@@ -8,8 +8,8 @@
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
 </head>
-<body>
 
+<body>
 <!-- Sezione Header -->
 <div class="top-icons">
   <i class="fas fa-shopping-cart cart-icon" onclick="openCart()"></i>
@@ -19,7 +19,6 @@
 <header>
   <a href="index.html" class="home-link">Delivery Vesuviano</a>
 </header>
-
 <!-- Contenitore flessibile per i bottoni -->
 <div class="button-container">
 
@@ -65,33 +64,10 @@
     </button>
   </a>
 </div>
-
-<main>
-  <!-- Sezione griglia dei locali -->
-  <div class="griglia-locali" id="griglia-locali">
-    <section id="contenitore-locale" class="contenitore-locale">
-    </section>
-  </div>
-</main>
-
-<!-- Sezione Footer -->
 <footer>
+  <h1>Registrazione avvenuta con successo!</h1>
+  <p>Grazie per esserti registrato. Ora puoi accedere al tuo account.</p>
   <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
 </footer>
-
-<!-- Collegamento API locale -->
-<script>
-  document.addEventListener('DOMContentLoaded', async function () {
-    try {
-      const response = await fetch('http://localhost:3000/api/locale');
-      const locali = await response.json();
-      await mostraLocali();
-      aggiornaGrigliaLocali(locali);
-    } catch (error) {
-      console.error('Errore nel recupero dei dati del locale:', error);
-    }
-  });
-</script>
-<script src="js/main.js"></script>
 </body>
 </html>

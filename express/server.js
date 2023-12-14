@@ -35,7 +35,10 @@ app.get('/api/locale', (req, res) => {
 // API di Registrazione
 app.post('/api/register', (req, res) => {
   const { nome, cognome, email, password, via, citta, cap, citofono } = req.body;
-
+  if (via === undefined) {
+    res.status(400).json({ message: 'Il campo "via" è obbligatorio' });
+    return;
+  }
   // Esecuzione dell'istruzione SQL di INSERT per aggiungere un nuovo utente
   const insertClienteQuery = `
     INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, PASSWORD)
@@ -48,6 +51,7 @@ app.post('/api/register', (req, res) => {
   `;
   const beginTransaction = 'BEGIN TRANSACTION';
   const commitTransaction = 'COMMIT';
+    // Verifica che 'via' sia definito prima di utilizzarlo nella query di inserimento
 
   try {
     // Inizia la transazione
@@ -70,10 +74,6 @@ app.post('/api/register', (req, res) => {
     db.run('ROLLBACK');
     console.error('Errore durante la registrazione:', error);
     res.status(500).json({ message: 'Errore durante la registrazione' });
-  }
-  finally {
-    // Chiudi la connessione al database
-    db.close();
   }
 });
 

@@ -1,12 +1,15 @@
 const express = require('express');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
+const bodyParser = require('body-parser');
+
 const app = express();
 const port = 3000;
 const path = require('path');
 const dbPath = path.join(__dirname, '../identifier.sqlite');
 
 app.use(cors());
+app.use(bodyParser.json());
 
 const db = new sqlite3.Database(dbPath, (err) => {
   if (err) {
@@ -78,55 +81,23 @@ app.post('/api/register', (req, res) => {
 app.post('/api/login', (req, res) => {
   const { email, password } = req.body;
 
-  // Esecuzione dell'istruzione SQL per verificare le credenziali
-  const loginQuery = `
-    SELECT * FROM CLIENTE
-    WHERE EMAIL = ? AND PASSWORD = ?
-  `;
-
-  db.get(loginQuery, [email, password], (err, row) => {
+  // Replace this with your actual database query logic
+  db.get('SELECT * FROM CLIENTE WHERE EMAIL = ? AND PASSWORD = ?', [email, password], (err, row) => {
     if (err) {
-      console.error('Errore durante la query di login:', err.message);
-      res.status(500).json({ error: 'Internal Server Error', details: err.message });
-    } else if (row) {
-      // Utente autenticato
-      console.log('Login avvenuto con successo:', row);
-      res.status(200).json({ message: 'Login avvenuto con successo', user: row });
+      console.error(err); // Log the error for debugging purposes
+      res.status(500).json({ success: false, message: 'Internal Server Error' });
     } else {
-      // Credenziali non valide
-      console.log('Credenziali non valide');
-      res.status(401).json({ error: 'Credenziali non valide' });
+      if (row) {
+        res.json({ success: true, message: 'Login successful' });
+      } else {
+        res.json({ success: false, message: 'Invalid credentials' });
+      }
     }
   });
 });
 
-// Funzione per la verifica dello stato di login
-function checkUserLoginStatus(email, password, callback) {
-
-  // Esecuzione dell'istruzione SQL per verificare le credenziali
-  const loginQuery = `
-    SELECT * FROM CLIENTE
-    WHERE EMAIL = ? AND PASSWORD = ?
-  `;
-
-  db.get(loginQuery, [email, password], (err, row) => {
-    if (err) {
-      console.error('Errore durante la query di login:', err.message);
-      callback(false);
-    } else if (row) {
-      // Utente autenticato
-      console.log('Login avvenuto con successo:', row);
-      callback(true, row);
-    } else {
-      // Credenziali non valide
-      console.log('Credenziali non valide');
-      callback(false);
-    }
-  });
-}
 
 // Avvio del server
 app.listen(port, () => {
   console.log(`Il server è in ascolto sulla porta ${port}`);
 });
-

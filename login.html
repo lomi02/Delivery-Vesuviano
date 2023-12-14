@@ -66,46 +66,16 @@
 <main>
   <div>
     <form id="loginForm" class="login-container">
-      <label>
-        <input type="text" name="username" placeholder="Username" required/>
-        <input type="password" name="password" placeholder="Password" required/>
-      </label>
-      <button type="submit">Login</button>
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <br>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <br>
+      <button type="button" onclick="login()">Login</button>
     </form>
     <p class="center-text">Non sei registrato? <a href="register.html">Effettua la registrazione qui</a></p>
-
-    <!-- Sezione Login -->
-    <script>
-      document.getElementById('loginForm').addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        const formData = {
-          username: event.target.username.value,
-          password: event.target.password.value,
-        };
-
-        try {
-          const response = await fetch('/api/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData),
-          });
-
-          if (response.status === 200) {
-            console.log('Login successful');
-          } else {
-            const data = await response.json();
-            console.error('Error logging in:', data.message);
-          }
-        } catch (error) {
-          console.error('Error logging in:', error);
-        }
-      });
-    </script>
   </div>
-  <script src="js/main.js"></script>
 </main>
 
 <!-- Sezione Footer -->
@@ -113,5 +83,6 @@
   <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
 </footer>
 
+<script src="js/main.js"></script>
 </body>
 </html>

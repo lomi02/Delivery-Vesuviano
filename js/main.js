@@ -150,33 +150,28 @@ function mostraDettagliLocale(locale) {
   cuisineElement.textContent = `Cucina: ${locale.TIPO_PRODOTTO || 'N/A'}`;
 }
 
-// Funzione per gestire il login lato client
-async function handleLogin(email, password) {
+// Funzione per gestire il login
+async function login() {
   try {
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
     const response = await fetch('http://localhost:3000/api/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({email, password}),
+      body: JSON.stringify({ email, password }),
     });
 
     const result = await response.json();
-
-    if (response.ok) {
-
-      // Login riuscito
-      console.log(result.message);
-
-      // Salva le informazioni di autenticazione nel localStorage o nei cookie
-      localStorage.setItem('utenteAutenticato', JSON.stringify(result.user));
-    }
-    else {
-      // Login non riuscito
-      console.error(result.error);
+    if (result.success) {
+      alert('Login successful!');
+    } else {
+      alert('Login failed. Please check your credentials.');
     }
   } catch (error) {
-    console.error('Errore durante il login:', error);
+    console.error('Error during login:', error);
   }
 }
 

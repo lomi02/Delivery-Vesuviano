@@ -64,13 +64,35 @@ function gestisciMetodoPagamento() {
 
 async function mostraLocali() {
   try {
+    // Effettua una richiesta di registrazione al tuo backend (sostituisci con l'URL corretto)
+    const response = await fetch('/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(utente),
+    });
+
+    if (response.status === 201) {
+      console.log('Utente registrato con successo');
+    } else {
+      const data = await response.json();
+      console.error('Errore durante la registrazione dell\'utente:', data.message);
+    }
+  } catch (error) {
+    console.error('Errore durante la registrazione dell\'utente:', error);
+  }
+}
+document.addEventListener('DOMContentLoaded', async function () {
+  try {
+    // Chiamata al backend per ottenere i dati dei locali
     const response = await fetch('http://localhost:3000/api/locale');
     const locali = await response.json();
     aggiornaGrigliaLocali(locali);
   } catch (error) {
     console.error('Errore durante il recupero e la visualizzazione dei ristoranti:', error);
   }
-}
+});
 
 // Funzione per aggiornare la griglia dei locali
 function aggiornaGrigliaLocali(locali) {

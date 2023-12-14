@@ -17,65 +17,36 @@ document.addEventListener('DOMContentLoaded', async function () {
 });
 
 // Funzione per gestire la registrazione dell'utente
-async function registrati() {
-  // Recupera i valori dai campi del modulo di registrazione
-  let nome = document.getElementById("nome").value;
-  let cognome = document.getElementById("cognome").value;
-  let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
-  let via = document.getElementById("via").value;
-  let citta = document.getElementById("citta").value;
-  let cap = document.getElementById("cap").value;
-  let citofono = document.getElementById("citofono").value;
-  let metodoPagamento = document.getElementById("metodo-pagamento").value;
+function registrati() {
+  console.log('Funzione registrati chiamata');
 
-  // Se il metodo di pagamento è la carta, recupera anche le informazioni sulla carta di credito
-  let numeroCarta, scadenzaCarta, cvv;
-  if (metodoPagamento === "carta") {
-    numeroCarta = document.getElementById("numero-carta").value;
-    scadenzaCarta = document.getElementById("scadenza-carta").value;
-    cvv = document.getElementById("cvv").value;
-  }
-
-  // Crea un oggetto con i dati dell'utente
-  let utente = {
-    nome,
-    cognome,
-    email,
-    password,
-    indirizzoConsegna: {
-      via,
-      citta,
-      cap,
-      citofono
-    },
-    metodoPagamento: {
-      tipo: metodoPagamento,
-      numeroCarta,
-      scadenzaCarta,
-      cvv
-    }
+  const formData = {
+    nome: document.getElementById('nome').value,
+    cognome: document.getElementById('cognome').value,
+    email: document.getElementById('email').value,
+    password: document.getElementById('password').value,
+    via: document.getElementById('via').value,
+    citta: document.getElementById('citta').value,
+    cap: document.getElementById('cap').value,
+    citofono: document.getElementById('citofono').value
   };
 
-  try {
-    // Effettua una richiesta di registrazione al tuo backend (sostituisci con l'URL corretto)
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(utente),
-    });
+  console.log('Dati inviati:', formData);
 
-    if (response.status === 201) {
-      console.log('Utente registrato con successo');
-    } else {
-      const data = await response.json();
-      console.error('Errore durante la registrazione dell\'utente:', data.message);
-    }
-  } catch (error) {
-    console.error('Errore durante la registrazione dell\'utente:', error);
-  }
+  fetch('http://localhost:63343/untitled/register.html', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(formData),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Risposta dal server:', data);
+    })
+    .catch(error => {
+      console.error('Errore durante la richiesta al server:', error);
+    });
 }
 
 // Funzione per gestire il metodo di pagamento
@@ -174,7 +145,6 @@ async function login() {
     console.error('Error during login:', error);
   }
 }
-
 function navigate(url) {
   window.location.href = url;
 }

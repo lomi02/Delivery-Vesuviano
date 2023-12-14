@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="SQLite Database">
-  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.51">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.49">
     <root id="1">
       <ServerVersion>3.43.0</ServerVersion>
     </root>
@@ -446,7 +446,12 @@
     </routine>
     <schema id="177" parent="1" name="main">
       <Current>1</Current>
+<<<<<<< HEAD
       <LastIntrospectionLocalTimestamp>2023-12-14.09:24:08</LastIntrospectionLocalTimestamp>
+=======
+      <IntrospectionTimestamp>2023-12-13.18:43:54.335</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-12-13.17:43:54</LocalIntrospectionTimestamp>
+>>>>>>> aec7c87 (commit x merge)
     </schema>
     <argument id="178" parent="16">
       <ArgumentDirection>R</ArgumentDirection>

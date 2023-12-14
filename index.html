@@ -64,11 +64,23 @@
 
 <main>
   <!-- Sezione griglia dei locali -->
-  <div class="griglia-locali" id="griglia-locali">
-    <section id="contenitore-locale" class="contenitore-locale">
+  <div class="griglia-locali" id="griglia-locali" data-selected-locale-index="">
+    <section id="contenitore-locale" class="contenitore-locale" data-selected-locale-index="">
     </section>
   </div>
+
+  <!-- Sezione dettagli piatto -->
+  <div id="dettagli-locale" class="dettagli-locale">
+    <h2 id="nome-locale"></h2>
+    <p id="categoria-locale"></p>
+    <!-- Aggiungi ulteriori dettagli secondo necessità -->
+    <div class="button-container"> <!-- Utilizza la stessa classe qui -->
+      <button onclick="navigate('index.html')">Home</button>
+      <button onclick="navigate('cart.html')">Acquista</button>
+    </div>
+  </div>
 </main>
+
 
 <!-- Sezione Footer -->
 <footer>

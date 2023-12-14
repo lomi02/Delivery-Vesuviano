@@ -96,6 +96,10 @@ async function mostraLocali() {
     const response = await fetch('http://localhost:3000/api/locale');
     const locali = await response.json();
     aggiornaGrigliaLocali(locali);
+
+    // Nascondi altre schede e mostra la scheda dei locali
+    document.getElementById('griglia-locali').style.display = 'block';
+
   } catch (error) {
     console.error('Errore durante il recupero e la visualizzazione dei ristoranti:', error);
   }
@@ -148,6 +152,28 @@ function mostraDettagliLocale(locale) {
 
   const cuisineElement = document.createElement('p');
   cuisineElement.textContent = `Cucina: ${locale.TIPO_PRODOTTO || 'N/A'}`;
+
+  // Aggiungi pulsante Home
+  const homeButton = document.createElement('button');
+  homeButton.textContent = 'Home';
+  homeButton.addEventListener('click', () => navigate('index.html'));
+
+  // Aggiungi pulsante Acquista
+  const buyButton = document.createElement('button');
+  buyButton.textContent = 'Acquista';
+  buyButton.addEventListener('click', () => navigate('carrello.html'));
+
+  dettagliLocale.appendChild(nameElement);
+  dettagliLocale.appendChild(cuisineElement);
+  dettagliLocale.appendChild(homeButton);
+  dettagliLocale.appendChild(buyButton);
+
+  // Nascondi altre schede e mostra la scheda dei locali
+  document.getElementById('griglia-locali').style.display = 'none';
+
+  // Mostra la sezione dei dettagli del locale con animazione
+  dettagliLocale.style.display = 'block';
+  dettagliLocale.style.transform = 'translateY(0)';
 }
 
 // Funzione per gestire il login

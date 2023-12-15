@@ -206,12 +206,18 @@ input {
   border-radius: 6px;
 }
 
-.griglia-locali {
+.griglia-ristoranti {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.griglia-ristoranti::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .locale-card {
@@ -222,10 +228,19 @@ input {
   margin: 10px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
+  width: 45%;
+  box-sizing: border-box;
 }
 
 .locale-card:hover {
   transform: scale(1.02);
+}
+
+.locale-card img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .dettagli-locale {
@@ -245,10 +260,12 @@ input {
   margin-bottom: 10px;
 }
 
-.categoria-locale {
-  font-size: 1.2em;
-  color: #555;
-  margin-bottom: 8px;
+.contenitore-locale {
+  max-width: 1500px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 
 .login-container {

@@ -1,18 +1,15 @@
 document.addEventListener('DOMContentLoaded', async function () {
   try {
+    const response = await fetch('http://localhost:3000/api/ristorante');
+    const ristoranti = await response.json();
 
-    // Chiamata al backend per ottenere i dati dei locali
-    const response = await fetch('http://localhost:3000/api/locale');
-    const locali = await response.json();
-
-    console.log('Dati ottenuti:', locali); // Aggiungi questo per verificare i dati
+    console.log('Dati ottenuti:', ristoranti);
 
     // Aggiorna l'UI con i dati ottenuti
-    aggiornaGrigliaLocali(locali);
+    aggiornaGrigliaRistoranti(ristoranti);
 
-  }
-  catch (error) {
-    console.error('Errore nel recupero dei dati del locale:', error);
+  } catch (error) {
+    console.error('Errore nel recupero dei dati del ristorante:', error);
   }
 });
 
@@ -78,80 +75,97 @@ async function registrati() {
   }
 }
 
-// Funzione per gestire il metodo di pagamento
-function gestisciMetodoPagamento() {
-  let metodoPagamento = document.getElementById("metodo-pagamento").value;
-  let informazioniCarta = document.getElementById("informazioni-carta");
-
-  // Mostra/nascondi i campi sulla carta di credito in base alla scelta dell'utente
-  if (metodoPagamento === "carta") {
-    informazioniCarta.style.display = "block";
-  } else {
-    informazioniCarta.style.display = "none";
-  }
-}
-
-async function mostraLocali() {
+async function fetchRistoranti() {
   try {
-    const response = await fetch('http://localhost:3000/api/locale');
-    const locali = await response.json();
-    aggiornaGrigliaLocali(locali);
+    const response = await fetch('http://localhost:3000/api/ristorante');
+    const ristoranti = await response.json();
+    aggiornaGrigliaRistoranti(ristoranti);
 
-    // Nascondi altre schede e mostra la scheda dei locali
-    document.getElementById('griglia-locali').style.display = 'block';
+    // Nascondi altre schede e mostra la scheda dei ristoranti
+    document.getElementById('griglia-ristoranti').style.display = 'block';
 
   } catch (error) {
     console.error('Errore durante il recupero e la visualizzazione dei ristoranti:', error);
   }
 }
 
-// Funzione per aggiornare la griglia dei locali
-function aggiornaGrigliaLocali(locali) {
-  const localeGrid = document.getElementById('contenitore-locale');
-  localeGrid.innerHTML = ''; // Pulisce eventuali elementi preesistenti
+// Funzione per il fetching del menu
+async function fetchMenu(idRistorante) {
+  try {
+    const response = await fetch(`http://localhost:3000/api/menu/${idRistorante}`);
+    const menuItems = await response.json();
 
-  locali.forEach(locale => {
-    const localeCard = creaCartaLocale(locale);
-    localeCard.addEventListener('click', () => mostraDettagliLocale(locale));
-    localeGrid.appendChild(localeCard);
+    // Aggiorna l'UI con il menu ottenuto
+    aggiornaMenuRistorante(menuItems);
+  } catch (error) {
+    console.error('Errore durante il recupero del menu del ristorante:', error);
+  }
+}
+
+// Funzione per aggiornare la griglia dei ristoranti
+function aggiornaGrigliaRistoranti(ristoranti) {
+  const grigliaRistoranti = document.getElementById('contenitore-locale');
+  grigliaRistoranti.innerHTML = '';
+
+  ristoranti.forEach(locale => {
+    const localeCard = creaCartaRistorante(locale);
+    localeCard.addEventListener('click', () => mostraDettagliRistorante(locale));
+    grigliaRistoranti.appendChild(localeCard);
   });
 }
 
-// Funzione per creare schede di locali
-function creaCartaLocale(locale) {
+// Funzione per aggiornare l'UI con il menu ottenuto
+function aggiornaMenuRistorante(menuItems) {
+  const menuContainer = document.createElement('div');
+
+  menuItems.forEach((menuItem) => {
+    const menuItemElement = document.createElement('div');
+    menuItemElement.innerHTML = `
+      <h3>${menuItem.NOME_PIATTO}</h3>
+      <p>${menuItem.DESCRIZIONE}</p>
+      <p>Prezzo: ${menuItem.PREZZO} EUR</p>
+      <img src="${menuItem.IMG_URL}" alt="${menuItem.NOME_PIATTO}" />
+    `;
+    menuContainer.appendChild(menuItemElement);
+  });
+
+  const menuElement = document.getElementById('menu-ristorante');
+  menuElement.innerHTML = '';
+  menuElement.appendChild(menuContainer);
+}
+
+// Funzione per creare schede di ristoranti
+function creaCartaRistorante(locale) {
   const card = document.createElement('div');
   card.classList.add('locale-card');
 
+  // Aggiungi immagine del locale
+  const imageElement = document.createElement('img');
+  imageElement.src = locale.IMG_URL; // Sostituisci con la chiave corretta del tuo oggetto locale
+  imageElement.alt = locale.NOME_RISTORANTE;
+
   // Aggiungi dettagli del locale alla card
   const nameElement = document.createElement('h2');
-  nameElement.textContent = locale.NOME_LOCALE;
-
-  const cuisineElement = document.createElement('p');
-  cuisineElement.textContent = `Cucina: ${locale.TIPO_PRODOTTO || 'N/A'}`;
-
-  // Aggiungi ulteriori dettagli secondo necessità
+  nameElement.textContent = locale.NOME_RISTORANTE;
 
   // Aggiungi elementi alla card
+  card.appendChild(imageElement);
   card.appendChild(nameElement);
-  card.appendChild(cuisineElement);
 
   // Aggiungi un gestore di eventi per aprire i dettagli del locale al clic
-  card.addEventListener('click', () => mostraDettagliLocale(locale));
+  card.addEventListener('click', () => mostraDettagliRistorante(locale));
 
   return card;
 }
 
 // Funzione per mostrare i dettagli del locale
-function mostraDettagliLocale(locale) {
+function mostraDettagliRistorante(locale) {
   const dettagliLocale = document.getElementById('dettagli-locale');
   dettagliLocale.innerHTML = '';
 
   // Aggiungi dettagli del locale al lato destro
   const nameElement = document.createElement('h2');
-  nameElement.textContent = locale.NOME_LOCALE;
-
-  const cuisineElement = document.createElement('p');
-  cuisineElement.textContent = `Cucina: ${locale.TIPO_PRODOTTO || 'N/A'}`;
+  nameElement.textContent = locale.NOME_RISTORANTE;
 
   // Aggiungi pulsante Home
   const homeButton = document.createElement('button-dettagli');
@@ -168,12 +182,11 @@ function mostraDettagliLocale(locale) {
   buyButton.style.left = "80px";
 
   dettagliLocale.appendChild(nameElement);
-  dettagliLocale.appendChild(cuisineElement);
   dettagliLocale.appendChild(homeButton);
   dettagliLocale.appendChild(buyButton);
 
   // Nascondi altre schede e mostra la scheda dei locali
-  document.getElementById('griglia-locali').style.display = 'none';
+  document.getElementById('griglia-ristoranti').style.display = 'none';
 
   // Mostra la sezione dei dettagli del locale con animazione
   dettagliLocale.style.display = 'block';

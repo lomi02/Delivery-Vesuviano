@@ -154,14 +154,18 @@ function mostraDettagliLocale(locale) {
   cuisineElement.textContent = `Cucina: ${locale.TIPO_PRODOTTO || 'N/A'}`;
 
   // Aggiungi pulsante Home
-  const homeButton = document.createElement('button');
+  const homeButton = document.createElement('button-dettagli');
   homeButton.textContent = 'Home';
   homeButton.addEventListener('click', () => navigate('index.html'));
+  homeButton.style.top = "195px";
+  homeButton.style.left = "90px";
 
   // Aggiungi pulsante Acquista
-  const buyButton = document.createElement('button');
+  const buyButton = document.createElement('button-dettagli');
   buyButton.textContent = 'Acquista';
   buyButton.addEventListener('click', () => navigate('carrello.html'));
+  buyButton.style.top = "250px";
+  buyButton.style.left = "80px";
 
   dettagliLocale.appendChild(nameElement);
   dettagliLocale.appendChild(cuisineElement);

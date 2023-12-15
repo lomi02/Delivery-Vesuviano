@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Nunito', sans-serif;
   margin: 0 auto;
   padding: 0;
   background-color: #333;
@@ -10,7 +10,7 @@ header {
   position: static;
   top: 0;
   left: 0;
-  padding: 20px;
+  padding: 30px;
   width: 100%;
   background-color: #333;
   color: #fff;
@@ -51,10 +51,49 @@ button:hover {
   background-color: #e6b800;
 }
 
+button-dettagli {
+  padding: 15px 25px;
+  border: unset;
+  border-radius: 10px;
+  color: #212121;
+  position: absolute;
+  z-index: 999;
+  background: #e8e8e8;
+  font-weight: 700;
+  font-size: 15px;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms;
+  overflow: hidden;
+}
+
+button-dettagli::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  border-radius: 15px;
+  background-color: #212121;
+  z-index: -1;
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  transition: all 250ms
+}
+
+button-dettagli:hover {
+  color: #ffcc00;
+}
+
+button-dettagli:hover::before {
+  width: 100%;
+}
+
 .button-container {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 30px;
+  right: 30px;
   display: flex;
   gap: 10px;
   width: 250px; /* Cambia questo valore secondo le tue preferenze */
@@ -198,7 +237,7 @@ input {
   background-color: #fff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  padding: 20px;
+  padding: 100px;
 }
 
 .nome-locale {

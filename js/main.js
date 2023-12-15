@@ -91,14 +91,19 @@ async function registrati() {
 function gestisciMetodoPagamento() {
   let metodoPagamento = document.getElementById("metodo-pagamento").value;
   let informazioniCarta = document.getElementById("informazioni-carta");
+document.addEventListener('DOMContentLoaded', async function () {
+  try {
+    // Chiamata al backend per ottenere i dati dei locali
+    const response = await fetch('http://localhost:3000/api/locale');
+    const locali = await response.json();
 
-  // Mostra/nascondi i campi sulla carta di credito in base alla scelta dell'utente
-  if (metodoPagamento === "carta") {
-    informazioniCarta.style.display = "block";
-  } else {
-    informazioniCarta.style.display = "none";
+    // Mostra/nascondi i campi sulla carta di credito in base alla scelta dell'utente
+    if (metodoPagamento === "carta") {
+      informazioniCarta.style.display = "block";
+    } else {
+      informazioniCarta.style.display = "none";
+    }
   }
-}
 
 async function mostraLocali() {
   try {
@@ -184,6 +189,7 @@ async function login() {
   }
 }
 
-function navigate(url) {
+function navigate(url)
+{
   window.location.href = url;
 }

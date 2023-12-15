@@ -65,12 +65,11 @@ app.get('/api/menu/:id_ristorante', async (req, res) => {
 
 // API di Registrazione
 app.post('/api/register', (req, res) => {
-  const {nome, cognome, email, password, via, citta, cap, citofono} = req.body;
+  const { nome, cognome, email, password, via, citta, cap, citofono } = req.body;
 
   // Esecuzione dell'istruzione SQL di INSERT per aggiungere un nuovo utente
   const insertClienteQuery = `
-    INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE,
-                         CITOFONO_CLIENTE)
+    INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL, PASSWORD, EMAIL_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE, CITOFONO)
     VALUES (?, ?, ?, ?)
   `;
 
@@ -84,22 +83,17 @@ app.post('/api/register', (req, res) => {
     // Inserisci dati in CLIENTE
     db.run(insertClienteQuery, [nome, cognome, email, password]);
 
-    // Inserisci dati in INFORMAZIONI_CONSEGNA
-    db.run(insertInformazioniConsegnaQuery, [email, via, citta, cap, citofono]);
-
     // Concludi la transazione
     db.run(commitTransaction);
 
     console.log('Registrazione avvenuta con successo');
-    res.status(201).json({message: 'Registrazione avvenuta con successo'});
-  } catch (error) {
+    res.status(201).json({ message: 'Registrazione avvenuta con successo' });
+  }
+  catch (error) {
     // In caso di errore, esegui il rollback della transazione
     db.run('ROLLBACK');
     console.error('Errore durante la registrazione:', error);
-    res.status(500).json({message: 'Errore durante la registrazione'});
-  } finally {
-    // Chiudi la connessione al database
-    db.close();
+    res.status(500).json({ message: 'Errore durante la registrazione' });
   }
 });
 

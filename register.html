@@ -103,25 +103,6 @@
       <label for="citofono">Citofono:</label>
       <input type="text" id="citofono" name="citofono">
 
-      <!-- Sezione Pagamento -->
-      <h2>Informazioni di pagamento</h2>
-      <label for="metodo-pagamento">Metodo di Pagamento:</label>
-      <select id="metodo-pagamento" onchange="gestisciMetodoPagamento()">
-        <option value="contanti">Contanti</option>
-        <option value="carta">Carta di Credito</option>
-      </select>
-
-      <!-- Sezione Carta di credito -->
-      <div id="informazioni-carta" style="display:none;">
-        <label for="numero-carta">Numero Carta di Credito:</label>
-        <input type="text" id="numero-carta" name="numero-carta">
-
-        <label for="scadenza-carta">Scadenza Carta di Credito:</label>
-        <input type="text" id="scadenza-carta" name="scadenza-carta">
-
-        <label for="cvv">CVV:</label>
-        <input type="text" id="cvv" name="cvv">
-      </div>
       <button type="button" onclick="registrati()">Registra</button>
     </form>
   </section>

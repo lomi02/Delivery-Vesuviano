@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', async function () {
   try {
+
+    // Chiamata al backend per ottenere i dati dei locali
     const response = await fetch('http://localhost:3000/api/ristorante');
     const ristoranti = await response.json();
 
@@ -8,72 +10,11 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Aggiorna l'UI con i dati ottenuti
     aggiornaGrigliaRistoranti(ristoranti);
 
-  } catch (error) {
+  }
+  catch (error) {
     console.error('Errore nel recupero dei dati del ristorante:', error);
   }
 });
-
-// Funzione per gestire la registrazione dell'utente
-async function registrati() {
-  // Recupera i valori dai campi del modulo di registrazione
-  let nome = document.getElementById("nome").value;
-  let cognome = document.getElementById("cognome").value;
-  let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
-  let via = document.getElementById("via").value;
-  let citta = document.getElementById("citta").value;
-  let cap = document.getElementById("cap").value;
-  let citofono = document.getElementById("citofono").value;
-  let metodoPagamento = document.getElementById("metodo-pagamento").value;
-
-  // Se il metodo di pagamento è la carta, recupera anche le informazioni sulla carta di credito
-  let numeroCarta, scadenzaCarta, cvv;
-  if (metodoPagamento === "carta") {
-    numeroCarta = document.getElementById("numero-carta").value;
-    scadenzaCarta = document.getElementById("scadenza-carta").value;
-    cvv = document.getElementById("cvv").value;
-  }
-
-  // Crea un oggetto con i dati dell'utente
-  let utente = {
-    nome,
-    cognome,
-    email,
-    password,
-    indirizzoConsegna: {
-      via,
-      citta,
-      cap,
-      citofono
-    },
-    metodoPagamento: {
-      tipo: metodoPagamento,
-      numeroCarta,
-      scadenzaCarta,
-      cvv
-    }
-  };
-
-  try {
-    // Effettua una richiesta di registrazione al tuo backend (sostituisci con l'URL corretto)
-    const response = await fetch('/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(utente),
-    });
-
-    if (response.status === 201) {
-      console.log('Utente registrato con successo');
-    } else {
-      const data = await response.json();
-      console.error('Errore durante la registrazione dell\'utente:', data.message);
-    }
-  } catch (error) {
-    console.error('Errore durante la registrazione dell\'utente:', error);
-  }
-}
 
 async function fetchRistoranti() {
   try {
@@ -89,60 +30,26 @@ async function fetchRistoranti() {
   }
 }
 
-// Funzione per il fetching del menu
-async function fetchMenu(idRistorante) {
-  try {
-    const response = await fetch(`http://localhost:3000/api/menu/${idRistorante}`);
-    const menuItems = await response.json();
-
-    // Aggiorna l'UI con il menu ottenuto
-    aggiornaMenuRistorante(menuItems);
-  } catch (error) {
-    console.error('Errore durante il recupero del menu del ristorante:', error);
-  }
-}
-
-// Funzione per aggiornare la griglia dei ristoranti
+// Funzione per aggiornare la griglia dei locali
 function aggiornaGrigliaRistoranti(ristoranti) {
   const grigliaRistoranti = document.getElementById('contenitore-locale');
   grigliaRistoranti.innerHTML = '';
 
   ristoranti.forEach(locale => {
-    const localeCard = creaCartaRistorante(locale);
-    localeCard.addEventListener('click', () => mostraDettagliRistorante(locale));
+    const localeCard = creaCartaLocale(locale);
+    localeCard.addEventListener('click', () => mostraDettagliLocale(locale));
     grigliaRistoranti.appendChild(localeCard);
   });
 }
 
-// Funzione per aggiornare l'UI con il menu ottenuto
-function aggiornaMenuRistorante(menuItems) {
-  const menuContainer = document.createElement('div');
-
-  menuItems.forEach((menuItem) => {
-    const menuItemElement = document.createElement('div');
-    menuItemElement.innerHTML = `
-      <h3>${menuItem.NOME_PIATTO}</h3>
-      <p>${menuItem.DESCRIZIONE}</p>
-      <p>Prezzo: ${menuItem.PREZZO} EUR</p>
-      <img src="${menuItem.IMG_URL}" alt="${menuItem.NOME_PIATTO}" />
-    `;
-    menuContainer.appendChild(menuItemElement);
-  });
-
-  const menuElement = document.getElementById('menu-ristorante');
-  menuElement.innerHTML = '';
-  menuElement.appendChild(menuContainer);
-}
-
-// Funzione per creare schede di ristoranti
-function creaCartaRistorante(locale) {
+// Funzione per creare schede di locali
+function creaCartaLocale(locale) {
   const card = document.createElement('div');
   card.classList.add('locale-card');
 
-  // Aggiungi immagine del locale
+  // Aggiungi immagine del locale alla card
   const imageElement = document.createElement('img');
-  imageElement.src = locale.IMG_URL; // Sostituisci con la chiave corretta del tuo oggetto locale
-  imageElement.alt = locale.NOME_RISTORANTE;
+  imageElement.src = locale.IMG_URL_RISTORANTE;
 
   // Aggiungi dettagli del locale alla card
   const nameElement = document.createElement('h2');
@@ -153,13 +60,13 @@ function creaCartaRistorante(locale) {
   card.appendChild(nameElement);
 
   // Aggiungi un gestore di eventi per aprire i dettagli del locale al clic
-  card.addEventListener('click', () => mostraDettagliRistorante(locale));
+  card.addEventListener('click', () => mostraDettagliLocale(locale));
 
   return card;
 }
 
 // Funzione per mostrare i dettagli del locale
-function mostraDettagliRistorante(locale) {
+function mostraDettagliLocale(locale) {
   const dettagliLocale = document.getElementById('dettagli-locale');
   dettagliLocale.innerHTML = '';
 
@@ -215,6 +122,58 @@ async function login() {
     }
   } catch (error) {
     console.error('Error during login:', error);
+  }
+}
+
+// Funzione per gestire la registrazione dell'utente
+async function registrati() {
+  // Recupera i valori dai campi del modulo di registrazione
+  let nome = document.getElementById("nome").value;
+  let cognome = document.getElementById("cognome").value;
+  let email = document.getElementById("email").value;
+  let password = document.getElementById("password").value;
+  let via = document.getElementById("via").value;
+  let citta = document.getElementById("citta").value;
+  let cap = document.getElementById("cap").value;
+  let citofono = document.getElementById("citofono").value;
+  if (!nome || !cognome || !email || !password || !via || !citta || !cap || !citofono) {
+    alert('Compila tutti i campi obbligatori.');
+    return;
+  }
+
+  // Crea un oggetto con i dati dell'utente
+  let utente = {
+    nome,
+    cognome,
+    email,
+    password,
+    indirizzoConsegna: {
+      via,
+      citta,
+      cap,
+      citofono
+    },
+  };
+  try {
+
+    // Effettua una richiesta di registrazione al tuo backend (sostituisci con l'URL corretto)
+    const response = await fetch('http://localhost:3000/api/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(utente),
+    });
+
+    if (response.status === 201) {
+      console.log('Utente registrato con successo');
+      window.location.href = 'RegSuccess.html';
+    } else {
+      const data = await response.json();
+      console.error('Errore durante la registrazione dell\'utente:', data.message);
+    }
+  } catch (error) {
+    console.error('Errore durante la registrazione dell\'utente:', error);
   }
 }
 

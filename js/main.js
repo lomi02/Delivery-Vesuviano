@@ -10,8 +10,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     // Aggiorna l'UI con i dati ottenuti
     aggiornaGrigliaRistoranti(ristoranti);
 
-  }
-  catch (error) {
+  } catch (error) {
     console.error('Errore nel recupero dei dati del ristorante:', error);
   }
 });
@@ -111,7 +110,7 @@ async function login() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify({email, password}),
     });
 
     const result = await response.json();
@@ -127,6 +126,7 @@ async function login() {
 
 // Funzione per gestire la registrazione dell'utente
 async function registrati() {
+
   // Recupera i valori dai campi del modulo di registrazione
   let nome = document.getElementById("nome").value;
   let cognome = document.getElementById("cognome").value;
@@ -147,16 +147,14 @@ async function registrati() {
     cognome,
     email,
     password,
-    indirizzoConsegna: {
-      via,
-      citta,
-      cap,
-      citofono
-    },
+    via,
+    citta,
+    cap,
+    citofono
   };
   try {
 
-    // Effettua una richiesta di registrazione al tuo backend (sostituisci con l'URL corretto)
+    // Effettua una richiesta di registrazione al tuo backend
     const response = await fetch('http://localhost:3000/api/register', {
       method: 'POST',
       headers: {

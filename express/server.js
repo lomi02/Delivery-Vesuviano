@@ -88,8 +88,8 @@ app.post('/api/register', (req, res) => {
 
   // Esecuzione dell'istruzione SQL di INSERT per aggiungere un nuovo utente
   const insertClienteQuery = `
-    INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL_CLIENTE, PASSWORD_CLIENTE, EMAIL_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE, CITOFONO_CLIENTE)
-    VALUES (?, ?, ?, ?)
+    INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL_CLIENTE, PASSWORD_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE, CITOFONO_CLIENTE)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
   `;
 
   const beginTransaction = 'BEGIN TRANSACTION';

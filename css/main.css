@@ -62,8 +62,8 @@ button-dettagli {
   background: #e8e8e8;
   font-weight: 700;
   font-size: 15px;
-  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
-  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   transition: all 250ms;
   overflow: hidden;
 }
@@ -78,8 +78,8 @@ button-dettagli::before {
   border-radius: 15px;
   background-color: #212121;
   z-index: -1;
-  -webkit-box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
-  box-shadow: 4px 8px 19px -3px rgba(0,0,0,0.27);
+  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   transition: all 250ms
 }
 
@@ -94,7 +94,7 @@ button-dettagli:hover::before {
 .button-container {
   position: absolute;
   top: 40px;
-  right: 30px;
+  right: 150px;
   display: flex;
   gap: 10px;
   width: 360px; /* Cambia questo valore secondo le tue preferenze */
@@ -104,7 +104,8 @@ button-dettagli:hover::before {
 .login-button,
 .cart-button,
 .github-button,
-.credits-button {
+.credits-button,
+.home-button {
   overflow: hidden;
   height: 2.2rem;
   padding: 0 2rem;
@@ -122,7 +123,8 @@ button-dettagli:hover::before {
 .login-button:hover::before,
 .cart-button:hover::before,
 .github-button:hover::before,
-.credits-button:hover::before {
+.credits-button:hover::before,
+.home-button:hover::before{
   transform: scaleX(1);
 }
 
@@ -145,7 +147,8 @@ button-dettagli:hover::before {
 .login-button::before,
 .cart-button::before,
 .github-button::before,
-.credits-button::before {
+.credits-button::before,
+.home-button::before {
   content: '';
   position: absolute;
   top: 0;
@@ -166,7 +169,8 @@ button-dettagli:hover::before {
 .login-button:hover::before,
 .cart-button:hover::before,
 .github-button:hover::before,
-.credits-button:hover::before{
+.credits-button:hover::before,
+.home-button:hover::before {
   transform: scaleX(1);
 }
 
@@ -209,10 +213,11 @@ input {
 
 .griglia-ristoranti {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: flex-start;
   margin-top: 20px;
   margin-bottom: 20px;
+  flex-wrap: wrap;
 }
 
 .griglia-ristoranti::after {
@@ -225,12 +230,12 @@ input {
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  padding: 20px;
+  padding: 10px;
   margin: 10px;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
-  width: 30%;
   box-sizing: border-box;
+  flex: 0 0 30%;
 }
 
 .locale-card:hover {
@@ -257,8 +262,14 @@ input {
 }
 
 .nome-locale {
-  font-size: 1.5em;
-  margin-bottom: 10px;
+  font-size: 3em;
+  color: #ffcc00;
+  background-color: #333;
+  text-align: center;
+  margin-top: -120px;
+  margin-left: -150px;
+  margin-right: -150px;
+  padding: 20px;
 }
 
 .contenitore-locale {
@@ -266,7 +277,43 @@ input {
   margin: 0 auto;
   display: flex;
   flex-wrap: wrap;
+  flex: 1 0 20%;
   justify-content: space-evenly;
+}
+
+.contenitore-menu {
+  position: static;
+  margin-top: -40px;
+  background-color: white;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  gap: 10px;
+}
+
+.piatto-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+  box-sizing: border-box;
+  flex: 0 0 15%;
+}
+
+.piatto-card:hover {
+  transform: scale(1.02);
+}
+
+.piatto-card img {
+  width: 300px;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
 }
 
 .login-container {

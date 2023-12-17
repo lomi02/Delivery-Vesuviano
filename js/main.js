@@ -58,38 +58,19 @@ function creaCartaLocale(locale) {
   card.appendChild(imageElement);
   card.appendChild(nameElement);
 
-  // Aggiungi un gestore di eventi per aprire i dettagli del locale al clic
-  card.addEventListener('click', () => mostraDettagliLocale(locale));
-
   return card;
 }
 
 // Funzione per mostrare i dettagli del locale
-function mostraDettagliLocale(locale) {
+async function mostraDettagliLocale(locale) {
   const dettagliLocale = document.getElementById('dettagli-locale');
   dettagliLocale.innerHTML = '';
 
   // Aggiungi dettagli del locale al lato destro
   const nameElement = document.createElement('h2');
   nameElement.textContent = locale.NOME_RISTORANTE;
-
-  // Aggiungi pulsante Home
-  const homeButton = document.createElement('button-dettagli');
-  homeButton.textContent = 'Home';
-  homeButton.addEventListener('click', () => navigate('index.html'));
-  homeButton.style.top = "195px";
-  homeButton.style.left = "90px";
-
-  // Aggiungi pulsante Acquista
-  const buyButton = document.createElement('button-dettagli');
-  buyButton.textContent = 'Acquista';
-  buyButton.addEventListener('click', () => navigate('carrello.html'));
-  buyButton.style.top = "250px";
-  buyButton.style.left = "80px";
-
+  nameElement.classList.add('nome-locale');
   dettagliLocale.appendChild(nameElement);
-  dettagliLocale.appendChild(homeButton);
-  dettagliLocale.appendChild(buyButton);
 
   // Nascondi altre schede e mostra la scheda dei locali
   document.getElementById('griglia-ristoranti').style.display = 'none';
@@ -97,6 +78,56 @@ function mostraDettagliLocale(locale) {
   // Mostra la sezione dei dettagli del locale con animazione
   dettagliLocale.style.display = 'block';
   dettagliLocale.style.transform = 'translateY(0)';
+
+  // Fai una chiamata al tuo backend per ottenere il menù del ristorante
+  const response = await fetch('http://localhost:3000/api/menu/' + locale.P_IVA_RISTORANTE);
+  const menu = await response.json();
+
+  // Aggiungi il menù al dettaglio del locale
+  const menuElement = document.createElement('div');
+  menuElement.classList.add('contenitore-menu');
+  menu.forEach(item => {
+    const itemElement = creaCartaPiatto(item);
+    menuElement.appendChild(itemElement);
+  });
+  dettagliLocale.appendChild(menuElement);
+}
+
+// Funzione per creare schede di piatti
+function creaCartaPiatto(piatto) {
+  const card = document.createElement('div');
+  card.classList.add('piatto-card');
+
+  // Aggiungi immagine del piatto alla card
+  const imageElement = document.createElement('img');
+  imageElement.src = piatto.IMG_URL_PIATTO;
+
+  // Aggiungi dettagli del piatto alla card
+  const nameElement = document.createElement('h2');
+  nameElement.textContent = piatto.NOME_PIATTO;
+
+  const priceElement = document.createElement('p');
+  priceElement.textContent = piatto.PREZZO.toFixed(2) + '€'; // Limita il prezzo a due cifre decimali
+
+  const descriptionElement = document.createElement('p');
+  descriptionElement.textContent = piatto.DESCRIZIONE;
+
+  // Aggiungi pulsante Acquista
+  const buyButton = document.createElement('button');
+  buyButton.textContent = 'Acquista';
+  buyButton.addEventListener('click', () => {
+    // Aggiungi il piatto al carrello
+    aggiungiAlCarrello(piatto);
+  });
+
+  // Aggiungi elementi alla card
+  card.appendChild(imageElement);
+  card.appendChild(nameElement);
+  card.appendChild(priceElement);
+  card.appendChild(descriptionElement);
+  card.appendChild(buyButton);
+
+  return card;
 }
 
 // Funzione per gestire il login

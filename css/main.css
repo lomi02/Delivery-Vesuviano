@@ -15,8 +15,8 @@ header {
   width: 100%;
   background-color: #333;
   color: #fff;
-  margin: 0;
-  text-align: center;
+  margin-left: 100px;
+  text-align: left;
 }
 
 footer {
@@ -52,19 +52,29 @@ button:hover {
   background-color: #e6b800;
 }
 
-button-dettagli {
-  padding: 15px 25px;
-  border: unset;
-  border-radius: 10px;
-  color: #212121;
-  position: absolute;
-  z-index: 999;
-  background: #e8e8e8;
+#delete-button,
+#logout-button {
+  background-color: darkred;
+  color: #e6b800;
   font-weight: 700;
   font-size: 15px;
+  padding: 15px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+#delete-button:hover,
+#logout-button:hover {
+  padding: 15px 25px;
+  border: unset;
+  color: #212121;
+  position: static;
+  z-index: 999;
+  background: #e6b800;
   -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
   box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
-  transition: all 250ms;
   overflow: hidden;
 }
 
@@ -124,7 +134,7 @@ button-dettagli:hover::before {
 .cart-button:hover::before,
 .github-button:hover::before,
 .credits-button:hover::before,
-.home-button:hover::before{
+.home-button:hover::before {
   transform: scaleX(1);
 }
 

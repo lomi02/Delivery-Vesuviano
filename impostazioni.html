@@ -1,9 +1,11 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
+      xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Settings Page</title>
+  <title>Delivery Vesuviano</title>
+  <link rel="icon" href="img/icona_dv.png">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito">
@@ -67,7 +69,7 @@
   </a>
 
   <!-- Bottone per il login dell'utente -->
-  <a href="login.html" class="login-button-link">
+  <a href="login.html" class="login-button-link" id="loginButton">
     <button class="login-button">
       <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
         <path fill="#ffea00" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0
@@ -87,25 +89,232 @@
         .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/></svg></span>
     </button>
   </a>
+</div>
 
-<!-- Sezione Footer -->
-<footer>
-  <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
-</footer>
+<main style="display: flex; justify-content: center; align-items: center">
+  <div style="width: 50%;">
+    <h1 style="text-align: center;">Impostazioni del profilo</h1>
 
-<!-- Sezione Impostazioni -->
-<main>
-  <script>
+    <form id="emailForm" style="margin-bottom: 20px;">
+      <label for="email">Email:</label><br>
+      <div style="display: flex; justify-content: space-between; width: 750px">
+        <input type="email" id="email" name="email" disabled>
+        <div style="margin-left: 50px">
+          <button class="editButton">
+            Modifica
+          </button>
+        </div>
+      </div>
+    </form>
 
-    <!-- Aggiungi Sezione Impostazioni -->
+    <form id="passwordForm" style="margin-bottom: 20px;">
+      <label for="password">Password:</label><br>
+      <div style="display: flex; justify-content: space-between; width: 750px">
+        <input type="password" id="password" name="password" disabled>
+        <div style="margin-left: 50px">
+          <button class="editButton">Modifica</button>
+        </div>
+      </div>
+    </form>
 
-  </script>
+    <h1 style="text-align: center; margin-top: 20px;">Impostazioni di consegna</h1>
+    <form id="addressForm" style="margin-top: 20px; margin-bottom: 20px;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start; width: 500px">
+        <label for="via">Via:</label><br>
+        <input type="text" id="via" name="via" disabled><br>
+        <label for="citta">Città:</label><br>
+        <input type="text" id="citta" name="citta" disabled><br>
+        <label for="cap">CAP:</label><br>
+        <input type="text" id="cap" name="cap" disabled><br>
+        <label for="citofono">Citofono:</label><br>
+        <input type="text" id="citofono" name="citofono" disabled><br>
+        <button class="editButton">Modifica</button>
+      </div>
+    </form>
+
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px">
+      <button id="logout-button">Logout</button>
+      <span style="margin-right: 10px;"></span>
+      <button id="delete-button">Elimina account</button>
+    </div>
+  </div>
 </main>
 
 <!-- Sezione Footer -->
 <footer>
   <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
 </footer>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Fetch user data
+    const userToken = localStorage.getItem('token');
+    if (userToken) {
+      fetch(`http://localhost:3000/api/user/${userToken}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          // Log the data to the console
+          console.log(data);
+
+          // Precompila i campi del modulo con i dati dell'utente
+          document.getElementById('email').value = data.EMAIL_CLIENTE;
+          document.getElementById('password').value = data.PASSWORD_CLIENTE;
+          document.getElementById('via').value = data.VIA_CLIENTE;
+          document.getElementById('citta').value = data.CITTA_CLIENTE;
+          document.getElementById('cap').value = data.CAP_CLIENTE;
+          document.getElementById('citofono').value = data.CITOFONO_CLIENTE;
+        })
+        .catch(e => {
+          console.log('There was a problem with your fetch operation: ' + e.message);
+        });
+
+      const emailForm = document.getElementById('emailForm');
+      const passwordForm = document.getElementById('passwordForm');
+      const addressForm = document.getElementById('addressForm');
+      const editButtons = document.getElementsByClassName('edit-button');
+      const deleteButton = document.getElementById('delete-button');
+      const logoutButton = document.getElementById('logout-button');
+
+      Array.from(editButtons).forEach(function (editButton) {
+        editButton.addEventListener('click', function () {
+          const inputField = this.previousElementSibling;
+          inputField.disabled = false;
+        });
+      });
+
+      emailForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value;
+
+        fetch('http://localhost:3000/api/update/email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({email}),
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message);
+              document.getElementById('email').disabled = true;
+            } else {
+              console.error(data.message);
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      });
+
+      passwordForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const password = document.getElementById('password').value;
+
+        fetch('http://localhost:3000/api/update/password', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({password}),
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message);
+              document.getElementById('password').disabled = true;
+            } else {
+              console.error(data.message);
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      });
+
+      addressForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        const via = document.getElementById('via').value;
+        const citta = document.getElementById('citta').value;
+        const cap = document.getElementById('cap').value;
+        const citofono = document.getElementById('citofono').value;
+
+        fetch('http://localhost:3000/api/update/address', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({via, citta, cap, citofono}),
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message);
+              document.getElementById('via').disabled = true;
+              document.getElementById('citta').disabled = true;
+              document.getElementById('cap').disabled = true;
+              document.getElementById('citofono').disabled = true;
+            } else {
+              console.error(data.message);
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      });
+
+      if (logoutButton) {
+        logoutButton.addEventListener('click', function () {
+          fetch('http://localhost:3000/api/logout', {
+            method: 'POST',
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                window.location.href = 'login.html';
+              } else {
+                console.error(data.message);
+              }
+            })
+            .catch((error) => {
+              console.error('Error:', error);
+            });
+        });
+      } else {
+        console.error('logout-button not found');
+      }
+
+      deleteButton.addEventListener('click', function () {
+        fetch('http://localhost:3000/api/delete', {
+          method: 'DELETE',
+        })
+          .then(response => response.json())
+          .then(data => {
+            if (data.success) {
+              alert(data.message);
+              window.location.href = 'index.html';
+            } else {
+              console.error(data.message);
+            }
+          })
+          .catch((error) => {
+            console.error('Error:', error);
+          });
+      });
+    } else {
+      console.error('No user token found');
+    }
+  });
+
+</script>
 
 <script src="js/main.js"></script>
 </body>

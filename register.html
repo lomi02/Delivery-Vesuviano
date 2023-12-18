@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Register Page</title>
+  <title>Delivery Vesuviano</title>
+  <link rel="icon" href="img/icona_dv.png">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/main.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito">
@@ -67,7 +68,7 @@
   </a>
 
   <!-- Bottone per il login dell'utente -->
-  <a href="login.html" class="login-button-link">
+  <a href="login.html" class="login-button-link" id="loginButton">
     <button class="login-button">
       <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" height="16" width="14" viewBox="0 0 448 512">
         <path fill="#ffea00" d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-45.7 48C79.8 304 0 383.8 0 482.3C0
@@ -137,37 +138,6 @@
   </section>
 </main>
 
-<!-- Sezione Registrazione -->
-<script>
-  document.getElementById('registerForm').addEventListener('submit', async (event) => {
-    event.preventDefault();
-
-    const formData = {
-      username: event.target.username.value,
-      email: event.target.email.value,
-      password: event.target.password.value,
-    };
-
-    try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.status === 201) {
-        console.log('User registered successfully');
-      } else {
-        const data = await response.json();
-        console.error('Error registering user:', data.message);
-      }
-    } catch (error) {
-      console.error('Error registering user:', error);
-    }
-  });
-</script>
 <script src="js/main.js"></script>
 </body>
 </html>

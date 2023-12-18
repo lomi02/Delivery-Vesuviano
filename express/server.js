@@ -31,7 +31,7 @@ const db = new sqlite3.Database(dbPath, (err) => {
 // API di fetching delle informazioni del cliente
 app.get('/api/user/:tokenid', async (req, res) => {
   const tokenID = req.params.tokenid;
-  console.log('User token:', tokenID); // Log the user token
+  console.log('User token:', tokenID);
 
   if (!tokenID) {
     console.log('Token non fornito');
@@ -43,7 +43,7 @@ app.get('/api/user/:tokenid', async (req, res) => {
     const query = `
       SELECT *
       FROM CLIENTE
-             JOIN TOKEN ON CLIENTE.ID_CLIENTE = TOKEN.USER_ID
+             JOIN TOKEN ON TOKEN.USER_ID = CLIENTE.ID_CLIENTE
       WHERE TOKEN.TOKEN_ID = :tokenid;
     `;
 
@@ -116,14 +116,15 @@ app.post('/api/login', (req, res) => {
       if (row && bcrypt.compareSync(password, row.PASSWORD_CLIENTE)) {
         const token = crypto.randomBytes(64).toString('hex');
         const expirationTimestamp = Math.floor(Date.now() / 1000) + 60 * 30;
-        db.run('INSERT INTO TOKEN (USER_ID, TOKEN_STRING, EXPIRATION_TIMESTAMP) VALUES (?, ?, ?)', [row.ID_CLIENTE, token, expirationTimestamp], (err) => {
-          if (err) {
-            console.error(err);
-            res.status(500).json({success: false, message: 'Internal Server Error'});
-          } else {
-            res.json({success: true, message: 'Login successful', token: token});
-          }
-        });
+        db.run('INSERT INTO TOKEN (USER_ID, TOKEN_STRING, EXPIRATION_TIMESTAMP) VALUES (?, ?, ?)',
+          [row.ID_CLIENTE, token, expirationTimestamp], function(err) {
+            if (err) {
+              console.error(err);
+              res.status(500).json({success: false, message: 'Internal Server Error'});
+            } else {
+              res.json({success: true, message: 'Login successful', token: this.lastID});
+            }
+          });
       } else {
         res.json({success: false, message: 'Invalid credentials'});
       }
@@ -133,16 +134,16 @@ app.post('/api/login', (req, res) => {
 
 // Sistema di verifica di token
 app.post('/api/verify-token', (req, res) => {
-  const token = req.headers.authorization;
-  console.log('Token from request:', token);
+  const tokenID = req.headers.authorization;
+  console.log('Token ID from request:', tokenID);
 
-  db.get('SELECT * FROM TOKEN WHERE TOKEN_STRING = ?', [token], (err, row) => {
+  db.get('SELECT * FROM TOKEN WHERE TOKEN_ID = ?', [tokenID], (err, row) => {
     if (err) {
       console.error(err);
       res.status(500).json({success: false, message: 'Internal Server Error'});
     } else {
       if (row && Math.floor(Date.now() / 1000) < row.EXPIRATION_TIMESTAMP) {
-        db.get('SELECT * FROM CLIENTE INNER JOIN TOKEN ON CLIENTE.ID_CLIENTE = TOKEN.USER_ID WHERE TOKEN.TOKEN_STRING = ?', [token], (err, user) => {
+        db.get('SELECT * FROM CLIENTE INNER JOIN TOKEN ON CLIENTE.ID_CLIENTE = TOKEN.USER_ID WHERE TOKEN.TOKEN_ID = ?', [tokenID], (err, user) => {
           if (err) {
             console.error(err);
             res.status(500).json({success: false, message: 'Internal Server Error'});
@@ -217,20 +218,73 @@ app.post('/api/register', (req, res) => {
 });
 
 // API per l'aggiornamento del campo password
-app.post('/api/update/password', (req, res) => {
-  let sql = `UPDATE CLIENTE SET PASSWORD_CLIENTE = ? WHERE ID_CLIENTE = ?`;
-  db.run(sql, [req.body.password, req.body.userId], function(err) {
+app.post('/api/update/password/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+  const password = req.body.password;
+  const saltRounds = 10;
+
+  // Recupera l'ID dell'utente dal token
+  const query = `
+    SELECT USER_ID
+    FROM TOKEN
+    WHERE TOKEN_ID = :tokenid;
+  `;
+
+  const result = await sequelize.query(query, {
+    replacements: {tokenid: tokenID},
+    type: QueryTypes.SELECT,
+  });
+
+  if (result.length === 0) {
+    res.status(404).send('Token non valido');
+    return;
+  }
+
+  const userId = result[0].USER_ID;
+
+  // Hashing della password
+  bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
     if (err) {
-      return console.error(err.message);
+      console.error('Errore durante l\'hashing della password:', err);
+      res.status(500).json({message: 'Errore durante l\'hashing della password'});
+    } else {
+      let sql = `UPDATE CLIENTE SET PASSWORD_CLIENTE = ? WHERE ID_CLIENTE = ?`;
+      db.run(sql, [hashedPassword, userId], function(err) {
+        if (err) {
+          return console.error(err.message);
+        }
+        res.json({ success: true, message: 'Password Aggiornata con successo.' });
+      });
     }
-    res.json({ success: true, message: 'Password Aggiornata con successo.' });
   });
 });
 
 // API per l'aggiornamento del campo email
-app.post('/api/update/password', (req, res) => {
+app.post('/api/update/email/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+  const email = req.body.email;
+
+  // Recupera l'ID dell'utente dal token
+  const query = `
+    SELECT USER_ID
+    FROM TOKEN
+    WHERE TOKEN_ID = :tokenid;
+  `;
+
+  const result = await sequelize.query(query, {
+    replacements: {tokenid: tokenID},
+    type: QueryTypes.SELECT,
+  });
+
+  if (result.length === 0) {
+    res.status(404).send('Token non valido');
+    return;
+  }
+
+  const userId = result[0].USER_ID;
+
   let sql = `UPDATE CLIENTE SET EMAIL_CLIENTE = ? WHERE ID_CLIENTE = ?`;
-  db.run(sql, [req.body.password, req.body.userId], function(err) {
+  db.run(sql, [email, userId], function(err) {
     if (err) {
       return console.error(err.message);
     }
@@ -238,9 +292,32 @@ app.post('/api/update/password', (req, res) => {
   });
 });
 
-app.post('/api/update/address', (req, res) => {
+// API per l'aggiornamento dell'indirizzo
+app.post('/api/update/address/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+  const {via, citta, cap, citofono} = req.body;
+
+  // Recupera l'ID dell'utente dal token
+  const query = `
+    SELECT USER_ID
+    FROM TOKEN
+    WHERE TOKEN_ID = :tokenid;
+  `;
+
+  const result = await sequelize.query(query, {
+    replacements: {tokenid: tokenID},
+    type: QueryTypes.SELECT,
+  });
+
+  if (result.length === 0) {
+    res.status(404).send('Token non valido');
+    return;
+  }
+
+  const userId = result[0].USER_ID;
+
   let sql = `UPDATE CLIENTE SET VIA_CLIENTE = ?, CITTA_CLIENTE = ?, CAP_CLIENTE = ?, CITOFONO_CLIENTE = ? WHERE ID_CLIENTE = ?`;
-  db.run(sql, [req.body.via, req.body.citta, req.body.cap, req.body.citofono, req.body.userId], function(err) {
+  db.run(sql, [via, citta, cap, citofono, userId], function(err) {
     if (err) {
       return console.error(err.message);
     }
@@ -248,9 +325,31 @@ app.post('/api/update/address', (req, res) => {
   });
 });
 
-app.post('/api/logout', (req, res) => {
+// API per il logout
+app.post('/api/logout/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+
+  // Recupera l'ID dell'utente dal token
+  const query = `
+    SELECT USER_ID
+    FROM TOKEN
+    WHERE TOKEN_ID = :tokenid;
+  `;
+
+  const result = await sequelize.query(query, {
+    replacements: {tokenid: tokenID},
+    type: QueryTypes.SELECT,
+  });
+
+  if (result.length === 0) {
+    res.status(404).send('Token non valido');
+    return;
+  }
+
+  const userId = result[0].USER_ID;
+
   let sql = `DELETE FROM TOKEN WHERE USER_ID = ?`;
-  db.run(sql, [req.body.userId], function(err) {
+  db.run(sql, [userId], function(err) {
     if (err) {
       return console.error(err.message);
     }
@@ -258,9 +357,31 @@ app.post('/api/logout', (req, res) => {
   });
 });
 
-app.delete('/api/delete', (req, res) => {
+// API per l'eliminazione dell'account
+app.delete('/api/delete/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+
+  // Recupera l'ID dell'utente dal token
+  const query = `
+    SELECT USER_ID
+    FROM TOKEN
+    WHERE TOKEN_ID = :tokenid;
+  `;
+
+  const result = await sequelize.query(query, {
+    replacements: {tokenid: tokenID},
+    type: QueryTypes.SELECT,
+  });
+
+  if (result.length === 0) {
+    res.status(404).send('Token non valido');
+    return;
+  }
+
+  const userId = result[0].USER_ID;
+
   let sql = `DELETE FROM CLIENTE WHERE ID_CLIENTE = ?`;
-  db.run(sql, [req.body.userId], function(err) {
+  db.run(sql, [userId], function(err) {
     if (err) {
       return console.error(err.message);
     }

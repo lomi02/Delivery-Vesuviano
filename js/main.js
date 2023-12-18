@@ -1,35 +1,7 @@
-// Funzione per gestire il login
-async function login() {
-  try {
-    const email = document.getElementById('email').value;
-    const password = document.getElementById('password').value;
-
-    const response = await fetch('http://localhost:3000/api/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({email, password}),
-    });
-
-    const result = await response.json();
-    if (result.success) {
-
-      // Salva il token nel localStorage
-      localStorage.setItem('token', result.token);
-      window.location.href = 'LogSuccess.html';
-    } else {
-      alert('Login failed. Please check your credentials.');
-    }
-  } catch (error) {
-    console.error('Error during login:', error);
-  }
-}
-
 // Sistema verifica di token
 window.onload = function () {
   const token = localStorage.getItem('token');
-  console.log('Token from localStorage:', token);
+  console.log('Token ID from localStorage:', token);
   if (token) {
 
     // Verifica la validità del token con il server
@@ -66,57 +38,6 @@ window.onload = function () {
 
     // Non c'è token: ritorna il pulsante di login allo stato iniziale
     document.getElementById('loginButton').href = 'login.html';
-  }
-}
-
-// Funzione per gestire la registrazione dell'utente
-async function registrati() {
-
-  // Recupera i valori dai campi del modulo di registrazione
-  let nome = document.getElementById("nome").value;
-  let cognome = document.getElementById("cognome").value;
-  let email = document.getElementById("email").value;
-  let password = document.getElementById("password").value;
-  let via = document.getElementById("via").value;
-  let citta = document.getElementById("citta").value;
-  let cap = document.getElementById("cap").value;
-  let citofono = document.getElementById("citofono").value;
-  if (!nome || !cognome || !email || !password || !via || !citta || !cap || !citofono) {
-    alert('Compila tutti i campi obbligatori.');
-    return;
-  }
-
-  // Crea un oggetto con i dati dell'utente
-  let utente = {
-    nome,
-    cognome,
-    email,
-    password,
-    via,
-    citta,
-    cap,
-    citofono
-  };
-  try {
-
-    // Effettua una richiesta di registrazione al tuo backend
-    const response = await fetch('http://localhost:3000/api/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(utente),
-    });
-
-    const data = await response.json();
-    if (response.status === 201) {
-      console.log('Utente registrato con successo');
-      window.location.href = 'RegSuccess.html';
-    } else {
-      console.error('Errore durante la registrazione dell\'utente:', data.message);
-    }
-  } catch (error) {
-    console.error('Errore durante la registrazione dell\'utente:', error);
   }
 }
 

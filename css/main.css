@@ -7,15 +7,15 @@ body {
 }
 
 header {
-  font-size: 20px;
+  font-size: 1.25rem;
   position: static;
   top: 0;
   left: 0;
-  padding: 30px;
+  padding: 2rem;
   width: 100%;
   background-color: #333;
   color: #fff;
-  margin-left: 100px;
+  margin-left: 6.25rem;
   text-align: left;
 }
 
@@ -24,7 +24,7 @@ footer {
   bottom: 0;
   left: 0;
   width: 100%;
-  padding: 20px;
+  padding: 1.25rem;
   background-color: white;
   color: #333;
   text-align: center;
@@ -34,17 +34,17 @@ footer {
 main {
   background-color: white;
   flex: 1;
-  padding: 10px;
+  padding: 0.625rem;
 }
 
 button {
   background-color: #ffcc00;
   color: #333;
-  padding: 14px 28px;
+  padding: 0.875rem 1.75rem;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  border-radius: 6px;
+  font-size: 1rem;
+  border-radius: 0.375rem;
   transition: background-color 0.3s ease;
 }
 
@@ -57,24 +57,24 @@ button:hover {
   background-color: darkred;
   color: #e6b800;
   font-weight: 700;
-  font-size: 15px;
-  padding: 15px 25px;
+  font-size: 0.9375rem;
+  padding: 0.9375rem 1.5625rem;
   border: none;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 0.375rem;
   transition: background-color 0.3s ease;
 }
 
 #delete-button:hover,
 #logout-button:hover {
-  padding: 15px 25px;
+  padding: 0.9375rem 1.5625rem;
   border: unset;
   color: #212121;
   position: static;
   z-index: 999;
   background: #e6b800;
-  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
-  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  -webkit-box-shadow: 0.25rem 0.5rem 1.1875rem -0.1875rem rgba(0, 0, 0, 0.27);
+  box-shadow: 0.25rem 0.5rem 1.1875rem -0.1875rem rgba(0, 0, 0, 0.27);
   overflow: hidden;
 }
 
@@ -85,11 +85,11 @@ button-dettagli::before {
   left: 0;
   height: 100%;
   width: 0;
-  border-radius: 15px;
+  border-radius: 0.9375rem;
   background-color: #212121;
   z-index: -1;
-  -webkit-box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
-  box-shadow: 4px 8px 19px -3px rgba(0, 0, 0, 0.27);
+  -webkit-box-shadow: 0.25rem 0.5rem 1.1875rem -0.1875rem rgba(0, 0, 0, 0.27);
+  box-shadow: 0.25rem 0.5rem 1.1875rem -0.1875rem rgba(0, 0, 0, 0.27);
   transition: all 250ms
 }
 
@@ -103,11 +103,11 @@ button-dettagli:hover::before {
 
 .button-container {
   position: absolute;
-  top: 40px;
-  right: 150px;
+  top: 2.5rem;
+  right: 9.375rem;
   display: flex;
-  gap: 10px;
-  width: 360px; /* Cambia questo valore secondo le tue preferenze */
+  gap: 0.625rem;
+  width: 22.5rem; /* Cambia questo valore secondo le tue preferenze */
   z-index: 2000;
 }
 
@@ -150,8 +150,8 @@ button-dettagli:hover::before {
 }
 
 .icon img {
-  height: 25px;
-  width: 25px;
+  height: 1.5625rem;
+  width: 1.5625rem;
 }
 
 .login-button::before,
@@ -192,12 +192,12 @@ button-dettagli:hover::before {
 }
 
 .page-content {
-  max-width: 800px;
-  margin: 20px auto;
-  padding: 20px;
+  max-width: 50rem;
+  margin: 1.25rem auto;
+  padding: 1.25rem;
   background-color: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
 }
 
 form {
@@ -208,25 +208,25 @@ form {
 label {
   display: block;
   font-weight: bold;
-  margin-bottom: 8px;
+  margin-bottom: 0.5rem;
   color: #333;
 }
 
 select,
 input {
   width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
+  padding: 0.75rem;
+  margin-bottom: 1.25rem;
   border: 1px solid #ccc;
-  border-radius: 6px;
+  border-radius: 0.375rem;
 }
 
 .griglia-ristoranti {
   display: flex;
   flex-direction: row;
   align-items: flex-start;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
   flex-wrap: wrap;
 }
 
@@ -239,9 +239,9 @@ input {
 .locale-card {
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
-  margin: 10px;
+  border-radius: 0.5rem;
+  padding: 0.625rem;
+  margin: 0.625rem;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
   box-sizing: border-box;
@@ -254,9 +254,9 @@ input {
 
 .locale-card img {
   width: 100%;
-  max-height: 250px;
+  max-height: 15.625rem;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .dettagli-locale {
@@ -266,9 +266,9 @@ input {
   max-width: 90%;
   margin: 0 auto;
   background-color: #fff;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-  padding: 100px;
+  box-shadow: 0 0 1.25rem rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 6.25rem;
 }
 
 .nome-locale {
@@ -276,10 +276,10 @@ input {
   color: #ffcc00;
   background-color: #333;
   text-align: center;
-  margin-top: -120px;
-  margin-left: -150px;
-  margin-right: -150px;
-  padding: 20px;
+  margin-top: -7.5rem;
+  margin-left: -9.375rem;
+  margin-right: -9.375rem;
+  padding: 1.25rem;
 }
 
 .contenitore-locale {
@@ -293,22 +293,22 @@ input {
 
 .contenitore-menu {
   position: static;
-  margin-top: -40px;
+  margin-top: -2.5rem;
   background-color: white;
-  padding: 15px;
+  padding: 0.9375rem;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
   justify-content: center;
-  gap: 10px;
+  gap: 0.625rem;
   overflow: visible;
 }
 
 .piatto-card {
   background-color: #fff;
   border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 10px;
+  border-radius: 0.5rem;
+  padding: 0.625rem;
   cursor: pointer;
   transition: transform 0.3s ease-in-out;
   box-sizing: border-box;
@@ -323,13 +323,13 @@ input {
   width: 100%;
   height: auto;
   object-fit: cover;
-  border-radius: 8px;
+  border-radius: 0.5rem;
 }
 
 .login-container {
-  max-width: 1200px;
+  max-width: 75rem;
   margin: 0 auto;
-  padding: 75px;
+  padding: 4.6875rem;
   background-color: white;
 }
 
@@ -337,13 +337,13 @@ input {
   text-align: center;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 37.5rem) {
   .user-options {
     flex-direction: column;
   }
 
   .user-options a {
-    margin-bottom: 10px;
+    margin-bottom: 0.625rem;
   }
 
   button {

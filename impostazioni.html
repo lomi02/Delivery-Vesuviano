@@ -95,11 +95,11 @@
   <div style="width: 50%;">
     <h1 style="text-align: center;">Impostazioni del profilo</h1>
 
-    <form id="emailForm" style="margin-bottom: 20px;">
+    <form id="emailForm" style="margin-bottom: 1.25rem;">
       <label for="email">Email:</label><br>
-      <div style="display: flex; justify-content: space-between; width: 750px">
+      <div style="display: flex; justify-content: space-between; width: 46.875rem">
         <input type="email" id="email" name="email" disabled>
-        <div style="margin-left: 50px">
+        <div style="margin-left: 3.125rem">
           <button class="editButton">
             Modifica
           </button>
@@ -107,19 +107,19 @@
       </div>
     </form>
 
-    <form id="passwordForm" style="margin-bottom: 20px;">
+    <form id="passwordForm" style="margin-bottom: 1.25rem;">
       <label for="password">Password:</label><br>
-      <div style="display: flex; justify-content: space-between; width: 750px">
-        <input type="password" id="password" name="password" disabled>
-        <div style="margin-left: 50px">
+      <div style="display: flex; justify-content: space-between; width: 46.875rem">
+        <input type="password" id="password" name="password" value="********" disabled>
+        <div style="margin-left: 3.125rem">
           <button class="editButton">Modifica</button>
         </div>
       </div>
     </form>
 
-    <h1 style="text-align: center; margin-top: 20px;">Impostazioni di consegna</h1>
-    <form id="addressForm" style="margin-top: 20px; margin-bottom: 20px;">
-      <div style="display: flex; flex-direction: column; align-items: flex-start; width: 500px">
+    <h1 style="text-align: center; margin-top: 1.25rem;">Impostazioni di consegna</h1>
+    <form id="addressForm" style="margin-top: 1.25rem; margin-bottom: 1.25rem;">
+      <div style="display: flex; flex-direction: column; align-items: flex-start; width: 31.25rem">
         <label for="via">Via:</label><br>
         <input type="text" id="via" name="via" disabled><br>
         <label for="citta">Città:</label><br>
@@ -132,9 +132,9 @@
       </div>
     </form>
 
-    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px">
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 1.25rem">
       <button id="logout-button">Logout</button>
-      <span style="margin-right: 10px;"></span>
+      <span style="margin-right: 0.625rem;"></span>
       <button id="delete-button">Elimina account</button>
     </div>
   </div>
@@ -147,9 +147,8 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    // Fetch user data
     const userToken = localStorage.getItem('token');
-    console.log('User token:', userToken); // Add this line to log the user token
+    console.log('User token ID:', userToken);
 
     if (userToken) {
       fetch(`http://localhost:3000/api/user/${userToken}`)
@@ -160,169 +159,173 @@
           return response.json();
         })
         .then(data => {
-          // Log the data to the console
           console.log(data);
+          const userData = data[0];
 
-          // Check if data exists and is an array
-          if (data && Array.isArray(data) && data.length > 0) {
-            const userData = data[0];
+          // Precompila i campi del modulo con i dati dell'utente
+          document.getElementById('email').value = userData.EMAIL_CLIENTE;
+          document.getElementById('password').value.disabled = userData.PASSWORD_CLIENTE;
+          document.getElementById('via').value = userData.VIA_CLIENTE;
+          document.getElementById('citta').value = userData.CITTA_CLIENTE;
+          document.getElementById('cap').value = userData.CAP_CLIENTE;
+          document.getElementById('citofono').value = userData.CITOFONO_CLIENTE;
+        });
+    }
 
-            // Precompila i campi del modulo con i dati dell'utente
-            document.getElementById('email').value = userData.EMAIL_CLIENTE;
-            document.getElementById('password').value = userData.PASSWORD_CLIENTE;
-            document.getElementById('via').value = userData.VIA_CLIENTE;
-            document.getElementById('citta').value = userData.CITTA_CLIENTE;
-            document.getElementById('cap').value = userData.CAP_CLIENTE;
-            document.getElementById('citofono').value = userData.CITOFONO_CLIENTE;
+    const emailForm = document.getElementById('emailForm');
+    const passwordForm = document.getElementById('passwordForm');
+    const addressForm = document.getElementById('addressForm');
+    const editButtons = document.getElementsByClassName('edit-button');
+    const deleteButton = document.getElementById('delete-button');
+    const logoutButton = document.getElementById('logout-button');
+
+    Array.from(editButtons).forEach(function (editButton) {
+      editButton.addEventListener('click', function () {
+        const inputField = this.previousElementSibling;
+        inputField.disabled = false;
+      });
+    });
+
+    // Applicazione API per la modifica dell'email
+    emailForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value;
+
+      fetch(`http://localhost:3000/api/update/email/${userToken}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`
+        },
+        body: JSON.stringify({email}),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(data.message);
+            document.getElementById('email').disabled = true;
           } else {
-            console.log('No user data returned from API');
+            console.error(data.message);
           }
         })
-        .catch(e => {
-          console.log('There was a problem with your fetch operation: ' + e.message);
+        .catch((error) => {
+          console.error('Error:', error);
         });
+    });
 
+    // Applicazione API per la modifica della password
+    passwordForm.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-      const emailForm = document.getElementById('emailForm');
-      const passwordForm = document.getElementById('passwordForm');
-      const addressForm = document.getElementById('addressForm');
-      const editButtons = document.getElementsByClassName('edit-button');
-      const deleteButton = document.getElementById('delete-button');
-      const logoutButton = document.getElementById('logout-button');
+      const password = document.getElementById('password').value;
 
-      Array.from(editButtons).forEach(function (editButton) {
-        editButton.addEventListener('click', function () {
-          const inputField = this.previousElementSibling;
-          inputField.disabled = false;
+      fetch(`http://localhost:3000/api/update/password/${userToken}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`
+        },
+        body: JSON.stringify({password}),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(data.message);
+            document.getElementById('password').disabled = true;
+          } else {
+            console.error(data.message);
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
         });
-      });
+    });
 
-      emailForm.addEventListener('submit', function (e) {
-        e.preventDefault();
+    // Applicazione API per la modifica dell'indirizzo di consegna
+    addressForm.addEventListener('submit', function (e) {
+      e.preventDefault();
 
-        const email = document.getElementById('email').value;
+      const via = document.getElementById('via').value;
+      const citta = document.getElementById('citta').value;
+      const cap = document.getElementById('cap').value;
+      const citofono = document.getElementById('citofono').value;
 
-        fetch('http://localhost:3000/api/update/email', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({email}),
+      fetch(`http://localhost:3000/api/update/address/${userToken}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`
+        },
+        body: JSON.stringify({via, citta, cap, citofono}),
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(data.message);
+            document.getElementById('via').disabled = true;
+            document.getElementById('citta').disabled = true;
+            document.getElementById('cap').disabled = true;
+            document.getElementById('citofono').disabled = true;
+          } else {
+            console.error(data.message);
+          }
         })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              alert(data.message);
-              document.getElementById('email').disabled = true;
-            } else {
-              console.error(data.message);
-            }
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-      });
-
-      passwordForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const password = document.getElementById('password').value;
-
-        fetch('http://localhost:3000/api/update/password', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({password}),
-        })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              alert(data.message);
-              document.getElementById('password').disabled = true;
-            } else {
-              console.error(data.message);
-            }
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-      });
-
-      addressForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-
-        const via = document.getElementById('via').value;
-        const citta = document.getElementById('citta').value;
-        const cap = document.getElementById('cap').value;
-        const citofono = document.getElementById('citofono').value;
-
-        fetch('http://localhost:3000/api/update/address', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({via, citta, cap, citofono}),
-        })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              alert(data.message);
-              document.getElementById('via').disabled = true;
-              document.getElementById('citta').disabled = true;
-              document.getElementById('cap').disabled = true;
-              document.getElementById('citofono').disabled = true;
-            } else {
-              console.error(data.message);
-            }
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-      });
-
-      if (logoutButton) {
-        logoutButton.addEventListener('click', function () {
-          fetch('http://localhost:3000/api/logout', {
-            method: 'POST',
-          })
-            .then(response => response.json())
-            .then(data => {
-              if (data.success) {
-                window.location.href = 'login.html';
-              } else {
-                console.error(data.message);
-              }
-            })
-            .catch((error) => {
-              console.error('Error:', error);
-            });
+        .catch((error) => {
+          console.error('Error:', error);
         });
-      } else {
-        console.error('logout-button not found');
-      }
+    });
 
-      deleteButton.addEventListener('click', function () {
-        fetch('http://localhost:3000/api/delete', {
-          method: 'DELETE',
+    // Applicazione API per il logout
+    logoutButton.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      fetch(`http://localhost:3000/api/logout/${userToken}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(data.message);
+            // Potresti voler reindirizzare l'utente alla pagina di login qui
+          } else {
+            console.error(data.message);
+          }
         })
-          .then(response => response.json())
-          .then(data => {
-            if (data.success) {
-              alert(data.message);
-              window.location.href = 'index.html';
-            } else {
-              console.error(data.message);
-            }
-          })
-          .catch((error) => {
-            console.error('Error:', error);
-          });
-      });
-    } else {
-      console.error('No user token found');
-    }});
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    });
 
+    // Applicazione API per l'eliminazione dell'account
+    deleteButton.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      fetch(`http://localhost:3000/api/delete/${userToken}`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${userToken}`
+        },
+      })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            alert(data.message);
+            // Potresti voler reindirizzare l'utente alla pagina di login qui
+          } else {
+            console.error(data.message);
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+    });
+  });
 </script>
 
 <script src="js/main.js"></script>

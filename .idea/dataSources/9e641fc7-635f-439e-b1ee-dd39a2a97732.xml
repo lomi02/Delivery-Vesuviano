@@ -446,7 +446,7 @@
     </routine>
     <schema id="177" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2023-12-18.13:02:52</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2023-12-18.16:49:32</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="178" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1483,178 +1483,188 @@
       <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="525" parent="518" name="NOME_CLIENTE">
-      <DasType>TEXT|0s</DasType>
-      <NotNull>1</NotNull>
+    <column id="525" parent="518" name="SESSIONE_ID">
+      <DasType>INTEGER|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="526" parent="518" name="COGNOME_CLIENTE">
+    <column id="526" parent="518" name="NOME_CLIENTE">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="527" parent="518" name="EMAIL_CLIENTE">
+    <column id="527" parent="518" name="COGNOME_CLIENTE">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="528" parent="518" name="PASSWORD_CLIENTE">
+    <column id="528" parent="518" name="EMAIL_CLIENTE">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="529" parent="518" name="VIA_CLIENTE">
+    <column id="529" parent="518" name="PASSWORD_CLIENTE">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="530" parent="518" name="CITTA_CLIENTE">
+    <column id="530" parent="518" name="VIA_CLIENTE">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="531" parent="518" name="CAP_CLIENTE">
+    <column id="531" parent="518" name="CITTA_CLIENTE">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="532" parent="518" name="CITOFONO_CLIENTE">
+    <column id="532" parent="518" name="CAP_CLIENTE">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>9</Position>
     </column>
-    <index id="533" parent="518" name="sqlite_autoindex_CLIENTE_1">
+    <column id="533" parent="518" name="CITOFONO_CLIENTE">
+      <DasType>TEXT|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>10</Position>
+    </column>
+    <foreign-key id="534" parent="518">
+      <ColNames>SESSIONE_ID</ColNames>
+      <OnDelete>cascade</OnDelete>
+      <RefColNames>TOKEN_ID</RefColNames>
+      <RefTableName>TOKEN</RefTableName>
+    </foreign-key>
+    <index id="535" parent="518" name="sqlite_autoindex_CLIENTE_1">
       <ColNames>EMAIL_CLIENTE</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="534" parent="518">
+    <key id="536" parent="518">
       <ColNames>ID_CLIENTE</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="535" parent="518">
+    <key id="537" parent="518">
       <ColNames>EMAIL_CLIENTE</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_CLIENTE_1</UnderlyingIndexName>
     </key>
-    <column id="536" parent="519" name="ID_PIATTO">
+    <column id="538" parent="519" name="ID_PIATTO">
       <AutoIncrement>1</AutoIncrement>
       <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="537" parent="519" name="RISTORANTE_ID">
+    <column id="539" parent="519" name="RISTORANTE_ID">
       <DasType>INTEGER|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="538" parent="519" name="NOME_PIATTO">
+    <column id="540" parent="519" name="NOME_PIATTO">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="539" parent="519" name="DESCRIZIONE">
+    <column id="541" parent="519" name="DESCRIZIONE">
       <DasType>TEXT|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="540" parent="519" name="PREZZO">
+    <column id="542" parent="519" name="PREZZO">
       <DasType>DECIMAL(10,2)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="541" parent="519" name="IMG_URL_PIATTO">
+    <column id="543" parent="519" name="IMG_URL_PIATTO">
       <DasType>TEXT|0s</DasType>
       <Position>6</Position>
     </column>
-    <foreign-key id="542" parent="519">
+    <foreign-key id="544" parent="519">
       <ColNames>RISTORANTE_ID</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>P_IVA_RISTORANTE</RefColNames>
       <RefTableName>RISTORANTE</RefTableName>
     </foreign-key>
-    <key id="543" parent="519">
+    <key id="545" parent="519">
       <ColNames>ID_PIATTO</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="544" parent="520" name="P_IVA_RISTORANTE">
+    <column id="546" parent="520" name="P_IVA_RISTORANTE">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="545" parent="520" name="NOME_RISTORANTE">
+    <column id="547" parent="520" name="NOME_RISTORANTE">
       <DasType>TEXT|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="546" parent="520" name="NUMERO_TELEFONO_RISTORANTE">
+    <column id="548" parent="520" name="NUMERO_TELEFONO_RISTORANTE">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="547" parent="520" name="IMG_URL_RISTORANTE">
+    <column id="549" parent="520" name="IMG_URL_RISTORANTE">
       <DasType>TEXT|0s</DasType>
       <Position>4</Position>
     </column>
-    <index id="548" parent="520" name="sqlite_autoindex_RISTORANTE_1">
+    <index id="550" parent="520" name="sqlite_autoindex_RISTORANTE_1">
       <ColNames>P_IVA_RISTORANTE</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="549" parent="520">
+    <key id="551" parent="520">
       <ColNames>P_IVA_RISTORANTE</ColNames>
       <Primary>1</Primary>
       <UnderlyingIndexName>sqlite_autoindex_RISTORANTE_1</UnderlyingIndexName>
     </key>
-    <column id="550" parent="521" name="TOKEN_ID">
+    <column id="552" parent="521" name="TOKEN_ID">
       <DasType>INTEGER|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="551" parent="521" name="USER_ID">
+    <column id="553" parent="521" name="USER_ID">
       <DasType>INTEGER|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="552" parent="521" name="TOKEN_STRING">
+    <column id="554" parent="521" name="TOKEN_STRING">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="553" parent="521" name="CREATION_DATETIME">
+    <column id="555" parent="521" name="CREATION_DATETIME">
       <DasType>DATETIME|0s</DasType>
       <DefaultExpression>CURRENT_TIMESTAMP</DefaultExpression>
       <Position>4</Position>
     </column>
-    <column id="554" parent="521" name="EXPIRATION_TIMESTAMP">
+    <column id="556" parent="521" name="EXPIRATION_TIMESTAMP">
       <DasType>INTEGER|0s</DasType>
       <Position>5</Position>
     </column>
-    <foreign-key id="555" parent="521">
+    <foreign-key id="557" parent="521">
       <ColNames>USER_ID</ColNames>
       <OnDelete>cascade</OnDelete>
       <RefColNames>ID_CLIENTE</RefColNames>
       <RefTableName>CLIENTE</RefTableName>
     </foreign-key>
-    <key id="556" parent="521">
+    <key id="558" parent="521">
       <ColNames>TOKEN_ID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="557" parent="522" name="type">
+    <column id="559" parent="522" name="type">
       <DasType>TEXT|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="558" parent="522" name="name">
+    <column id="560" parent="522" name="name">
       <DasType>TEXT|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="559" parent="522" name="tbl_name">
+    <column id="561" parent="522" name="tbl_name">
       <DasType>TEXT|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="560" parent="522" name="rootpage">
+    <column id="562" parent="522" name="rootpage">
       <DasType>INT|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="561" parent="522" name="sql">
+    <column id="563" parent="522" name="sql">
       <DasType>TEXT|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="562" parent="523" name="name">
+    <column id="564" parent="523" name="name">
       <Position>1</Position>
     </column>
-    <column id="563" parent="523" name="seq">
+    <column id="565" parent="523" name="seq">
       <Position>2</Position>
     </column>
   </database-model>

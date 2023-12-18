@@ -149,6 +149,8 @@
   document.addEventListener('DOMContentLoaded', function () {
     // Fetch user data
     const userToken = localStorage.getItem('token');
+    console.log('User token:', userToken); // Add this line to log the user token
+
     if (userToken) {
       fetch(`http://localhost:3000/api/user/${userToken}`)
         .then(response => {
@@ -161,17 +163,25 @@
           // Log the data to the console
           console.log(data);
 
-          // Precompila i campi del modulo con i dati dell'utente
-          document.getElementById('email').value = data.EMAIL_CLIENTE;
-          document.getElementById('password').value = data.PASSWORD_CLIENTE;
-          document.getElementById('via').value = data.VIA_CLIENTE;
-          document.getElementById('citta').value = data.CITTA_CLIENTE;
-          document.getElementById('cap').value = data.CAP_CLIENTE;
-          document.getElementById('citofono').value = data.CITOFONO_CLIENTE;
+          // Check if data exists and is an array
+          if (data && Array.isArray(data) && data.length > 0) {
+            const userData = data[0];
+
+            // Precompila i campi del modulo con i dati dell'utente
+            document.getElementById('email').value = userData.EMAIL_CLIENTE;
+            document.getElementById('password').value = userData.PASSWORD_CLIENTE;
+            document.getElementById('via').value = userData.VIA_CLIENTE;
+            document.getElementById('citta').value = userData.CITTA_CLIENTE;
+            document.getElementById('cap').value = userData.CAP_CLIENTE;
+            document.getElementById('citofono').value = userData.CITOFONO_CLIENTE;
+          } else {
+            console.log('No user data returned from API');
+          }
         })
         .catch(e => {
           console.log('There was a problem with your fetch operation: ' + e.message);
         });
+
 
       const emailForm = document.getElementById('emailForm');
       const passwordForm = document.getElementById('passwordForm');
@@ -311,8 +321,7 @@
       });
     } else {
       console.error('No user token found');
-    }
-  });
+    }});
 
 </script>
 

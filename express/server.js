@@ -31,6 +31,14 @@ const db = new sqlite3.Database(dbPath, (err) => {
 // API di fetching delle informazioni del cliente
 app.get('/api/user/:tokenid', async (req, res) => {
   const tokenID = req.params.tokenid;
+  console.log('User token:', tokenID); // Log the user token
+
+  if (!tokenID) {
+    console.log('Token non fornito');
+    res.status(400).send('Token non fornito');
+    return;
+  }
+
   try {
     const query = `
       SELECT *
@@ -44,10 +52,18 @@ app.get('/api/user/:tokenid', async (req, res) => {
       type: QueryTypes.SELECT,
     });
 
+    console.log('Query result:', result);
+
+    if (result.length === 0) {
+      console.log('Nessun dato utente trovato per questo token');
+      res.status(404).send('Nessun dato utente trovato per questo token');
+      return;
+    }
+
     res.json(result);
   } catch (error) {
     console.error('Errore durante il recupero dei dati del cliente:', error);
-    res.status(500).send('Errore interno del server');
+    res.status(500).send(`Errore interno del server: ${error.message}`);
   }
 });
 
@@ -126,7 +142,7 @@ app.post('/api/verify-token', (req, res) => {
       res.status(500).json({success: false, message: 'Internal Server Error'});
     } else {
       if (row && Math.floor(Date.now() / 1000) < row.EXPIRATION_TIMESTAMP) {
-        db.get('SELECT * FROM CLIENTE WHERE ID_CLIENTE = ?', [row.USER_ID], (err, user) => {
+        db.get('SELECT * FROM CLIENTE INNER JOIN TOKEN ON CLIENTE.ID_CLIENTE = TOKEN.USER_ID WHERE TOKEN.TOKEN_STRING = ?', [token], (err, user) => {
           if (err) {
             console.error(err);
             res.status(500).json({success: false, message: 'Internal Server Error'});
@@ -165,15 +181,6 @@ app.use((req, res, next) => {
           } else {
             res.status(401).json({success: false, message: 'Invalid token'});
           }
-        }
-      });
-
-      // Pulizia dei token scaduti
-      db.run('DELETE FROM TOKEN WHERE EXPIRATION_TIMESTAMP <= ?', [Math.floor(Date.now() / 1000)], (err) => {
-        if (err) {
-          console.error(err);
-        } else {
-          console.log('Expired tokens cleaned up');
         }
       });
     }

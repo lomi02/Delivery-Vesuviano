@@ -100,7 +100,7 @@
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" required>
       <br>
-      <button type="button" onclick="login()">Login</button>
+      <button type="button" style="width: 15rem; align-self: center" onclick="login()">Login</button>
     </form>
     <p class="center-text">Non sei registrato? <a href="register.html">Effettua la registrazione qui</a></p>
   </div>
@@ -130,9 +130,12 @@
       const result = await response.json();
       if (result.success) {
 
-        // Salva il token nel localStorage
-        localStorage.setItem('token', result.token);
-        window.location.href = 'LogSuccess.html';
+        // Salva il token nel localStorage e poi reindirizza
+        localStorage.setItem('tokenid', result.token);
+        localStorage.setItem('tokenstring', result.tokenString);
+        setTimeout(() => {
+          window.location.href = 'LogSuccess.html';
+        }, 100);
       } else {
         alert('Login failed. Please check your credentials.');
       }
@@ -140,6 +143,7 @@
       console.error('Error during login:', error);
     }
   }
+
 </script>
 <script src="js/main.js"></script>
 </body>

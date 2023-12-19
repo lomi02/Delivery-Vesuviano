@@ -116,18 +116,51 @@ app.post('/api/login', (req, res) => {
       if (row && bcrypt.compareSync(password, row.PASSWORD_CLIENTE)) {
         const token = crypto.randomBytes(64).toString('hex');
         const expirationTimestamp = Math.floor(Date.now() / 1000) + 60 * 30;
+
+        // Inserisci il token nel database
         db.run('INSERT INTO TOKEN (USER_ID, TOKEN_STRING, EXPIRATION_TIMESTAMP) VALUES (?, ?, ?)',
           [row.ID_CLIENTE, token, expirationTimestamp], function(err) {
             if (err) {
               console.error(err);
               res.status(500).json({success: false, message: 'Internal Server Error'});
-            } else {
-              res.json({success: true, message: 'Login successful', token: this.lastID});
+            }
+            else {
+              // Restituisci l'ID del token e la stringa del token al cliente
+              res.json({success: true, message: 'Login successful', token: this.lastID, tokenString: token});
             }
           });
       } else {
         res.json({success: false, message: 'Invalid credentials'});
       }
+    }
+  });
+});
+
+// API di Registrazione
+app.post('/api/register', (req, res) => {
+  const {nome, cognome, email, password, via, citta, cap, citofono} = req.body;
+  const saltRounds = 10;
+
+  bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
+    if (err) {
+      console.error('Errore durante l\'hashing della password:', err);
+      res.status(500).json({message: 'Errore durante l\'hashing della password'});
+    } else {
+      const insertClienteQuery = `
+        INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL_CLIENTE, PASSWORD_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE,
+                             CAP_CLIENTE, CITOFONO_CLIENTE)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `;
+
+      db.run(insertClienteQuery, [nome, cognome, email, hashedPassword, via, citta, cap, citofono], function (err) {
+        if (err) {
+          console.error('Errore durante la registrazione:', err);
+          res.status(500).json({message: 'Errore durante la registrazione'});
+        } else {
+          console.log('Registrazione avvenuta con successo');
+          res.status(201).json({message: 'Registrazione avvenuta con successo'});
+        }
+      });
     }
   });
 });
@@ -162,10 +195,12 @@ app.post('/api/verify-token', (req, res) => {
 // Sistema middleware di Token
 const ignorePaths = ['/api/register'];
 app.use((req, res, next) => {
+
   // Se il percorso della richiesta corrente è nell'array dei percorsi da ignorare, passa al prossimo middleware
   if (ignorePaths.includes(req.path)) {
     next();
-  } else {
+  }
+  else {
     const token = req.headers['authorization'];
 
     if (!token) {
@@ -186,35 +221,6 @@ app.use((req, res, next) => {
       });
     }
   }
-});
-
-// API di Registrazione
-app.post('/api/register', (req, res) => {
-  const {nome, cognome, email, password, via, citta, cap, citofono} = req.body;
-  const saltRounds = 10;
-
-  bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
-    if (err) {
-      console.error('Errore durante l\'hashing della password:', err);
-      res.status(500).json({message: 'Errore durante l\'hashing della password'});
-    } else {
-      const insertClienteQuery = `
-        INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL_CLIENTE, PASSWORD_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE,
-                             CAP_CLIENTE, CITOFONO_CLIENTE)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `;
-
-      db.run(insertClienteQuery, [nome, cognome, email, hashedPassword, via, citta, cap, citofono], function (err) {
-        if (err) {
-          console.error('Errore durante la registrazione:', err);
-          res.status(500).json({message: 'Errore durante la registrazione'});
-        } else {
-          console.log('Registrazione avvenuta con successo');
-          res.status(201).json({message: 'Registrazione avvenuta con successo'});
-        }
-      });
-    }
-  });
 });
 
 // API per l'aggiornamento del campo email
@@ -286,7 +292,13 @@ app.post('/api/update/password/:tokenid', async (req, res) => {
         if (err) {
           return console.error(err.message);
         }
-        res.json({ success: true, message: 'Password Aggiornata con successo.' });
+        // Invalida tutti i token esistenti
+        db.run('DELETE FROM TOKEN WHERE USER_ID = ?', [userId], function(err) {
+          if (err) {
+            return console.error(err.message);
+          }
+          res.json({ success: true, message: 'Password Aggiornata con successo.' });
+        });
       });
     }
   });
@@ -380,7 +392,7 @@ app.delete('/api/delete/:tokenid', async (req, res) => {
 
   const userId = result[0].USER_ID;
 
-  let sql = `DELETE FROM CLIENTE WHERE ID_CLIENTE = ?`;
+  let sql = `DELETE FROM CLIENTE WHERE ID_CLIENTE = ?; DELETE FROM TOKEN WHERE USER_ID = ?`;
   db.run(sql, [userId], function(err) {
     if (err) {
       return console.error(err.message);

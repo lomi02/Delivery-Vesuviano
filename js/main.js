@@ -1,15 +1,17 @@
 // Sistema verifica di token
 window.onload = function () {
-  const token = localStorage.getItem('token');
-  console.log('Token ID from localStorage:', token);
-  if (token) {
+  const tokenString = localStorage.getItem('tokenstring');
+  const tokenID = localStorage.getItem('tokenid');
+  console.log('Token String from localStorage:', tokenString);
+  console.log('Token ID from localStorage:', tokenID);
+  if (tokenID) {
 
     // Verifica la validità del token con il server
     fetch('http://localhost:3000/api/verify-token', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': token
+        'Authorization': tokenID
       }
     })
       .then(response => {
@@ -29,7 +31,8 @@ window.onload = function () {
         } else {
 
           // Il token non è valido: rimuovi il token e ritorna il pulsante di login allo stato iniziale
-          localStorage.removeItem('token');
+          localStorage.removeItem('tokenid');
+          localStorage.removeItem('tokenstring');
           document.getElementById('loginButton').href = 'login.html';
         }
       })

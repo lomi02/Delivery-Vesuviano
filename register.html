@@ -91,55 +91,52 @@
 </div>
 
 <!-- Sezione del contenuto di pagina -->
-<main style="display: flex; justify-content: center; align-items: center">
-  <div style="width: 50%;">
-    <h1 style="text-align: center;">Impostazioni del profilo</h1>
+<main>
+  <section class="page-content">
+    <form id="registerForm">
 
-    <form id="emailForm" style="margin-bottom: 1.25rem;">
-      <label for="email">Email:</label><br>
-      <div style="display: flex; justify-content: space-between; width: 46.875rem">
-        <input type="email" id="email" name="email" disabled>
-        <div style="margin-left: 3.125rem">
-          <button class="editButton">
-            Modifica
-          </button>
-        </div>
-      </div>
+      <!-- Sezione Dati Personali -->
+      <h2>Dati personali</h2>
+
+      <!-- Sezione Nome -->
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required>
+
+      <!-- Sezione Cognome -->
+      <label for="cognome">Cognome:</label>
+      <input type="text" id="cognome" name="cognome" required>
+
+      <!-- Sezione E-mail -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <!-- Sezione Password -->
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+
+      <!-- Sezione Domicilio -->
+      <h2>Indirizzo di consegna</h2>
+
+      <!-- Sezione Via -->
+      <label for="via">Via:</label>
+      <input type="text" id="via" name="via" required>
+
+      <!-- Sezione Città -->
+      <label for="citta">Città:</label>
+      <input type="text" id="citta" name="citta" required>
+
+      <!-- Sezione CAP -->
+      <label for="cap">CAP:</label>
+      <input type="text" id="cap" name="cap" required>
+
+      <!-- Sezione Citofono -->
+      <label for="citofono">Citofono:</label>
+      <input type="text" id="citofono" name="citofono" required>
+
+      <button type="button" onclick="registrati()">Registra</button>
     </form>
-
-    <form id="passwordForm" style="margin-bottom: 1.25rem;">
-      <label for="password">Password:</label><br>
-      <div style="display: flex; justify-content: space-between; width: 46.875rem">
-        <input type="password" id="password" name="password" value="********" disabled>
-        <div style="margin-left: 3.125rem">
-          <button class="editButton">Modifica</button>
-        </div>
-      </div>
-    </form>
-
-    <h1 style="text-align: center; margin-top: 1.25rem;">Impostazioni di consegna</h1>
-    <form id="addressForm" style="margin-top: 1.25rem; margin-bottom: 1.25rem;">
-      <div style="display: flex; flex-direction: column; align-items: flex-start; width: 31.25rem">
-        <label for="via">Via:</label><br>
-        <input type="text" id="via" name="via" disabled><br>
-        <label for="citta">Città:</label><br>
-        <input type="text" id="citta" name="citta" disabled><br>
-        <label for="cap">CAP:</label><br>
-        <input type="text" id="cap" name="cap" disabled><br>
-        <label for="citofono">Citofono:</label><br>
-        <input type="text" id="citofono" name="citofono" disabled><br>
-        <button class="editButton">Modifica</button>
-      </div>
-    </form>
-
-    <div style="display: flex; justify-content: center; align-items: center; margin-top: 1.25rem">
-      <button id="logout-button">Logout</button>
-      <span style="margin-right: 0.625rem;"></span>
-      <button id="delete-button">Elimina account</button>
-    </div>
-  </div>
+  </section>
 </main>
-
 <script>
 
   // Funzione per gestire la registrazione dell'utente

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html"
-      xmlns="http://www.w3.org/1999/html">
+<html lang="it" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -291,7 +290,7 @@
         .then(data => {
           if (data.success) {
             alert(data.message);
-            // Potresti voler reindirizzare l'utente alla pagina di login qui
+            window.location.href = "login.html"
           } else {
             console.error(data.message);
           }
@@ -316,7 +315,7 @@
         .then(data => {
           if (data.success) {
             alert(data.message);
-            // Potresti voler reindirizzare l'utente alla pagina di login qui
+            window.location.href = "login.html"
           } else {
             console.error(data.message);
           }

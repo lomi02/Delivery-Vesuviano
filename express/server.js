@@ -217,6 +217,39 @@ app.post('/api/register', (req, res) => {
   });
 });
 
+// API per l'aggiornamento del campo email
+app.post('/api/update/email/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+  const email = req.body.email;
+
+  // Recupera l'ID dell'utente dal token
+  const query = `
+    SELECT USER_ID
+    FROM TOKEN
+    WHERE TOKEN_ID = :tokenid;
+  `;
+
+  const result = await sequelize.query(query, {
+    replacements: {tokenid: tokenID},
+    type: QueryTypes.SELECT,
+  });
+
+  if (result.length === 0) {
+    res.status(404).send('Token non valido');
+    return;
+  }
+
+  const userId = result[0].USER_ID;
+
+  let sql = `UPDATE CLIENTE SET EMAIL_CLIENTE = ? WHERE ID_CLIENTE = ?`;
+  db.run(sql, [email, userId], function(err) {
+    if (err) {
+      return console.error(err.message);
+    }
+    res.json({ success: true, message: 'Email Aggiornata con successo.' });
+  });
+});
+
 // API per l'aggiornamento del campo password
 app.post('/api/update/password/:tokenid', async (req, res) => {
   const tokenID = req.params.tokenid;
@@ -256,39 +289,6 @@ app.post('/api/update/password/:tokenid', async (req, res) => {
         res.json({ success: true, message: 'Password Aggiornata con successo.' });
       });
     }
-  });
-});
-
-// API per l'aggiornamento del campo email
-app.post('/api/update/email/:tokenid', async (req, res) => {
-  const tokenID = req.params.tokenid;
-  const email = req.body.email;
-
-  // Recupera l'ID dell'utente dal token
-  const query = `
-    SELECT USER_ID
-    FROM TOKEN
-    WHERE TOKEN_ID = :tokenid;
-  `;
-
-  const result = await sequelize.query(query, {
-    replacements: {tokenid: tokenID},
-    type: QueryTypes.SELECT,
-  });
-
-  if (result.length === 0) {
-    res.status(404).send('Token non valido');
-    return;
-  }
-
-  const userId = result[0].USER_ID;
-
-  let sql = `UPDATE CLIENTE SET EMAIL_CLIENTE = ? WHERE ID_CLIENTE = ?`;
-  db.run(sql, [email, userId], function(err) {
-    if (err) {
-      return console.error(err.message);
-    }
-    res.json({ success: true, message: 'Email Aggiornata con successo.' });
   });
 });
 

@@ -393,3 +393,4 @@ app.delete('/api/delete/:tokenid', async (req, res) => {
 app.listen(port, () => {
   console.log(`Il server è in ascolto sulla porta ${port}`);
 });
+

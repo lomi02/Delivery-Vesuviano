@@ -119,12 +119,11 @@ app.post('/api/login', (req, res) => {
 
         // Inserisci il token nel database
         db.run('INSERT INTO TOKEN (USER_ID, TOKEN_STRING, EXPIRATION_TIMESTAMP) VALUES (?, ?, ?)',
-          [row.ID_CLIENTE, token, expirationTimestamp], function(err) {
+          [row.ID_CLIENTE, token, expirationTimestamp], function (err) {
             if (err) {
               console.error(err);
               res.status(500).json({success: false, message: 'Internal Server Error'});
-            }
-            else {
+            } else {
               // Restituisci l'ID del token e la stringa del token al cliente
               res.json({success: true, message: 'Login successful', token: this.lastID, tokenString: token});
             }
@@ -199,8 +198,7 @@ app.use((req, res, next) => {
   // Se il percorso della richiesta corrente è nell'array dei percorsi da ignorare, passa al prossimo middleware
   if (ignorePaths.includes(req.path)) {
     next();
-  }
-  else {
+  } else {
     const token = req.headers['authorization'];
 
     if (!token) {
@@ -223,12 +221,8 @@ app.use((req, res, next) => {
   }
 });
 
-// API per l'aggiornamento del campo email
-app.post('/api/update/email/:tokenid', async (req, res) => {
-  const tokenID = req.params.tokenid;
-  const email = req.body.email;
-
-  // Recupera l'ID dell'utente dal token
+// Funzione per ottenere l'ID utente dal token
+async function fetchUserID(tokenId) {
   const query = `
     SELECT USER_ID
     FROM TOKEN
@@ -236,23 +230,33 @@ app.post('/api/update/email/:tokenid', async (req, res) => {
   `;
 
   const result = await sequelize.query(query, {
-    replacements: {tokenid: tokenID},
+    replacements: {tokenid: tokenId},
     type: QueryTypes.SELECT,
   });
 
-  if (result.length === 0) {
+  return result.length > 0 ? result[0].USER_ID : null;
+}
+
+// API per l'aggiornamento del campo email
+app.post('/api/update/email/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+  const email = req.body.email;
+
+  const userId = await fetchUserID(tokenID);
+  if (!userId) {
     res.status(404).send('Token non valido');
     return;
   }
 
-  const userId = result[0].USER_ID;
-
-  let sql = `UPDATE CLIENTE SET EMAIL_CLIENTE = ? WHERE ID_CLIENTE = ?`;
-  db.run(sql, [email, userId], function(err) {
+  let sql = `UPDATE CLIENTE
+             SET EMAIL_CLIENTE = ?
+             WHERE ID_CLIENTE = ?`;
+  db.run(sql, [email, userId], function (err) {
     if (err) {
-      return console.error(err.message);
+      res.status(500).send('Errore durante l\'aggiornamento dell\'email');
+      return;
     }
-    res.json({ success: true, message: 'Email Aggiornata con successo.' });
+    res.json({success: true, message: 'Email Aggiornata con successo.'});
   });
 });
 
@@ -262,42 +266,36 @@ app.post('/api/update/password/:tokenid', async (req, res) => {
   const password = req.body.password;
   const saltRounds = 10;
 
-  // Recupera l'ID dell'utente dal token
-  const query = `
-    SELECT USER_ID
-    FROM TOKEN
-    WHERE TOKEN_ID = :tokenid;
-  `;
-
-  const result = await sequelize.query(query, {
-    replacements: {tokenid: tokenID},
-    type: QueryTypes.SELECT,
-  });
-
-  if (result.length === 0) {
+  const userId = await fetchUserID(tokenID);
+  if (!userId) {
     res.status(404).send('Token non valido');
     return;
   }
 
-  const userId = result[0].USER_ID;
-
   // Hashing della password
   bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
     if (err) {
-      console.error('Errore durante l\'hashing della password:', err);
       res.status(500).json({message: 'Errore durante l\'hashing della password'});
     } else {
-      let sql = `UPDATE CLIENTE SET PASSWORD_CLIENTE = ? WHERE ID_CLIENTE = ?`;
-      db.run(sql, [hashedPassword, userId], function(err) {
+      let sql = `UPDATE CLIENTE
+                 SET PASSWORD_CLIENTE = ?
+                 WHERE ID_CLIENTE = ?`;
+      db.run(sql, [hashedPassword, userId], function (err) {
         if (err) {
-          return console.error(err.message);
+          res.status(500).send('Errore durante l\'aggiornamento della password');
+          return;
         }
-        // Invalida tutti i token esistenti
-        db.run('DELETE FROM TOKEN WHERE USER_ID = ?', [userId], function(err) {
+
+        // Aggiungi qui la query per rimuovere il token
+        let sqlDeleteToken = `DELETE
+                              FROM TOKEN
+                              WHERE USER_ID = ?`;
+        db.run(sqlDeleteToken, [userId], function (err) {
           if (err) {
-            return console.error(err.message);
+            res.status(500).send('Errore durante la rimozione del token');
+            return;
           }
-          res.json({ success: true, message: 'Password Aggiornata con successo.' });
+          res.json({success: true, message: 'Password Aggiornata con successo. Logout in corso.'});
         });
       });
     }
@@ -309,31 +307,24 @@ app.post('/api/update/address/:tokenid', async (req, res) => {
   const tokenID = req.params.tokenid;
   const {via, citta, cap, citofono} = req.body;
 
-  // Recupera l'ID dell'utente dal token
-  const query = `
-    SELECT USER_ID
-    FROM TOKEN
-    WHERE TOKEN_ID = :tokenid;
-  `;
-
-  const result = await sequelize.query(query, {
-    replacements: {tokenid: tokenID},
-    type: QueryTypes.SELECT,
-  });
-
-  if (result.length === 0) {
+  const userId = await fetchUserID(tokenID);
+  if (!userId) {
     res.status(404).send('Token non valido');
     return;
   }
 
-  const userId = result[0].USER_ID;
-
-  let sql = `UPDATE CLIENTE SET VIA_CLIENTE = ?, CITTA_CLIENTE = ?, CAP_CLIENTE = ?, CITOFONO_CLIENTE = ? WHERE ID_CLIENTE = ?`;
-  db.run(sql, [via, citta, cap, citofono, userId], function(err) {
+  let sql = `UPDATE CLIENTE
+             SET VIA_CLIENTE      = ?,
+                 CITTA_CLIENTE    = ?,
+                 CAP_CLIENTE      = ?,
+                 CITOFONO_CLIENTE = ?
+             WHERE ID_CLIENTE = ?`;
+  db.run(sql, [via, citta, cap, citofono, userId], function (err) {
     if (err) {
-      return console.error(err.message);
+      res.status(500).send('Errore durante l\'aggiornamento dell\'indirizzo');
+      return;
     }
-    res.json({ success: true, message: 'Indirizzo Aggiornato con successo.' });
+    res.json({success: true, message: 'Indirizzo Aggiornato con successo.'});
   });
 });
 
@@ -341,63 +332,49 @@ app.post('/api/update/address/:tokenid', async (req, res) => {
 app.post('/api/logout/:tokenid', async (req, res) => {
   const tokenID = req.params.tokenid;
 
-  // Recupera l'ID dell'utente dal token
-  const query = `
-    SELECT USER_ID
-    FROM TOKEN
-    WHERE TOKEN_ID = :tokenid;
-  `;
-
-  const result = await sequelize.query(query, {
-    replacements: {tokenid: tokenID},
-    type: QueryTypes.SELECT,
-  });
-
-  if (result.length === 0) {
+  const userId = await fetchUserID(tokenID);
+  if (!userId) {
     res.status(404).send('Token non valido');
     return;
   }
 
-  const userId = result[0].USER_ID;
-
-  let sql = `DELETE FROM TOKEN WHERE USER_ID = ?`;
-  db.run(sql, [userId], function(err) {
+  let sql = `DELETE
+             FROM TOKEN
+             WHERE USER_ID = ?`;
+  db.run(sql, [userId], function (err) {
     if (err) {
-      return console.error(err.message);
+      res.status(500).send('Errore durante il logout');
+      return;
     }
-    res.json({ success: true, message: 'Effettuato il Logout.' });
+    res.json({success: true, message: 'Effettuato il Logout.'});
   });
 });
 
-// API per l'eliminazione dell'account
 app.delete('/api/delete/:tokenid', async (req, res) => {
   const tokenID = req.params.tokenid;
 
-  // Recupera l'ID dell'utente dal token
-  const query = `
-    SELECT USER_ID
-    FROM TOKEN
-    WHERE TOKEN_ID = :tokenid;
-  `;
-
-  const result = await sequelize.query(query, {
-    replacements: {tokenid: tokenID},
-    type: QueryTypes.SELECT,
-  });
-
-  if (result.length === 0) {
+  const userId = await fetchUserID(tokenID);
+  if (!userId) {
     res.status(404).send('Token non valido');
     return;
   }
 
-  const userId = result[0].USER_ID;
+  let sql1 = `DELETE FROM CLIENTE WHERE ID_CLIENTE = ?`;
+  let sql2 = `DELETE FROM TOKEN WHERE USER_ID = ?`;
 
-  let sql = `DELETE FROM CLIENTE WHERE ID_CLIENTE = ?; DELETE FROM TOKEN WHERE USER_ID = ?`;
-  db.run(sql, [userId], function(err) {
+  db.run(sql1, [userId], function (err) {
     if (err) {
-      return console.error(err.message);
+      res.status(500).send('Errore durante l\'eliminazione dell\'account');
+      return;
     }
-    res.json({ success: true, message: 'Account Eliminato con Successo.' });
+
+    db.run(sql2, [userId], function (err) {
+      if (err) {
+        res.status(500).send('Errore durante l\'eliminazione del token');
+        return;
+      }
+      res.json({success: true, message: 'Account Eliminato con Successo.'});
+    });
   });
 });
 

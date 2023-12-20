@@ -92,36 +92,38 @@
 
 <main style="display: flex; justify-content: center; align-items: center">
   <div style="width: 50%;">
-    <h1 style="text-align: center;">Impostazioni del profilo</h1>
-
+    <h1 style="text-align: center; font-size: 2.5em; color: #333;">Impostazioni di profilo</h1>
     <form id="emailForm" style="margin-bottom: 1.25rem;">
-      <div class="form-group">
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" disabled>
-        <button class="editButton">Modifica</button>
+      <label for="email">Email:</label><br>
+      <input type="text" id="email" name="email" value="" disabled><br>
+      <div style="display: flex; align-self: center; align-items: center; gap: 1.25rem; position: relative">
+        <button class="edit-button" type="button" onclick="edit('email')">Modifica</button>
+        <button class="apply-button" type="button" onclick="save('email')">Salva</button>
       </div>
     </form>
 
     <form id="passwordForm" style="margin-bottom: 1.25rem;">
-      <div class="form-group">
-        <label for="password">Password:</label><br>
-        <input type="password" id="password" name="password" value="" disabled>
-        <button class="editButton">Modifica</button>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" value="" disabled><br>
+      <div style="display: flex; align-self: center; align-items: center; gap: 1.25rem; position: relative">
+        <button class="edit-button" type="button" onclick="edit('password')">Modifica</button>
+        <button class="apply-button" type="button" onclick="save('password')">Salva</button>
       </div>
     </form>
 
-    <h1 style="text-align: center; margin-top: 1.25rem;">Impostazioni di consegna</h1>
-    <form id="addressForm" style="margin-top: 1.25rem; margin-bottom: 1.25rem">
-      <div class="form-group">
-        <label for="via">Via:</label><br>
-        <input type="text" id="via" name="via" disabled><br>
-        <label for="citta">Città:</label><br>
-        <input type="text" id="citta" name="citta" disabled><br>
-        <label for="cap">CAP:</label><br>
-        <input type="text" id="cap" name="cap" disabled><br>
-        <label for="citofono">Citofono:</label><br>
-        <input type="text" id="citofono" name="citofono" disabled><br>
-        <button class="editButton">Modifica</button>
+    <h1 style="text-align: center; margin-top: 3.5rem; font-size: 2.5em; color: #333;">Impostazioni di consegna</h1>
+    <form id="addressForm" style="margin-top: 0.75rem; margin-bottom: 1.25rem">
+      <label for="via">Via:</label><br>
+      <input type="text" id="via" name="via" value="" disabled><br>
+      <label for="citta">Città:</label><br>
+      <input type="text" id="citta" name="citta" value="" disabled><br>
+      <label for="cap">CAP:</label><br>
+      <input type="text" id="cap" name="cap" value="" disabled><br>
+      <label for="citofono">Citofono:</label><br>
+      <input type="text" id="citofono" name="citofono" value="" disabled><br>
+      <div style="display: flex; align-self: center; align-items: center; gap: 1.25rem; position: relative">
+        <button class="edit-button" type="button" onclick="edit('address')">Modifica</button>
+        <button class="apply-button" type="button" onclick="save('address')">Salva</button>
       </div>
     </form>
 
@@ -139,175 +141,150 @@
 </footer>
 
 <script>
+
+  // Ascolta l'evento di caricamento del documento
   document.addEventListener('DOMContentLoaded', () => {
+
+    // Recupera i token dal localStorage
     const tokenID = localStorage.getItem('tokenid');
     const tokenString = localStorage.getItem('tokenstring');
 
-    getUserData(tokenID, tokenString);
-    handleFormSubmissions(tokenID, tokenString);
-  });
-
-  async function getUserData(tokenID, tokenString) {
-    try {
-      const response = await fetch(`http://localhost:3000/api/user/${tokenID}`, {
-        method: 'GET',
-        headers: { 'Authorization': tokenString },
-      });
-
-      const [userData] = await response.json();
-      fillFormFields(userData);
-    } catch (error) {
-      console.error(error);
-    }
-  }
-
-  function fillFormFields({ EMAIL_CLIENTE, PASSWORD_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE, CITOFONO_CLIENTE }) {
-    document.getElementById('email').value = EMAIL_CLIENTE;
-    document.getElementById('password').value.disabled = PASSWORD_CLIENTE;
-    document.getElementById('via').value = VIA_CLIENTE;
-    document.getElementById('citta').value = CITTA_CLIENTE;
-    document.getElementById('cap').value = CAP_CLIENTE;
-    document.getElementById('citofono').value = CITOFONO_CLIENTE;
-  }
-
-  function handleFormSubmissions(tokenID, tokenString) {
-    const forms = ['email', 'password', 'address'];
-    const logoutButton = document.getElementById('logout-button');
-    const deleteButton = document.getElementById('delete-button');
-
-    forms.forEach(form => {
-      const editButton = document.getElementById(`${form}-edit-button`);
-      let isEditing = false;
-
-      document.getElementById(`${form}Form`).addEventListener('submit', (e) => {
-        e.preventDefault();
-        if (isEditing) {
-          const value = form === 'address' ? getAddressValues() : document.getElementById(form).value;
-          updateField(value, form, tokenID, tokenString);
-          isEditing = false;
-          editButton.textContent = 'Edit';
-        } else {
-          enableFields(form);
-          isEditing = true;
-          editButton.textContent = 'Update';
-        }
-      });
-    });
-
-    logoutButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (confirm("Sei sicuro di voler effettuare il logout?")) logout(tokenID, tokenString);
-    });
-
-    deleteButton.addEventListener('click', (e) => {
-      e.preventDefault();
-      if (confirm("Sei sicuro di voler eliminare il tuo account? Questa azione non può essere annullata.")) deleteUser(tokenID, tokenString);
-    });
-  }
-
-  function getAddressValues() {
-    return {
-      via: document.getElementById('via').value,
-      citta: document.getElementById('citta').value,
-      cap: document.getElementById('cap').value,
-      citofono: document.getElementById('citofono').value,
+    // Funzione per semplificare il fetching degli API utilizzati
+    const fetchData = async (url, options) => {
+      const response = await fetch(url, options);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
     };
-  }
 
-  async function updateField(value, field, tokenID, tokenString) {
-    try {
-      const response = await fetch(`http://localhost:3000/api/update/${field}/${tokenID}`, {
+    // Funzione per l'aggiornamento dei dati
+    const updateData = async (url, fields) => {
+      const data = await fetchData(url, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': tokenString
         },
-        body: JSON.stringify(value),
+        body: JSON.stringify(fields),
       });
-
-      const data = await response.json();
 
       if (data.success) {
         alert(data.message);
-        disableFields(field);
+        Object.keys(fields).forEach(id => {
+          document.getElementById(id).disabled = true;
+        });
+        if (fields.password) {
+          window.location.href = "login.html";
+          await logout();
+        }
       } else {
         console.error(data.message);
-        enableFields(field);
+        Object.keys(fields).forEach(id => {
+          document.getElementById(id).disabled = false;
+        });
       }
-    } catch (error) {
-      console.error('Error:', error);
-      enableFields(field);
-    }
-  }
+    };
 
-  async function logout(tokenID, tokenString) {
-    try {
-      const response = await fetch(`http://localhost:3000/api/logout/${tokenID}`, {
+    // Funzione per abilitare la modifica di un campo
+    window.edit = (fieldId) => {
+      const ids = fieldId === 'address' ? ['via', 'citta', 'cap', 'citofono'] : [fieldId];
+      ids.forEach(id => {
+        document.getElementById(id).disabled = !document.getElementById(id).disabled;
+      });
+    };
+
+    // Funzione per salvare le modifiche
+    window.save = (fieldId) => {
+      const fields = {};
+      const ids = fieldId === 'address' ? ['via', 'citta', 'cap', 'citofono'] : [fieldId];
+      ids.forEach(id => {
+        const inputField = document.getElementById(id);
+        if (!inputField.disabled) {
+          fields[id] = inputField.value;
+        }
+      });
+      updateData(`http://localhost:3000/api/update/${fieldId === 'address' ? 'address' : fieldId}/${tokenID}`, fields);
+    };
+
+    // Funzione per applicare l'API di logout
+    const logout = async () => {
+      const data = await fetchData(`http://localhost:3000/api/logout/${tokenID}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': tokenString
         },
       });
-
-      const data = await response.json();
-
       if (data.success) {
-        alert(data.message);
         window.location.href = "login.html";
       } else {
         console.error(data.message);
       }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
+    };
 
-  async function deleteUser(tokenID, tokenString) {
-    try {
-      const response = await fetch(`http://localhost:3000/api/delete/${tokenID}`, {
+    // Funzione per applicare l'API di eliminazione di account
+    const accountDeletion = async () => {
+      const data = await fetchData(`http://localhost:3000/api/delete/${tokenID}`, {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
           'Authorization': tokenString
         },
       });
-
-      const data = await response.json();
-
       if (data.success) {
-        alert(data.message);
         window.location.href = "login.html";
       } else {
         console.error(data.message);
       }
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  }
+    };
 
-  function disableFields(field) {
-    if (field === 'address') {
-      ['via', 'citta', 'cap', 'citofono'].forEach(key => {
-        document.getElementById(key).disabled = true;
+    // Riempimento dei form con i dati dell'utente
+    fetchData(`http://localhost:3000/api/user/${tokenID}`, {
+      method: 'GET',
+      headers: {'Authorization': tokenString},
+    }).then(data => {
+      const userData = data[0];
+      ['email', 'via', 'citta', 'cap', 'citofono'].forEach(id => {
+        document.getElementById(id).disabled = true;
+        document.getElementById(id).value = userData[id.toUpperCase() + '_CLIENTE'];
       });
-    } else {
-      document.getElementById(field).disabled = true;
-    }
-  }
+    });
 
-  function enableFields(field) {
-    if (field === 'address') {
-      ['via', 'citta', 'cap', 'citofono'].forEach(key => {
-        document.getElementById(key).disabled = false;
+    // Applicazione API di modifica
+    ['emailForm', 'passwordForm', 'addressForm'].forEach(formId => {
+      document.getElementById(formId).addEventListener('submit', function (e) {
+        e.preventDefault();
+        const fieldId = formId.replace('Form', '');
+        const fields = {};
+        const ids = fieldId === 'address' ? ['via', 'citta', 'cap', 'citofono'] : [fieldId];
+        ids.forEach(id => {
+          const inputField = document.getElementById(id);
+          if (!inputField.disabled) {
+            fields[id] = inputField.value;
+          }
+        });
+        updateData(`http://localhost:3000/api/update/${fieldId === 'address' ? 'address' : fieldId}/${tokenID}`, fields);
       });
-    } else {
-      document.getElementById(field).disabled = false;
-    }
-  }
+    });
+
+    // Applicazione API di logout e eliminazione di account
+    ['logout-button', 'delete-button'].forEach(buttonId => {
+      document.getElementById(buttonId).addEventListener('click', function (e) {
+        e.preventDefault();
+        if (confirm(`Sei sicuro di voler ${buttonId === 'logout-button' ? 'effettuare il logout' : 'eliminare il tuo account'}?`)) {
+          if (buttonId === 'logout-button') {
+            logout();
+          } else {
+            accountDeletion();
+          }
+        }
+      });
+    });
+  });
+
 </script>
 
 <script src="js/main.js"></script>
 </body>
 </html>
-

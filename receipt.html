@@ -92,45 +92,21 @@
 
 <main style="display: flex; justify-content: center; align-items: center">
   <div style="width: 50%;">
-    <h1 style="text-align: center; font-size: 2.5em; color: #333;">Impostazioni di profilo</h1>
-    <form id="emailForm" style="margin-bottom: 1.25rem;">
-      <label for="email">Email:</label><br>
-      <input type="text" id="email" name="email" value="" disabled><br>
-      <div style="display: flex; align-self: center; align-items: center; gap: 1.25rem; position: relative">
-        <button class="edit-button" type="button" onclick="edit('email')">Modifica</button>
-        <button class="apply-button" type="button" onclick="save('email')">Salva</button>
-      </div>
-    </form>
+    <h1 style="text-align: center; margin-top: 1.5rem; font-size: 2rem; color: #333; margin-bottom: 3rem">Il tuo ordine
+      è in arrivo!</h1>
+    <h1 style="text-align: center; margin-top: 0.5rem; font-size: 1.5rem; color: #333; margin-bottom: 3rem">Il tuo
+      scontrino:</h1>
+    <div class="list">
+      <p><span class="label">Nome:</span> <span class="data" id="nome"></span></p>
+      <p><span class="label">Cognome:</span> <span class="data" id="cognome"></span></p>
+      <p><span class="label">Via:</span> <span class="data" id="via"></span></p>
+      <p><span class="label">Città:</span> <span class="data" id="citta"></span></p>
+      <p><span class="label">CAP:</span> <span class="data" id="cap"></span></p>
+      <p><span class="label">Citofono:</span> <span class="data" id="citofono"></span></p>
 
-    <form id="passwordForm" style="margin-bottom: 1.25rem;">
-      <label for="password">Password:</label><br>
-      <input type="password" id="password" name="password" value="" disabled><br>
-      <div style="display: flex; align-self: center; align-items: center; gap: 1.25rem; position: relative">
-        <button class="edit-button" type="button" onclick="edit('password')">Modifica</button>
-        <button class="apply-button" type="button" onclick="save('password')">Salva</button>
-      </div>
-    </form>
-
-    <h1 style="text-align: center; margin-top: 3.5rem; font-size: 2.5em; color: #333;">Impostazioni di consegna</h1>
-    <form id="addressForm" style="margin-top: 0.75rem; margin-bottom: 1.25rem">
-      <label for="via">Via:</label><br>
-      <input type="text" id="via" name="via" value="" disabled><br>
-      <label for="citta">Città:</label><br>
-      <input type="text" id="citta" name="citta" value="" disabled><br>
-      <label for="cap">CAP:</label><br>
-      <input type="text" id="cap" name="cap" value="" disabled><br>
-      <label for="citofono">Citofono:</label><br>
-      <input type="text" id="citofono" name="citofono" value="" disabled><br>
-      <div style="display: flex; align-self: center; align-items: center; gap: 1.25rem; position: relative">
-        <button class="edit-button" type="button" onclick="edit('address')">Modifica</button>
-        <button class="apply-button" type="button" onclick="save('address')">Salva</button>
-      </div>
-    </form>
-
-    <div style="display: flex; justify-content: center; align-items: center; margin-top: 1.25rem">
-      <button id="logout-button">Logout</button>
-      <span style="margin-right: 0.625rem;"></span>
-      <button id="delete-button">Elimina account</button>
+      <div style="border-top: 0.1rem solid #333"></div>
+      <p id="somma" style="font-size: 1.5rem; color: #333; font-weight: bold; margin-top: 3rem">Totale: €0</p>
+      <p id="id_scontrino" style="font-size: 1rem; color: #333; font-weight: normal"></p>
     </div>
   </div>
 </main>
@@ -141,8 +117,6 @@
 </footer>
 
 <script>
-
-  // Ascolta l'evento di caricamento del documento
   document.addEventListener('DOMContentLoaded', () => {
 
     // Recupera i token dal localStorage
@@ -158,131 +132,27 @@
       return response.json();
     };
 
-    // Funzione per l'aggiornamento dei dati
-    const updateData = async (url, fields) => {
-      const data = await fetchData(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': tokenString
-        },
-        body: JSON.stringify(fields),
-      });
-
-      if (data.success) {
-        alert(data.message);
-        Object.keys(fields).forEach(id => {
-          document.getElementById(id).disabled = true;
-        });
-        if (fields.password) {
-          window.location.href = "login.html";
-          await logout();
-        }
-      } else {
-        console.error(data.message);
-        Object.keys(fields).forEach(id => {
-          document.getElementById(id).disabled = false;
-        });
-      }
-    };
-
-    // Riempimento dei form con i dati dell'utente
-    fetchData(`http://localhost:3000/api/user/${tokenID}`, {
+    // Fetching dei dati dello scontrino
+    fetchData(`http://localhost:3000/api/printScontrino/${tokenID}`, {
       method: 'GET',
       headers: {'Authorization': tokenString},
     }).then(data => {
-      const userData = data[0];
-      ['email', 'via', 'citta', 'cap', 'citofono'].forEach(id => {
-        document.getElementById(id).disabled = true;
-        document.getElementById(id).value = userData[id.toUpperCase() + '_CLIENTE'];
+      const receiptData = data[0];
+      ['nome', 'cognome', 'via', 'citta', 'cap', 'citofono'].forEach(id => {
+        document.getElementById(id).innerText += receiptData[id.toUpperCase() + '_CLIENTE'];
       });
-    });
-
-    // Funzione per abilitare la modifica di un campo
-    window.edit = (fieldId) => {
-      const ids = fieldId === 'address' ? ['via', 'citta', 'cap', 'citofono'] : [fieldId];
-      ids.forEach(id => {
-        document.getElementById(id).disabled = !document.getElementById(id).disabled;
-      });
-    };
-
-    // Funzione per salvare le modifiche
-    window.save = (fieldId) => {
-      const fields = {};
-      const ids = fieldId === 'address' ? ['via', 'citta', 'cap', 'citofono'] : [fieldId];
-      ids.forEach(id => {
-        const inputField = document.getElementById(id);
-        if (!inputField.disabled) {
-          fields[id] = inputField.value;
-        }
-      });
-      updateData(`http://localhost:3000/api/update/${fieldId === 'address' ? 'address' : fieldId}/${tokenID}`, fields);
-    };
-
-    // Funzione per applicare l'API di logout
-    const logout = async () => {
-      const data = await fetchData(`http://localhost:3000/api/logout/${tokenID}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': tokenString
-        },
-      });
-      if (data.success) {
-        window.location.href = "login.html";
-      } else {
-        console.error(data.message);
-      }
-    };
-
-    // Funzione per applicare l'API di eliminazione di account
-    const accountDeletion = async () => {
-      const data = await fetchData(`http://localhost:3000/api/delete/${tokenID}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': tokenString
-        },
-      });
-      if (data.success) {
-        window.location.href = "login.html";
-      } else {
-        console.error(data.message);
-      }
-    };
-
-    // Applicazione API di modifica
-    ['emailForm', 'passwordForm', 'addressForm'].forEach(formId => {
-      document.getElementById(formId).addEventListener('submit', function (e) {
-        e.preventDefault();
-        const fieldId = formId.replace('Form', '');
-        const fields = {};
-        const ids = fieldId === 'address' ? ['via', 'citta', 'cap', 'citofono'] : [fieldId];
-        ids.forEach(id => {
-          const inputField = document.getElementById(id);
-          if (!inputField.disabled) {
-            fields[id] = inputField.value;
-          }
-        });
-        updateData(`http://localhost:3000/api/update/${fieldId === 'address' ? 'address' : fieldId}/${tokenID}`, fields);
-      });
-    });
-
-    // Applicazione API di logout e eliminazione di account
-    ['logout-button', 'delete-button'].forEach(buttonId => {
-      document.getElementById(buttonId).addEventListener('click', function (e) {
-        e.preventDefault();
-        if (confirm(`Sei sicuro di voler ${buttonId === 'logout-button' ? 'effettuare il logout' : 'eliminare il tuo account'}?`)) {
-          if (buttonId === 'logout-button') {
-            logout();
-          } else {
-            accountDeletion();
-          }
-        }
-      });
+      document.getElementById('somma').innerText = 'Totale: €' + receiptData['TOTALE'];
+      document.getElementById('id_scontrino').innerText = 'ID Scontrino: ' + receiptData['ID_SCONTRINO'];
     });
   });
 
+  window.addEventListener('beforeunload', function () {
+
+    // Svuota il carrello e pulisci il localStorage
+    carrello = [];
+    localStorage.removeItem('carrello');
+    document.getElementById('somma').innerText = 'Totale: €0';
+  });
 </script>
 <script src="js/main.js"></script>
 </body>

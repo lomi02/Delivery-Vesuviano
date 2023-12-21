@@ -86,7 +86,12 @@ app.get('/api/menu/:id_ristorante', async (req, res) => {
 
   try {
     const query = `
-      SELECT RISTORANTE.NOME_RISTORANTE, MENU.NOME_PIATTO, MENU.DESCRIZIONE, MENU.PREZZO, MENU.IMG_URL_PIATTO
+      SELECT RISTORANTE.NOME_RISTORANTE,
+             MENU.NOME_PIATTO,
+             MENU.DESCRIZIONE,
+             MENU.PREZZO,
+             MENU.IMG_URL_PIATTO,
+             MENU.ID_PIATTO
       FROM RISTORANTE
              JOIN MENU ON RISTORANTE.P_IVA_RISTORANTE = MENU.RISTORANTE_ID
       WHERE RISTORANTE.P_IVA_RISTORANTE = :id_ristorante;
@@ -125,7 +130,13 @@ app.post('/api/login', (req, res) => {
               res.status(500).json({success: false, message: 'Internal Server Error'});
             } else {
               // Restituisci l'ID del token e la stringa del token al cliente
-              res.json({success: true, message: 'Login successful', token: this.lastID, tokenString: token});
+              res.json({
+                success: true,
+                message: 'Login successful',
+                token: this.lastID,
+                tokenString: token,
+                userID: row.ID_CLIENTE
+              });
             }
           });
       } else {
@@ -350,6 +361,7 @@ app.post('/api/logout/:tokenid', async (req, res) => {
   });
 });
 
+// API per l'eliminazione dell'account
 app.delete('/api/delete/:tokenid', async (req, res) => {
   const tokenID = req.params.tokenid;
 
@@ -359,8 +371,12 @@ app.delete('/api/delete/:tokenid', async (req, res) => {
     return;
   }
 
-  let sql1 = `DELETE FROM CLIENTE WHERE ID_CLIENTE = ?`;
-  let sql2 = `DELETE FROM TOKEN WHERE USER_ID = ?`;
+  let sql1 = `DELETE
+              FROM CLIENTE
+              WHERE ID_CLIENTE = ?`;
+  let sql2 = `DELETE
+              FROM TOKEN
+              WHERE USER_ID = ?`;
 
   db.run(sql1, [userId], function (err) {
     if (err) {
@@ -376,6 +392,115 @@ app.delete('/api/delete/:tokenid', async (req, res) => {
       res.json({success: true, message: 'Account Eliminato con Successo.'});
     });
   });
+});
+
+// API per caricare la transazione sul database
+app.post('/api/transaction/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+  const {userID, cart, total} = req.body;
+  console.log('req.body:', req.body);
+
+  const userId = await fetchUserID(tokenID);
+  if (!userId) {
+    res.status(404).send('Token non valido');
+    return;
+  }
+
+  if (!userID || !cart) {
+    console.log('Dati non forniti');
+    res.status(400).send('Dati non forniti');
+    return;
+  }
+
+  try {
+    // Genera un ID univoco a 16 cifre
+    const receiptID = parseInt(crypto.randomBytes(8).toString('hex'), 16);
+
+    // Inizia una nuova transazione
+    const transaction = await sequelize.transaction();
+
+    // Raggruppa gli elementi nel carrello per ID del piatto e somma le loro quantità
+    let groupedCart = cart.reduce((acc, item) => {
+      if (!acc[item.ID_PIATTO]) {
+        acc[item.ID_PIATTO] = {...item, quantita: 0};
+      }
+      acc[item.ID_PIATTO].quantita += 1;
+      return acc;
+    }, {});
+
+    // Converte l'oggetto in un array
+    groupedCart = Object.values(groupedCart);
+
+    // Crea i dettagli dello scontrino per ogni piatto nel carrello
+    for (const item of groupedCart) {
+      if (item.ID_PIATTO && item.quantita && item.PREZZO) {
+        await sequelize.query(`
+            INSERT INTO SCONTRINO (ID_SCONTRINO, ID_CLIENTE, TOTALE, ID_PIATTO, QUANTITA, PREZZO)
+            VALUES (:receiptID, :userID, :total, :piattoID, :quantita, :prezzo)
+            `, {
+          replacements: {
+            receiptID,
+            userID,
+            total,
+            piattoID: item.ID_PIATTO,
+            quantita: item.quantita,
+            prezzo: item.PREZZO,
+          },
+          type: QueryTypes.INSERT,
+          transaction,
+        });
+      }
+    }
+
+    // Conferma la transazione
+    await transaction.commit();
+
+    console.log('Transazione caricata con successo');
+    res.status(200).send('Transazione caricata con successo.');
+  } catch (error) {
+    console.error('Errore durante il caricamento della transazione:', error);
+    res.status(500).send(`Errore interno del server: ${error.message}`);
+  }
+});
+
+// API per la restituzione dello scontrino
+app.get('/api/printScontrino/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+  console.log('User token:', tokenID);
+
+  if (!tokenID) {
+    console.log('Token non fornito');
+    res.status(400).send('Token non fornito');
+    return;
+  }
+
+  try {
+    const query = `
+      SELECT CLIENTE.NOME_CLIENTE, CLIENTE.COGNOME_CLIENTE, CLIENTE.VIA_CLIENTE, CLIENTE.CITTA_CLIENTE, CLIENTE.CAP_CLIENTE, CLIENTE.CITOFONO_CLIENTE, SCONTRINO.TOTALE, SCONTRINO.ID_SCONTRINO
+      FROM CLIENTE
+      JOIN TOKEN ON TOKEN.USER_ID = CLIENTE.ID_CLIENTE
+      JOIN SCONTRINO ON SCONTRINO.ID_CLIENTE = CLIENTE.ID_CLIENTE
+      WHERE TOKEN.TOKEN_ID = :tokenid;
+    `;
+
+    const result = await sequelize.query(query, {
+      replacements: {tokenid: tokenID},
+      type: QueryTypes.SELECT,
+    });
+
+    console.log('Query result:', result);
+
+    if (result.length === 0) {
+      console.log('Nessun dato utente trovato per questo token');
+      res.status(404).send('Nessun dato utente trovato per questo token');
+      return;
+    }
+
+    res.json(result);
+  } catch (error) {
+    console.error('Errore durante il recupero dei dati del cliente:', error);
+    res.status(500).send(`Errore interno del server: ${error.message}`);
+  }
 });
 
 // Avvio del server

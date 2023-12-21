@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it" xmlns="http://www.w3.org/1999/html">
+<html lang="it" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,19 +90,98 @@
   </a>
 </div>
 
+<main>
+  <h1 class="titolo" style="margin-top: -4rem">Carrello</h1>
+  <div class="contenitore-carrello">
+    <div class="griglia-carrello" id="carrello">
+    </div>
+  </div>
+</main>
+
 <!-- Sezione Footer -->
 <footer>
   <p>&copy; 2023 Delivery Vesuviano. All rights reserved.</p>
 </footer>
 
-<!-- Sezione Carrello -->
-<main>
-  <script>
+<script>
+  document.addEventListener('DOMContentLoaded', visualizzaCarrello);
+  const nameElement = document.createElement('h1');
+  nameElement.classList.add('titolo');
 
-    <!-- Aggiungi Sezione Carrello -->
+  // Funzione per visualizzare gli elementi del carrello.
+  function visualizzaCarrello() {
+    let carrelloDiv = document.getElementById('carrello');
+    carrelloDiv.innerHTML = '';
+    if (carrello.length > 0) {
+      carrello.forEach(piatto => {
+        let piattoCard = creaCartaPiattoCarrello(piatto);
+        carrelloDiv.appendChild(piattoCard);
+      });
+    }
+  }
 
-  </script>
-</main>
+  // Funzione per creare le carte contenenti gli elementi del carrello.
+  function creaCartaPiattoCarrello(piatto) {
+    const card = document.createElement('div');
+    card.classList.add('piatto-card');
+    const imageElement = document.createElement('img');
+    imageElement.src = piatto.IMG_URL_PIATTO;
+    const nameElement = document.createElement('h2');
+    nameElement.textContent = piatto.NOME_PIATTO;
+    const priceElement = document.createElement('p');
+    priceElement.textContent = piatto.PREZZO.toFixed(2) + '€';
+    const descriptionElement = document.createElement('p');
+    descriptionElement.textContent = piatto.DESCRIZIONE;
+    const removeButton = document.createElement('button');
+    removeButton.textContent = 'Rimuovi';
+    removeButton.addEventListener('click', () => rimuoviDalCarrello(piatto));
+    card.appendChild(imageElement);
+    card.appendChild(nameElement);
+    card.appendChild(priceElement);
+    card.appendChild(descriptionElement);
+    card.appendChild(removeButton);
+    return card;
+  }
+
+  // Funzione per rimuovere dati dal carrello.
+  function rimuoviDalCarrello(piatto) {
+    let index = carrello.findIndex(item => item.NOME_PIATTO === piatto.NOME_PIATTO);
+    if (index !== -1) {
+      carrello.splice(index, 1);
+      localStorage.setItem('carrello', JSON.stringify(carrello));
+      console.log(piatto.NOME_PIATTO + ' è stato rimosso dal carrello.');
+    }
+    visualizzaCarrello();
+    location.reload()
+  }
+
+  // Funzione per visualizzare la somma e il pulsante "Procedi".
+  function effettuaSpesa() {
+    let somma = calcolaSomma();
+    let contenitoreCarrello = document.querySelector('.contenitore-carrello');
+    let sommaElement = document.createElement('p');
+    sommaElement.textContent = 'Totale: ' + somma + '€';
+    sommaElement.style.fontSize = '1.5rem';
+    sommaElement.style.color = '#333';
+    sommaElement.style.fontWeight = 'bold';
+    sommaElement.style.marginTop = '3rem';
+    let procediButton = document.createElement('button');
+    procediButton.textContent = 'Procedi';
+    procediButton.addEventListener('click', () => {
+      verificaToken().then(isValid => {
+        if (isValid) {
+          window.location.href = 'confirm.html';
+        } else {
+          window.location.href = 'login.html';
+        }
+      });
+    });
+    contenitoreCarrello.appendChild(sommaElement);
+    contenitoreCarrello.appendChild(procediButton);
+  }
+
+  document.addEventListener('DOMContentLoaded', effettuaSpesa);
+</script>
 <script src="js/main.js"></script>
 </body>
 </html>

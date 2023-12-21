@@ -133,9 +133,8 @@
         // Salva il token nel localStorage e poi reindirizza
         localStorage.setItem('tokenid', result.token);
         localStorage.setItem('tokenstring', result.tokenString);
-        setTimeout(() => {
-          window.location.href = 'LogSuccess.html';
-        }, 100);
+        localStorage.setItem('userid', result.userID);
+        window.location.href = 'LogSuccess.html';
       } else {
         alert('Login failed. Please check your credentials.');
       }

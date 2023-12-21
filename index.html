@@ -91,22 +91,13 @@
 </div>
 
 <main>
-  <!-- Sezione griglia dei locali -->
-  <div class="griglia-ristoranti" id="griglia-ristoranti">
-    <section id="contenitore-locale" class="contenitore-locale">
-    </section>
+  <div class="griglia" id="griglia-ristoranti">
+    <section id="contenitore-locale" class="contenitore-locale"></section>
   </div>
 
-  <!-- Sezione dettagli piatto -->
   <div id="dettagli-locale" class="dettagli-locale">
-    <h2 id="nome-locale" class="nome-locale"></h2>
-    <div id="contenitore-menu" class="contenitore-menu">
-      <div id="piatto-card" class="piatto-card"></div>
-    </div>
-    <div class="button-container">
-      <button onclick="navigate('index.html')">Home</button>
-      <button onclick="navigate('cart.html')">Acquista</button>
-    </div>
+    <h2 id="nome-locale" class="titolo"></h2>
+    <div id="contenitore-menu" class="contenitore-menu"></div>
   </div>
 </main>
 
@@ -116,42 +107,24 @@
 </footer>
 
 <script>
-  document.addEventListener('DOMContentLoaded', async function () {
-    try {
+  document.addEventListener('DOMContentLoaded', fetchRistoranti);
 
-      // Chiamata al backend per ottenere i dati dei locali
-      const response = await fetch('http://localhost:3000/api/ristorante');
-      const ristoranti = await response.json();
-
-      console.log('Dati ottenuti:', ristoranti);
-
-      // Aggiorna l'UI con i dati ottenuti
-      aggiornaGrigliaRistoranti(ristoranti);
-
-    } catch (error) {
-      console.error('Errore nel recupero dei dati del ristorante:', error);
-    }
-  });
-
+  // Funzione per prendere i dati dei ristoranti.
   async function fetchRistoranti() {
     try {
       const response = await fetch('http://localhost:3000/api/ristorante');
       const ristoranti = await response.json();
       aggiornaGrigliaRistoranti(ristoranti);
-
-      // Nascondi altre schede e mostra la scheda dei ristoranti
       document.getElementById('griglia-ristoranti').style.display = 'block';
-
     } catch (error) {
       console.error('Errore durante il recupero e la visualizzazione dei ristoranti:', error);
     }
   }
 
-  // Funzione per aggiornare la griglia dei locali
+  // Funzione per aggiornare la griglia dei ristoranti con i dati ottenuti dal fetch.
   function aggiornaGrigliaRistoranti(ristoranti) {
     const grigliaRistoranti = document.getElementById('contenitore-locale');
     grigliaRistoranti.innerHTML = '';
-
     ristoranti.forEach(locale => {
       const localeCard = creaCartaLocale(locale);
       localeCard.addEventListener('click', () => mostraDettagliLocale(locale));
@@ -159,49 +132,32 @@
     });
   }
 
-  // Funzione per creare schede di locali
+  // Funzione per creare le carte contenenti i dati del locale.
   function creaCartaLocale(locale) {
     const card = document.createElement('div');
     card.classList.add('locale-card');
-
-    // Aggiungi immagine del locale alla card
     const imageElement = document.createElement('img');
     imageElement.src = locale.IMG_URL_RISTORANTE;
-
-    // Aggiungi dettagli del locale alla card
     const nameElement = document.createElement('h2');
     nameElement.textContent = locale.NOME_RISTORANTE;
-
-    // Aggiungi elementi alla card
     card.appendChild(imageElement);
     card.appendChild(nameElement);
-
     return card;
   }
 
-  // Funzione per mostrare i dettagli del locale
+  // Funzione per permettere di accedere ai piatti offerti dal locale.
   async function mostraDettagliLocale(locale) {
     const dettagliLocale = document.getElementById('dettagli-locale');
     dettagliLocale.innerHTML = '';
-
-    // Aggiungi dettagli del locale al lato destro
     const nameElement = document.createElement('h2');
     nameElement.textContent = locale.NOME_RISTORANTE;
-    nameElement.classList.add('nome-locale');
+    nameElement.classList.add('titolo');
     dettagliLocale.appendChild(nameElement);
-
-    // Nascondi altre schede e mostra la scheda dei locali
     document.getElementById('griglia-ristoranti').style.display = 'none';
-
-    // Mostra la sezione dei dettagli del locale con animazione
     dettagliLocale.style.display = 'block';
     dettagliLocale.style.transform = 'translateY(0)';
-
-    // Fai una chiamata al tuo backend per ottenere il menù del ristorante
     const response = await fetch('http://localhost:3000/api/menu/' + locale.P_IVA_RISTORANTE);
     const menu = await response.json();
-
-    // Aggiungi il menù al dettaglio del locale
     const menuElement = document.createElement('div');
     menuElement.classList.add('contenitore-menu');
     menu.forEach(item => {
@@ -211,40 +167,26 @@
     dettagliLocale.appendChild(menuElement);
   }
 
-  // Funzione per creare schede di piatti
+  // Funzione per creare le carte contenenti tutti i piatti offerti dal locale selezionato.
   function creaCartaPiatto(piatto) {
     const card = document.createElement('div');
     card.classList.add('piatto-card');
-
-    // Aggiungi immagine del piatto alla card
     const imageElement = document.createElement('img');
     imageElement.src = piatto.IMG_URL_PIATTO;
-
-    // Aggiungi dettagli del piatto alla card
     const nameElement = document.createElement('h2');
     nameElement.textContent = piatto.NOME_PIATTO;
-
     const priceElement = document.createElement('p');
-    priceElement.textContent = piatto.PREZZO.toFixed(2) + '€'; // Limita il prezzo a due cifre decimali
-
+    priceElement.textContent = piatto.PREZZO.toFixed(2) + '€';
     const descriptionElement = document.createElement('p');
     descriptionElement.textContent = piatto.DESCRIZIONE;
-
-    // Aggiungi pulsante Acquista
     const buyButton = document.createElement('button');
     buyButton.textContent = 'Acquista';
-    buyButton.addEventListener('click', () => {
-      // Aggiungi il piatto al carrello
-      aggiungiAlCarrello(piatto);
-    });
-
-    // Aggiungi elementi alla card
+    buyButton.addEventListener('click', () => aggiungiAlCarrello(piatto));
     card.appendChild(imageElement);
     card.appendChild(nameElement);
     card.appendChild(priceElement);
     card.appendChild(descriptionElement);
     card.appendChild(buyButton);
-
     return card;
   }
 </script>

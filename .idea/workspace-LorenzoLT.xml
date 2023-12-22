@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d4b349d5-b3b6-4712-91c1-c2a091f424d1" name="Changes" comment="Inserimento del bottone Home, miglioramento estetica frontend e finalizzazione della funzione di schede di piatti dalla home.">
+      <change afterPath="$PROJECT_DIR$/.editorconfig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitattributes" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.htaccess" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Delivery-Vesuviano.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9e641fc7-635f-439e-b1ee-dd39a2a97732.corrupted.20231211-120900.reason.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9e641fc7-635f-439e-b1ee-dd39a2a97732.corrupted.20231211-120900.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9e641fc7-635f-439e-b1ee-dd39a2a97732.corrupted.20231211-121440.reason.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9e641fc7-635f-439e-b1ee-dd39a2a97732.corrupted.20231211-121440.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9e641fc7-635f-439e-b1ee-dd39a2a97732.corrupted.20231215-080356.reason.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9e641fc7-635f-439e-b1ee-dd39a2a97732.corrupted.20231215-080356.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9e641fc7-635f-439e-b1ee-dd39a2a97732.corrupted.20231218-090316.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9e641fc7-635f-439e-b1ee-dd39a2a97732.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/9e641fc7-635f-439e-b1ee-dd39a2a97732/storage_v2/_src_/schema/main.uQUzAA.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f6e016d1-e28e-43cd-8cf8-a7c2f45a353e.corrupted.20231206-094241.reason.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources/f6e016d1-e28e-43cd-8cf8-a7c2f45a353e.corrupted.20231206-094241.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/404.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Delivery Vesuviano SQL/Delivery.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Delivery Vesuviano SQL/Popolamento_Delivery.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LICENSE" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LICENSE.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/LogSuccess.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/RegSuccess.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLite/sqlite3.def" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SQLite/sqlite3.dll" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/browserconfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/carrello.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/credits.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/main.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/css/normalize.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/TOC.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/css.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/extend.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/faq.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/html.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/js.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/misc.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/doc/usage.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/express/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/express/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/express/server.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/favicon.ico" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/humans.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/icon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identifier.sqlite" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/icona_dv.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/impostazioni.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/plugins.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/js/vendor/modernizr-3.11.2.min.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/register.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/robots.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/site.webmanifest" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tile-wide.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tile.png" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="CSS File" />
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="main" />
+                <branch-info repo="$PROJECT_DIR$/Delivery-Vesuviano" source="main" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
+    <favorite-branches>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="lorenzo" />
+                <branch-info repo="$PROJECT_DIR$/Delivery-Vesuviano" source="lorenzo" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </favorite-branches>
+    <option name="RECENT_COMMON_BRANCH" value="lorenzo" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
+    <option name="ROOT_SYNC" value="SYNC" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Heetas&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="f767545e-8dda-4bc1-a9ea-3129057e0b4c" />
+        <option name="url" value="https://github.com/Heetas/Delivery-Vesuviano.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2Yt7w9uIa5ERc1HHDHzl9tC6R6t" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "Database Script.Database DV.executor": "Run",
+    "Database Script.Delivery.sql.executor": "Run",
+    "Database Script.Delivery_Database.sql.executor": "Run",
+    "Database Script.Permessi_utente.sql.executor": "Run",
+    "Database Script.Popolamento DV.executor": "Run",
+    "Database Script.Popolamento_Delivery.sql.executor": "Run",
+    "Database Script.Procedure.sql.executor": "Run",
+    "Database Script.Tables DV.executor": "Run",
+    "Database Script.Trigger.sql.executor": "Run",
+    "Database Script.Viste.sql.executor": "Run",
+    "DefaultHtmlFileTemplate": "HTML File",
+    "Node.js.main.js.executor": "Run",
+    "Node.js.server.js.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "lorenzo",
+    "ignore.virus.scanning.warn.message": "true",
+    "javascript.nodejs.core.library.configured.version": "21.2.0",
+    "javascript.nodejs.core.library.typings.version": "20.10.5",
+    "last_opened_file_path": "C:/Users/1lomi/OneDrive/Università/Tech Web/Progetti WebStorm/Delivery-Vesuviano/package-lock.json",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "service.view.auto.scroll.to.source": "true",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\WebStorm 2023.2.2\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "two.files.diff.last.used.file": "C:/Users/1lomi/OneDrive/Università/Tech Web/Progetti WebStorm/Delivery-Vesuviano/package-lock.json",
+    "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "oracle",
+      "mysql",
+      "sqlite"
+    ],
+    "RunConfigurationTargetLRU": [
+      "b3e6e44f-70cd-4e6e-962f-9a4528e07c3b",
+      "b3e6e44f-70cd-4e6e-962f-9a4528e07c3b/schema/\"mysql\"",
+      "aae27d5b-1d56-4a49-9ec8-68488b427f0e",
+      "aae27d5b-1d56-4a49-9ec8-68488b427f0e/schema/\"delivery vesuviano\"",
+      "9e641fc7-635f-439e-b1ee-dd39a2a97732/schema/\"main\""
+    ],
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/": [
+      "MySQL",
+      "Oracle"
+    ],
+    "com.intellij.ide.scratch.LRUPopupBuilder$1/SQL Dialect": [
+      "MySQL"
+    ]
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\1lomi\OneDrive\Università\Tech Web\Progetti WebStorm\Delivery-Vesuviano\express" />
+      <recent name="C:\Users\1lomi\OneDrive\Università\Tech Web\Progetti WebStorm\Delivery-Vesuviano\js" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="configurationTypes">
+      <set>
+        <option value="DatabaseScript" />
+        <option value="NodeJSConfigurationType" />
+      </set>
+    </option>
+  </component>
+  <component name="RunManager" selected="Database Script.Database DV">
+    <configuration name="Database DV" type="DatabaseScript">
+      <script-file value="$PROJECT_DIR$/Delivery Vesuviano SQL/Delivery.sql" />
+      <script-file value="$PROJECT_DIR$/Delivery Vesuviano SQL/Popolamento_Delivery.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="9e641fc7-635f-439e-b1ee-dd39a2a97732" namespace="schema/&quot;main&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Popolamento DV" type="DatabaseScript">
+      <script-file value="$PROJECT_DIR$/Delivery Vesuviano SQL/Popolamento_Delivery.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="9e641fc7-635f-439e-b1ee-dd39a2a97732" namespace="schema/&quot;main&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Tables DV" type="DatabaseScript" editBeforeRun="true" temporary="true">
+      <script-file value="$PROJECT_DIR$/Delivery Vesuviano SQL/Delivery.sql" />
+      <script-mode>FILE</script-mode>
+      <data-source id="9e641fc7-635f-439e-b1ee-dd39a2a97732" namespace="schema/&quot;main&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="server.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/express/server.js" working-dir="$PROJECT_DIR$/js">
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Database Script.Database DV" />
+      <item itemvalue="Database Script.Popolamento DV" />
+      <item itemvalue="Database Script.Tables DV" />
+      <item itemvalue="Node.js.server.js" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.server.js" />
+        <item itemvalue="Database Script.Tables DV" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-c44b541a36ca-JavaScript-WS-233.13135.92" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration>C:\Users\1lomi\AppData\Roaming\Subversion</configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d4b349d5-b3b6-4712-91c1-c2a091f424d1" name="Changes" comment="" />
+      <created>1701333261707</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1701333261707</updated>
+      <workItem from="1701333262791" duration="3443000" />
+      <workItem from="1701338758314" duration="732000" />
+      <workItem from="1701342283540" duration="482000" />
+      <workItem from="1701342921186" duration="5749000" />
+      <workItem from="1701351338239" duration="5730000" />
+      <workItem from="1701539065071" duration="686000" />
+      <workItem from="1701543686453" duration="8404000" />
+      <workItem from="1701678552076" duration="179000" />
+      <workItem from="1701678756436" duration="151000" />
+      <workItem from="1701678927798" duration="3131000" />
+      <workItem from="1701682857260" duration="1317000" />
+      <workItem from="1701684211690" duration="4216000" />
+      <workItem from="1701688927795" duration="2536000" />
+      <workItem from="1701699522702" duration="3660000" />
+      <workItem from="1701879233751" duration="153000" />
+      <workItem from="1701879394126" duration="20000" />
+      <workItem from="1701879421147" duration="37000" />
+      <workItem from="1701879464368" duration="34000" />
+      <workItem from="1701879506002" duration="139000" />
+      <workItem from="1701880892067" duration="7601000" />
+      <workItem from="1701889893498" duration="9000" />
+      <workItem from="1701890022725" duration="2473000" />
+      <workItem from="1701894353306" duration="1767000" />
+      <workItem from="1701896130936" duration="136000" />
+      <workItem from="1701938426986" duration="175000" />
+      <workItem from="1701938617745" duration="4939000" />
+      <workItem from="1701952737087" duration="8149000" />
+      <workItem from="1701960959687" duration="5453000" />
+      <workItem from="1701985434806" duration="170000" />
+      <workItem from="1702287627787" duration="12137000" />
+      <workItem from="1702397806512" duration="154000" />
+      <workItem from="1702483945229" duration="499000" />
+      <workItem from="1702484479370" duration="13786000" />
+      <workItem from="1702542592907" duration="45000" />
+      <workItem from="1702542725803" duration="12471000" />
+      <workItem from="1702556194407" duration="4723000" />
+      <workItem from="1702561060591" duration="316000" />
+      <workItem from="1702563136931" duration="6218000" />
+      <workItem from="1702629248289" duration="4401000" />
+      <workItem from="1702634823028" duration="12160000" />
+      <workItem from="1702648478204" duration="3390000" />
+      <workItem from="1702662684167" duration="90000" />
+      <workItem from="1702663452061" duration="3000" />
+      <workItem from="1702665988381" duration="8096000" />
+      <workItem from="1702730188040" duration="2162000" />
+      <workItem from="1702732360898" duration="209000" />
+      <workItem from="1702732582581" duration="267000" />
+      <workItem from="1702827812146" duration="3221000" />
+      <workItem from="1702831054634" duration="15915000" />
+      <workItem from="1702848360476" duration="550000" />
+      <workItem from="1702886690736" duration="28679000" />
+      <workItem from="1702916308685" duration="1936000" />
+      <workItem from="1703232733409" duration="278000" />
+      <workItem from="1703233145398" duration="15000" />
+    </task>
+    <task id="LOCAL-00001" summary="Initial commit branch lorenzo">
+      <option name="closed" value="true" />
+      <created>1701686206161</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701686206161</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Modifica Database, aggiornamento frontend, finalizzazione form registrazione">
+      <option name="closed" value="true" />
+      <created>1702732171261</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1702732171261</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/main" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="lorenzo" />
+                </option>
+              </RecentGroup>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/ferdi" />
+                </option>
+              </RecentGroup>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="Initial commit branch lorenzo" />
+    <MESSAGE value="Modifica Database, aggiornamento frontend, finalizzazione form registrazione" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modifica Database, aggiornamento frontend, finalizzazione form registrazione" />
+  </component>
+</project>

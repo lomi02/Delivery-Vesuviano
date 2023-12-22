@@ -111,6 +111,15 @@
       </div>
     </form>
 
+    <form id="telefonoForm" style="margin-bottom: 1.25rem;">
+      <label for="telefono">Numero di telefono:</label><br>
+      <input type="text" id="telefono" name="telefono" value="" disabled><br>
+      <div style="display: flex; align-self: center; align-items: center; gap: 1.25rem; position: relative">
+        <button class="edit-button" type="button" onclick="edit('telefono')">Modifica</button>
+        <button class="apply-button" type="button" onclick="save('telefono')">Salva</button>
+      </div>
+    </form>
+
     <h1 style="text-align: center; margin-top: 3.5rem; font-size: 2.5em; color: #333;">Impostazioni di consegna</h1>
     <form id="addressForm" style="margin-top: 0.75rem; margin-bottom: 1.25rem">
       <label for="via">Via:</label><br>
@@ -192,7 +201,7 @@
       headers: {'Authorization': tokenString},
     }).then(data => {
       const userData = data[0];
-      ['email', 'via', 'citta', 'cap', 'citofono'].forEach(id => {
+      ['email', 'telefono', 'via', 'citta', 'cap', 'citofono'].forEach(id => {
         document.getElementById(id).disabled = true;
         document.getElementById(id).value = userData[id.toUpperCase() + '_CLIENTE'];
       });
@@ -252,7 +261,7 @@
     };
 
     // Applicazione API di modifica
-    ['emailForm', 'passwordForm', 'addressForm'].forEach(formId => {
+    ['emailForm', 'passwordForm', 'telefonoForm', 'addressForm'].forEach(formId => {
       document.getElementById(formId).addEventListener('submit', function (e) {
         e.preventDefault();
         const fieldId = formId.replace('Form', '');

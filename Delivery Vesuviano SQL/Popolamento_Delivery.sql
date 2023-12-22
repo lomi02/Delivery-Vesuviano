@@ -1,26 +1,3 @@
-INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL_CLIENTE, PASSWORD_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE, CAP_CLIENTE, CITOFONO_CLIENTE)
-VALUES
-  ('Mario', 'Rossi', 'mario.rossi@email.com', 'password123', 'Via Roma 1', 'Roma', '00100', 'CITOFONO001'),
-  ('Laura', 'Bianchi', 'laura.bianchi@email.com', 'securepass', 'Via Milano 2', 'Milano', '20100', 'CITOFONO002'),
-  ('Luca', 'Verdi', 'luca.verdi@email.com', 'pass123', 'Via Napoli 3', 'Napoli', '80100', 'CITOFONO003'),
-  ('Giulia', 'Gialli', 'giulia.gialli@email.com', '123456', 'Via Firenze 4', 'Firenze', '50100', 'CITOFONO004'),
-  ('Alessio', 'Neri', 'alessio.neri@email.com', 'password', 'Via Palermo 5', 'Palermo', '90100', 'CITOFONO005'),
-  ('Francesca', 'Rosa', 'francesca.rosa@email.com', 'qwerty', 'Via Bari 6', 'Bari', '70100', 'CITOFONO006'),
-  ('Giovanni', 'Azzurri', 'giovanni.azzurri@email.com', 'passpass', 'Via Catania 7', 'Catania', '95100', 'CITOFONO007'),
-  ('Martina', 'Verdi', 'martina.verdi@email.com', 'secure123', 'Via Genova 8', 'Genova', '16100', 'CITOFONO008'),
-  ('Paolo', 'Bianco', 'paolo.bianco@email.com', 'password1', 'Via Torino 9', 'Torino', '10100', 'CITOFONO009'),
-  ('Valentina', 'Nero', 'valentina.nero@email.com', 'testpass', 'Via Venezia 10', 'Venezia', '30100', 'CITOFONO010'),
-  ('Marco', 'Gallo', 'marco.gallo@email.com', 'pass1234', 'Via Verona 11', 'Verona', '37100', 'CITOFONO011'),
-  ('Sara', 'Russo', 'sara.russo@email.com', 'passwordtest', 'Via Padova 12', 'Padova', '35100', 'CITOFONO012'),
-  ('Simone', 'Blu', 'simone.blu@email.com', 'securepass123', 'Via Trieste 13', 'Trieste', '34100', 'CITOFONO013'),
-  ('Elena', 'Viola', 'elena.viola@email.com', 'mypassword', 'Via Udine 14', 'Udine', '33100', 'CITOFONO014'),
-  ('Riccardo', 'Arancio', 'riccardo.arancio@email.com', 'securepassword', 'Via Pisa 15', 'Pisa', '56100', 'CITOFONO015'),
-  ('Alessia', 'Marrone', 'alessia.marrone@email.com', 'mypass123', 'Via Arezzo 16', 'Arezzo', '52100', 'CITOFONO016'),
-  ('Davide', 'Giallo', 'davide.giallo@email.com', 'mypassword123', 'Via Lecce 17', 'Lecce', '73100', 'CITOFONO017'),
-  ('Chiara', 'Rosa', 'chiara.rosa@email.com', 'testpassword', 'Via Messina 18', 'Messina', '98100', 'CITOFONO018'),
-  ('Matteo', 'Azzurro', 'matteo.azzurro@email.com', 'pass12345', 'Via Cagliari 19', 'Cagliari', '09100', 'CITOFONO019'),
-  ('Elisa', 'Magenta', 'elisa.magenta@email.com', 'securetest', 'Via Sassari 20', 'Sassari', '07100', 'CITOFONO020');
-
 INSERT INTO RISTORANTE (P_IVA_RISTORANTE, NOME_RISTORANTE, NUMERO_TELEFONO_RISTORANTE, IMG_URL_RISTORANTE)
 VALUES
   ('12345678901', 'La Trattoria del Gusto', '012-345-6789', 'https://media-cdn.tripadvisor.com/media/photo-s/1c/25/f2/0a/atrio-locanda-del-gusto.jpg'),

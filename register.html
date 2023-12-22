@@ -114,6 +114,10 @@
       <label for="password">Password:</label>
       <input type="password" id="password" name="password" required>
 
+      <!-- Sezione Telefono -->
+      <label for="telefono">Numero di telefono:</label>
+      <input type="text" id="telefono" name="telefono" required>
+
       <!-- Sezione Domicilio -->
       <h2>Indirizzo di consegna</h2>
 
@@ -147,11 +151,12 @@
     let cognome = document.getElementById("cognome").value;
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
+    let telefono = document.getElementById("telefono").value;
     let via = document.getElementById("via").value;
     let citta = document.getElementById("citta").value;
     let cap = document.getElementById("cap").value;
     let citofono = document.getElementById("citofono").value;
-    if (!nome || !cognome || !email || !password || !via || !citta || !cap || !citofono) {
+    if (!nome || !cognome || !email || !password || !telefono || !via || !citta || !cap || !citofono) {
       alert('Compila tutti i campi obbligatori.');
       return;
     }
@@ -162,6 +167,7 @@
       cognome,
       email,
       password,
+      telefono,
       via,
       citta,
       cap,

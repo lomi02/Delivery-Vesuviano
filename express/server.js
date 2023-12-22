@@ -148,7 +148,7 @@ app.post('/api/login', (req, res) => {
 
 // API di Registrazione
 app.post('/api/register', (req, res) => {
-  const {nome, cognome, email, password, via, citta, cap, citofono} = req.body;
+  const {nome, cognome, email, password, telefono, via, citta, cap, citofono} = req.body;
   const saltRounds = 10;
 
   bcrypt.hash(password, saltRounds, (err, hashedPassword) => {
@@ -157,12 +157,12 @@ app.post('/api/register', (req, res) => {
       res.status(500).json({message: 'Errore durante l\'hashing della password'});
     } else {
       const insertClienteQuery = `
-        INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL_CLIENTE, PASSWORD_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE,
+        INSERT INTO CLIENTE (NOME_CLIENTE, COGNOME_CLIENTE, EMAIL_CLIENTE, PASSWORD_CLIENTE, TELEFONO_CLIENTE, VIA_CLIENTE, CITTA_CLIENTE,
                              CAP_CLIENTE, CITOFONO_CLIENTE)
-        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
       `;
 
-      db.run(insertClienteQuery, [nome, cognome, email, hashedPassword, via, citta, cap, citofono], function (err) {
+      db.run(insertClienteQuery, [nome, cognome, email, hashedPassword, telefono, via, citta, cap, citofono], function (err) {
         if (err) {
           console.error('Errore durante la registrazione:', err);
           res.status(500).json({message: 'Errore durante la registrazione'});
@@ -267,7 +267,7 @@ app.post('/api/update/email/:tokenid', async (req, res) => {
       res.status(500).send('Errore durante l\'aggiornamento dell\'email');
       return;
     }
-    res.json({success: true, message: 'Email Aggiornata con successo.'});
+    res.json({success: true, message: 'Email aggiornata con successo.'});
   });
 });
 
@@ -306,10 +306,33 @@ app.post('/api/update/password/:tokenid', async (req, res) => {
             res.status(500).send('Errore durante la rimozione del token');
             return;
           }
-          res.json({success: true, message: 'Password Aggiornata con successo. Logout in corso.'});
+          res.json({success: true, message: 'Password aggiornata con successo. Logout in corso.'});
         });
       });
     }
+  });
+});
+
+// API per l'aggiornamento del campo telefono
+app.post('/api/update/telefono/:tokenid', async (req, res) => {
+  const tokenID = req.params.tokenid;
+  const telefono = req.body.telefono;
+
+  const userId = await fetchUserID(tokenID);
+  if (!userId) {
+    res.status(404).send('Token non valido');
+    return;
+  }
+
+  let sql = `UPDATE CLIENTE
+             SET TELEFONO_CLIENTE = ?
+             WHERE ID_CLIENTE = ?`;
+  db.run(sql, [telefono, userId], function (err) {
+    if (err) {
+      res.status(500).send('Errore durante l\'aggiornamento dell\'email');
+      return;
+    }
+    res.json({success: true, message: 'Numero di telefono aggiornato con successo.'});
   });
 });
 
@@ -335,7 +358,7 @@ app.post('/api/update/address/:tokenid', async (req, res) => {
       res.status(500).send('Errore durante l\'aggiornamento dell\'indirizzo');
       return;
     }
-    res.json({success: true, message: 'Indirizzo Aggiornato con successo.'});
+    res.json({success: true, message: 'Indirizzo aggiornato con successo.'});
   });
 });
 

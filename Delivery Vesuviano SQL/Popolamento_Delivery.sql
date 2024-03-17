@@ -2,7 +2,7 @@ INSERT INTO RISTORANTE (P_IVA_RISTORANTE, NOME_RISTORANTE, NUMERO_TELEFONO_RISTO
 VALUES
   ('12345678901', 'La Trattoria del Gusto', '012-345-6789', 'https://media-cdn.tripadvisor.com/media/photo-s/1c/25/f2/0a/atrio-locanda-del-gusto.jpg'),
   ('01234567890', 'La Cucina di Angelo', '111-999-8888', 'https://www.mangiaebevi.it/wp-content/uploads/2023/10/Caracol-960x640.jpeg'),
-  ('34567890123', 'Osteria della Luna', '555-123-4567', 'https://cdnlunigiana-15dde.kxcdn.com/wp-content/uploads/2022/06/Osteria-Della-Luna-Ristorante-PontremoliLunigiana-World_2021-21.jpg'),
+  ('34567890123', 'Osteria della Luna', '555-123-4567', 'https://cdnlunigiana2-202f8.kxcdn.com/wp-content/uploads/2022/06/Osteria-Della-Luna-Ristorante-PontremoliLunigiana-World_2021-21.jpg'),
   ('45678901234', 'Il Gusto Divino', '321-987-6543', 'https://www.massimilianoprete.it/wp-content/uploads/2021/03/Gusto-Divino-a-Saluzzo-Massimiliano-Prete-pizze-gastronomica.jpg'),
   ('56789012345', 'Piazza dei Sapori', '888-222-3333', 'https://inpiazza.eu/img/gallery/in-piazza-sala.jpg'),
   ('67890123456', 'Antica Trattoria Roma', '555-777-8888', 'https://res.cloudinary.com/tf-lab/image/upload/restaurant/16a1cda1-c91f-4e73-a1e5-216ee3cb515f/cd9d1e44-f278-44c2-90e4-cb575edc65fd.jpg'),
